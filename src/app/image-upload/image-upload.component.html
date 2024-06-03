@@ -1,1 +1,15 @@
-<p>image-upload works!</p>
+<div class="container">
+  <h2>Subir Imagen</h2>
+  <form (submit)="onSubmit($event)" enctype="multipart/form-data">
+    <div class="form-group">
+      <input type="file" (change)="onFileSelected($event)" />
+      <img *ngIf="imageUrl" [src]="imageUrl" alt="Vista previa" style="max-width: 100px; margin-top: 10px;" />
+    </div>
+    <button type="submit" class="btn btn-primary">Subir</button>
+  </form>
+
+  <div *ngIf="jsonResponse">
+    <h3>Respuesta JSON Completa:</h3>
+    <pre>{{ jsonResponse | json }}</pre>
+  </div>
+</div>
