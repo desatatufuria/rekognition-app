@@ -1,3 +1,9 @@
 <div *ngFor="let vehiculo of vehiculos">
   <p>Id: {{ vehiculo.qrCode }}</p>
 </div>
+
+
+<div *ngFor="let vehiculo of vehiculos">
+  <img [src]="dataURItoBlob(vehiculo.qrCode)" alt="QR Code">
+</div>
+

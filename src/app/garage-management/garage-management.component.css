@@ -1,0 +1,15 @@
+.card {
+  cursor: pointer;
+}
+
+  .card.bg-success {
+    background-color: #28a745 !important;
+  }
+
+  .card.bg-danger {
+    background-color: #dc3545 !important;
+  }
+
+.table {
+  margin-top: 20px;
+}
