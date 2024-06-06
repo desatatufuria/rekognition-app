@@ -5,15 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { HttpClientModule } from '@angular/common/http';
+import { QrcodegeneratorComponent } from './qrcodegenerator/qrcodegenerator.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+    QrcodegeneratorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
