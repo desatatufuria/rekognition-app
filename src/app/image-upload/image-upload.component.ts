@@ -32,7 +32,7 @@ export class ImageUploadComponent {
       const formData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
 
-      this.http.post('https://localhost:7130/api/Image/upload', formData)
+      this.http.post('http://3.85.87.1/api/Image/upload', formData)
         .subscribe(response => {
           this.jsonResponse = response;
           console.log(this.jsonResponse);
