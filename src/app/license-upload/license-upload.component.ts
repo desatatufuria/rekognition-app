@@ -16,6 +16,7 @@ export class LicenseUploadComponent implements AfterViewInit {
   capturedPhoto: string | null = null;
 
   plazasLibres: boolean | null = null;
+  licensePlate: string | null = null;
 
 
   constructor(private http: HttpClient) { }
@@ -55,6 +56,7 @@ export class LicenseUploadComponent implements AfterViewInit {
         .subscribe(response => {
           this.jsonResponse = response;
           console.log('Foto capturada subida correctamente', response);
+          this.extractLicensePlate(response);
           this.checkPlazasLibres();
         }, error => {
           console.error('Error al subir la foto capturada', error);
@@ -109,8 +111,48 @@ export class LicenseUploadComponent implements AfterViewInit {
         this.plazasLibres = response.availableSpots;
         console.log(response, "response");
         console.log('Plazas libres:', this.plazasLibres);
+        this.registerCar();
       }, error => {
         console.error('Error al comprobar las plazas libres', error);
+      });
+  }
+
+  extractLicensePlate(response: any) {
+    console.log('Response:', response);
+    const textDetections = response.textDetections;
+    console.log('Text Detections:', textDetections);
+
+    if (textDetections && textDetections.length > 0) {
+      // Filtramos las detecciones de texto que coincidan con el formato de matrícula
+      const licensePlateCandidates = textDetections.filter((text: string) => {
+        const isValidPlate = /^\d{4} [A-Z]{3}.*$/.test(text);
+        console.log(`Text: ${text}, IsValidPlate: ${isValidPlate}`);
+        return isValidPlate;
+      });
+
+      // Si encontramos una detección que coincida con el formato de matrícula
+      if (licensePlateCandidates.length > 0) {
+        this.licensePlate = licensePlateCandidates[0];
+        console.log('Matrícula detectada:', this.licensePlate);
+      } else {
+        console.log('No se encontró una matrícula válida en el JSON.');
+      }
+    }
+  }
+
+
+
+
+  registerCar() {
+    console.log('Registrando coche en un hueco libre...');
+    const carData = { licensePlate: this.licensePlate }; // Datos del coche que quieras registrar
+
+    this.http.post('http://3.85.87.1/api/Parking/enter', carData)
+      .subscribe((response: any) => {
+        console.log('Coche registrado correctamente', response);
+        // Actualiza el estado o muestra un mensaje de confirmación
+      }, error => {
+        console.error('Error al registrar el coche', error);
       });
   }
 

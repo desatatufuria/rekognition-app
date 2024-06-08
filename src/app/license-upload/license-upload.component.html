@@ -33,4 +33,12 @@
     </div>
   </div>
 
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div *ngIf="licensePlate" class="alert alert-warning">
+        <h5 class="alert-heading">Matrícula Reconocida:</h5>
+        <p>{{ licensePlate }}</p>
+      </div>
+    </div>
+  </div>
 </div>
