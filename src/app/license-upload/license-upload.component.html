@@ -8,7 +8,7 @@
       </div>
       <button class="btn btn-primary mb-3 p-3" (click)="capture()">Tomar Foto</button>
       <div class="canvas-container d-none">
-        <canvas #canvasElement width="300" height="300" style="display:none;"></canvas>
+        <canvas #canvasElement style="display: none;"></canvas>
       </div>
       <button class="btn btn-success mb-3 p-3" (click)="uploadCapturedPhoto()" *ngIf="capturedPhoto">Subir Foto Capturada</button>
     </div>

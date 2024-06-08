@@ -42,6 +42,8 @@ export class LicenseUploadComponent implements AfterViewInit {
     const video = this.videoElement.nativeElement;
     const canvas = this.canvasElement.nativeElement;
     const context = canvas.getContext('2d');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     this.capturedPhoto = canvas.toDataURL('image/png');
   }
