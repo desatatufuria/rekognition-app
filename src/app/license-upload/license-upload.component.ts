@@ -18,6 +18,12 @@ export class LicenseUploadComponent implements AfterViewInit {
   plazasLibres: boolean | null = null;
   licensePlate: string | null = null;
 
+  licenseIMGURL: string | null = null;
+
+  url: string | null = null;
+  url1: string = "http://3.85.87.1"
+  url2: string = "http://localhost:7130/"
+
 
   constructor(private http: HttpClient) { }
 
@@ -54,7 +60,7 @@ export class LicenseUploadComponent implements AfterViewInit {
       const formData = new FormData();
       formData.append('file', blob, 'capturedPhoto.png');
 
-      this.http.post('http://3.85.87.1/api/Image/upload', formData)
+      this.http.post(this.url1 + '/api/Image/upload', formData)
         .subscribe(response => {
           this.jsonResponse = response;
           console.log('Foto capturada subida correctamente', response);
@@ -94,7 +100,7 @@ export class LicenseUploadComponent implements AfterViewInit {
       const formData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
 
-      this.http.post('http://3.85.87.1/api/Image/upload', formData)
+      this.http.post(this.url1 + '/api/Image/upload', formData)
         .subscribe(response => {
           this.jsonResponse = response;
           console.log(this.jsonResponse);
@@ -108,7 +114,7 @@ export class LicenseUploadComponent implements AfterViewInit {
 
 
   checkPlazasLibres() {
-    this.http.get('http://3.85.87.1/api/Parking/status')
+    this.http.get(this.url1 + '/api/Parking/status')
       .subscribe((response: any) => {
         this.plazasLibres = response.availableSpots;
         console.log(response, "response");
@@ -120,9 +126,9 @@ export class LicenseUploadComponent implements AfterViewInit {
   }
 
   extractLicensePlate(response: any) {
-    console.log('Response:', response);
+    //console.log('Response:', response);
     const textDetections = response.textDetections;
-    console.log('Text Detections:', textDetections);
+    //console.log('Text Detections:', textDetections);
 
     if (textDetections && textDetections.length > 0) {
       // Filtramos las detecciones de texto que coincidan con el formato de matrícula
@@ -150,6 +156,8 @@ export class LicenseUploadComponent implements AfterViewInit {
 
           // Convertir a Base64
           this.licensePlate = btoa(result);
+          this.licenseIMGURL = textDetections.fileName;
+          console.log(this.licenseIMGURL, "imagen license")
           console.log('Matrícula en Base64:', this.licensePlate);
         }
       } else {
@@ -166,7 +174,7 @@ export class LicenseUploadComponent implements AfterViewInit {
     console.log('Registrando coche en un hueco libre...');
     const carData = { licensePlate: this.licensePlate }; // Datos del coche que quieras registrar
 
-    this.http.post('http://3.85.87.1/api/Parking/enter', carData)
+    this.http.post(this.url1 + '/api/Parking/enter', carData)
       .subscribe((response: any) => {
         console.log('Coche registrado correctamente', response);
         // Actualiza el estado o muestra un mensaje de confirmación
