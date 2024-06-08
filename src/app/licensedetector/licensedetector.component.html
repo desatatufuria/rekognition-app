@@ -1,0 +1,6 @@
+<div>
+  <video #videoElement width="300" height="300"></video>
+  <button (click)="capture()">Tomar Foto</button>
+  <canvas #canvasElement width="300" height="300" style="display:none;"></canvas>
+  <button (click)="uploadPhoto()" *ngIf="photo">Subir Foto</button>
+</div>

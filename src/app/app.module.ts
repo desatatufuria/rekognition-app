@@ -8,13 +8,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { QrcodegeneratorComponent } from './qrcodegenerator/qrcodegenerator.component';
 import { Base64ImageComponent } from './base64-image/base64-image.component';
 import { GarageManagementComponent } from './garage-management/garage-management.component';
+import { LicensedetectorComponent } from './licensedetector/licensedetector.component';
+import { LicenseUploadComponent } from './license-upload/license-upload.component';
 @NgModule({
   declarations: [
     AppComponent,
     ImageUploadComponent,
     QrcodegeneratorComponent,
     Base64ImageComponent,
-    GarageManagementComponent
+    GarageManagementComponent,
+    LicensedetectorComponent,
+    LicenseUploadComponent
   ],
   imports: [
     BrowserModule,

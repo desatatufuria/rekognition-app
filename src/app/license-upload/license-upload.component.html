@@ -1,0 +1,13 @@
+<div class="container">
+  <div>
+    <video #videoElement width="300" height="300"></video>
+    <button (click)="capture()">Tomar Foto</button>
+    <canvas #canvasElement width="300" height="300" style="display:none;"></canvas>
+    <button (click)="uploadCapturedPhoto()" *ngIf="capturedPhoto">Subir Foto Capturada</button>
+  </div>
+
+  <div *ngIf="jsonResponse">
+    <h3>Respuesta JSON Completa:</h3>
+    <pre>{{ jsonResponse | json }}</pre>
+  </div>
+</div>
