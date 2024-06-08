@@ -1,13 +1,25 @@
-<div class="container">
-  <div>
-    <video #videoElement width="300" height="300"></video>
-    <button (click)="capture()">Tomar Foto</button>
-    <canvas #canvasElement width="300" height="300" style="display:none;"></canvas>
-    <button (click)="uploadCapturedPhoto()" *ngIf="capturedPhoto">Subir Foto Capturada</button>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Captura y Subida de Imágenes</h2>
+
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-6 text-center">
+      <div class="video-container border p-3 mb-3">
+        <video #videoElement width="100%" height="auto" class="rounded"></video>
+      </div>
+      <button class="btn btn-primary mb-3" (click)="capture()">Tomar Foto</button>
+      <div class="canvas-container d-none">
+        <canvas #canvasElement width="300" height="300" style="display:none;"></canvas>
+      </div>
+      <button class="btn btn-success" (click)="uploadCapturedPhoto()" *ngIf="capturedPhoto">Subir Foto Capturada</button>
+    </div>
   </div>
 
-  <div *ngIf="jsonResponse">
-    <h3>Respuesta JSON Completa:</h3>
-    <pre>{{ jsonResponse | json }}</pre>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div *ngIf="jsonResponse" class="alert alert-info">
+        <h5 class="alert-heading">Respuesta JSON Completa:</h5>
+        <pre>{{ jsonResponse | json }}</pre>
+      </div>
+    </div>
   </div>
 </div>
