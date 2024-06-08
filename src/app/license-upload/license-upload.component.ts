@@ -15,6 +15,8 @@ export class LicenseUploadComponent implements AfterViewInit {
   @ViewChild('canvasElement', { static: true }) canvasElement!: ElementRef;
   capturedPhoto: string | null = null;
 
+  plazasLibres: boolean | null = null;
+
 
   constructor(private http: HttpClient) { }
 
@@ -53,6 +55,7 @@ export class LicenseUploadComponent implements AfterViewInit {
         .subscribe(response => {
           this.jsonResponse = response;
           console.log('Foto capturada subida correctamente', response);
+          this.checkPlazasLibres();
         }, error => {
           console.error('Error al subir la foto capturada', error);
         });
@@ -91,9 +94,24 @@ export class LicenseUploadComponent implements AfterViewInit {
         .subscribe(response => {
           this.jsonResponse = response;
           console.log(this.jsonResponse);
+          this.checkPlazasLibres();
+          console.log('Plazas libres:', this.plazasLibres);
         }, error => {
           console.error('Error:', error);
         });
     }
   }
+
+
+  checkPlazasLibres() {
+    this.http.get('http://3.85.87.1/api/Parking/status')
+      .subscribe((response: any) => {
+        this.plazasLibres = response.availableSpots;
+        console.log(response, "response");
+        console.log('Plazas libres:', this.plazasLibres);
+      }, error => {
+        console.error('Error al comprobar las plazas libres', error);
+      });
+  }
+
 }

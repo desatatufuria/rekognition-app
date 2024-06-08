@@ -22,4 +22,15 @@
       </div>
     </div>
   </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div *ngIf="plazasLibres !== null" [ngClass]="{'alert alert-success': plazasLibres, 'alert alert-danger': !plazasLibres}">
+        <h5 class="alert-heading">Plazas Libres:</h5>
+        <p *ngIf="plazasLibres">¡Barrera abierta!</p>
+        <p *ngIf="!plazasLibres">No hay plazas libres en este momento.</p>
+      </div>
+    </div>
+  </div>
+
 </div>
