@@ -125,20 +125,37 @@ export class LicenseUploadComponent implements AfterViewInit {
     if (textDetections && textDetections.length > 0) {
       // Filtramos las detecciones de texto que coincidan con el formato de matrícula
       const licensePlateCandidates = textDetections.filter((text: string) => {
-        const isValidPlate = /^\d{4} [A-Z]{3}.*$/.test(text);
+        const isValidPlate = /^\d{4} [A-Z]{3} \(\d{1,3}\.\d{2}%\)$/.test(text);
         console.log(`Text: ${text}, IsValidPlate: ${isValidPlate}`);
         return isValidPlate;
       });
 
       // Si encontramos una detección que coincida con el formato de matrícula
       if (licensePlateCandidates.length > 0) {
-        this.licensePlate = licensePlateCandidates[0];
-        console.log('Matrícula detectada:', this.licensePlate);
+        const matchedPlate = licensePlateCandidates[0];
+        // Extraer los primeros 7 caracteres relevantes (4 números + 3 letras) y el porcentaje de confianza
+        const matchedParts = matchedPlate.match(/^(\d{4} [A-Z]{3}) \((\d{1,3}\.\d{2})%\)$/);
+
+        if (matchedParts) {
+          const plate = matchedParts[1].replace(' ', '');
+          let confidence = matchedParts[2]; // sin el símbolo de porcentaje
+          confidence = confidence.replace('.', ','); // Cambiar el punto por coma
+          const result = `${plate};${confidence}`;
+          console.log('Matrícula detectada:', result);
+          console.log(matchedParts[0])
+          console.log(matchedParts[1])
+          console.log(matchedParts[2])
+
+          // Convertir a Base64
+          this.licensePlate = btoa(result);
+          console.log('Matrícula en Base64:', this.licensePlate);
+        }
       } else {
         console.log('No se encontró una matrícula válida en el JSON.');
       }
     }
   }
+
 
 
 
