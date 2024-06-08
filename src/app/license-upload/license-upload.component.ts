@@ -21,8 +21,8 @@ export class LicenseUploadComponent implements AfterViewInit {
   licenseIMGURL: string | null = null;
 
   url: string | null = null;
-  url1: string = "http://3.85.87.1"
-  url2: string = "http://localhost:7130/"
+  url0: string = "http://3.85.87.1"
+  url1: string = "https://localhost:7130"
 
 
   constructor(private http: HttpClient) { }
@@ -125,39 +125,136 @@ export class LicenseUploadComponent implements AfterViewInit {
       });
   }
 
+  //extractLicensePlate(response: any) {
+  //  //console.log('Response:', response);
+  //  const textDetections = response.textDetections;
+  //  console.log('Type of response.textDetections:', typeof response.textDetections);
+  //  //console.log('Text Detections:', textDetections);
+  //  console.log(textDetections.length, "textDetections")
+
+
+
+  //  if (textDetections && textDetections.length > 0) {
+
+
+  //    const normalizeText = (text: string) => text.replace(/\s/g, ' ');
+
+  //    // Filtramos las detecciones de texto que coincidan con el formato de matrícula
+  //    const licensePlateCandidates = response.textDetections.filter((text: string) => {
+  //      const normalizedText = normalizeText(text);
+  //      console.log(`Evaluating text: "${normalizedText}"`);
+
+  //      // Imprimir cada carácter y su código de carácter
+  //      for (let i = 0; i < normalizedText.length; i++) {
+  //        console.log(`Character[${i}]: "${normalizedText[i]}" - CharCode: ${normalizedText.charCodeAt(i)}`);
+  //      }
+
+  //     // const isValidPlate = /^\d{4} [A-Z]{3} \(\d{1,3}\.\d{2}%\)$/.test(normalizedText);
+  //      const isValidPlate = /^\d{4} [A-Z]{3} \(\d{1,3}[.,]\d{2}%\)$/.test(normalizedText);
+  //      console.log(`Text: "${normalizedText}", IsValidPlate: ${isValidPlate}`);
+  //      return isValidPlate;
+  //    });
+
+
+
+  //    console.log(licensePlateCandidates.length, "licensePlateCandidates")
+  //    // Si encontramos una detección que coincida con el formato de matrícula
+  //    if (licensePlateCandidates.length > 0) {
+  //      console.log("entro?")
+  //      const matchedPlate = licensePlateCandidates[0];
+  //      // Extraer los primeros 7 caracteres relevantes (4 números + 3 letras) y el porcentaje de confianza
+  //      const matchedParts = matchedPlate.match(/^(\d{4} [A-Z]{3}) \((\d{1,3}\.\d{2})%\)$/);
+
+  //      if (matchedParts) {
+  //        const plate = matchedParts[1].replace(' ', '');
+  //        let confidence = matchedParts[2]; // sin el símbolo de porcentaje
+  //        confidence = confidence.replace('.', ','); // Cambiar el punto por coma
+
+  //        const result = `${plate};${confidence}`;
+  //        console.log('Matrícula detectada:', result);
+  //        console.log(matchedParts[0])
+  //        console.log(matchedParts[1])
+  //        console.log(matchedParts[2])
+
+  //        // Convertir a Base64
+  //        this.licensePlate = btoa(result);
+  //        this.licenseIMGURL = textDetections.fileName;
+  //        console.log(this.licenseIMGURL, "imagen license")
+  //        console.log('Matrícula en Base64:', this.licensePlate);
+  //      }
+  //    } else {
+  //      console.log('No se encontró una matrícula válida en el JSON.');
+  //    }
+  //  }
+  //}
+
+
   extractLicensePlate(response: any) {
-    //console.log('Response:', response);
-    const textDetections = response.textDetections;
-    //console.log('Text Detections:', textDetections);
+    console.log('Response:', response);
+    const textDetections = response.textDetections.map((encodedText: string) => {
+      return atob(encodedText);
+    });
+
+    console.log('Type of response.textDetections:', typeof response.textDetections);
+    console.log(textDetections.length, "textDetections");
 
     if (textDetections && textDetections.length > 0) {
+      const normalizeText = (text: string) => text.replace(/\s/g, ' ');
+
       // Filtramos las detecciones de texto que coincidan con el formato de matrícula
       const licensePlateCandidates = textDetections.filter((text: string) => {
-        const isValidPlate = /^\d{4} [A-Z]{3} \(\d{1,3}\.\d{2}%\)$/.test(text);
-        console.log(`Text: ${text}, IsValidPlate: ${isValidPlate}`);
+        const normalizedText = normalizeText(text);
+        console.log(`Evaluating text: "${normalizedText}"`);
+
+        // Imprimir cada carácter y su código de carácter
+        for (let i = 0; i < normalizedText.length; i++) {
+          console.log(`Character[${i}]: "${normalizedText[i]}" - CharCode: ${normalizedText.charCodeAt(i)}`);
+        }
+
+        // Verificar si el texto es una matrícula válida
+        const platePattern = /^\d{4} [A-Z]{3}$/;
+        const fullPattern = /^\d{4} [A-Z]{3} \(\d{1,3}[.,]\d{2}%\)$/;
+        const isValidPlate = platePattern.test(normalizedText) || fullPattern.test(normalizedText);
+        console.log(`Text: "${normalizedText}", IsValidPlate: ${isValidPlate}`);
         return isValidPlate;
       });
 
+      console.log(licensePlateCandidates.length, "licensePlateCandidates");
+
       // Si encontramos una detección que coincida con el formato de matrícula
       if (licensePlateCandidates.length > 0) {
+        console.log("entro?");
         const matchedPlate = licensePlateCandidates[0];
         // Extraer los primeros 7 caracteres relevantes (4 números + 3 letras) y el porcentaje de confianza
-        const matchedParts = matchedPlate.match(/^(\d{4} [A-Z]{3}) \((\d{1,3}\.\d{2})%\)$/);
+        const matchedParts = matchedPlate.match(/^(\d{4} [A-Z]{3})( \((\d{1,3}[.,]\d{2})%\))?$/);
+        console.log (matchedParts, "matchedParts")
 
         if (matchedParts) {
           const plate = matchedParts[1].replace(' ', '');
-          let confidence = matchedParts[2]; // sin el símbolo de porcentaje
-          confidence = confidence.replace('.', ','); // Cambiar el punto por coma
+          console.log(matchedParts[0],"matchedParts[0]");
+          console.log(matchedParts[1], "matchedParts[1]");
+          console.log(matchedParts[2], "matchedParts[2]");
+          console.log(matchedParts[3],"matchedParts[3]");
+          let confidence = matchedParts[3]; // sin el símbolo de porcentaje
+          if (confidence) {
+            if (confidence.includes(',')) {
+              confidence = confidence.replace(',', '.'); // Cambiar la coma por punto
+            } else if (confidence.includes('.')) {
+              confidence = confidence.replace('.', ','); // Cambiar el punto por coma
+            }
+          } else {
+            confidence = "N/A"; // Si no hay porcentaje de confianza, usa "N/A"
+          }
           const result = `${plate};${confidence}`;
           console.log('Matrícula detectada:', result);
-          console.log(matchedParts[0])
-          console.log(matchedParts[1])
-          console.log(matchedParts[2])
+          console.log(matchedParts[0]);
+          console.log(matchedParts[1]);
+          if (matchedParts[3]) console.log(matchedParts[3]);
 
           // Convertir a Base64
           this.licensePlate = btoa(result);
-          this.licenseIMGURL = textDetections.fileName;
-          console.log(this.licenseIMGURL, "imagen license")
+          this.licenseIMGURL = response.fileName;
+          console.log(this.licenseIMGURL, "imagen license");
           console.log('Matrícula en Base64:', this.licensePlate);
         }
       } else {
@@ -165,8 +262,6 @@ export class LicenseUploadComponent implements AfterViewInit {
       }
     }
   }
-
-
 
 
 
