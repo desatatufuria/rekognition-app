@@ -20,9 +20,9 @@ export class LicenseUploadComponent implements AfterViewInit {
   licenseIMG: string | null = null;
 
 
-  url: string | null = null;
-  url0: string = "http://3.85.87.1"
-  url1: string = "https://localhost:7130"
+  //url: string | null = null;
+  url1: string = "http://3.85.87.1"
+  url: string = "https://localhost:7130"
 
 
   constructor(private http: HttpClient) { }
@@ -169,15 +169,7 @@ export class LicenseUploadComponent implements AfterViewInit {
           const plate = matchedParts[1].replace(' ', '');
 
           let confidence = matchedParts[3]; // sin el símbolo de porcentaje
-          if (confidence) {
-            if (confidence.includes(',')) {
-              confidence = confidence.replace(',', '.'); // Cambiar la coma por punto
-            } else if (confidence.includes('.')) {
-              confidence = confidence.replace('.', ','); // Cambiar el punto por coma
-            }
-          } else {
-            confidence = "N/A"; // Si no hay porcentaje de confianza, usa "N/A"
-          }
+        
           const result = `${plate};${confidence}`;
           console.log('Matrícula detectada:', result);
           //console.log(matchedParts[0]);
@@ -200,9 +192,13 @@ export class LicenseUploadComponent implements AfterViewInit {
 
   registerCar() {
     console.log('Registrando coche en un hueco libre...');
+    console.log(this.licensePlate, "licensePlate")
+    console.log(this.licensePlate, "licenseIMG")
     const carData = { licensePlate: this.licensePlate, licenseIMG: this.licenseIMG }; // Datos del coche que quieras registrar
 
-    this.http.post(this.url1 + '/api/Parking/enter', carData)
+    this.http.post(this.url1 + '/api/Parking/enter', carData, {
+      headers: { 'Content-Type': 'application/json' }
+    })
       .subscribe((response: any) => {
         console.log('Coche registrado correctamente', response);
         // Actualiza el estado o muestra un mensaje de confirmación
