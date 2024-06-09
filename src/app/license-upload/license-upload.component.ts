@@ -15,7 +15,7 @@ export class LicenseUploadComponent implements AfterViewInit {
   @ViewChild('canvasElement', { static: true }) canvasElement!: ElementRef;
   capturedPhoto: string | null = null;
 
-  plazasLibres: boolean | null = null;
+  plazasLibres: number | null = null;
   licensePlate: string | null = null;
   licenseIMG: string | null = null;
 
@@ -50,23 +50,23 @@ startCamera() {
     this.capturedPhoto = canvas.toDataURL('image/png');
   }
 
-  uploadCapturedPhoto() {
-    if (this.capturedPhoto) {
-      const blob = this.dataURItoBlob(this.capturedPhoto);
-      const formData = new FormData();
-      formData.append('file', blob, 'capturedPhoto.png');
+  //uploadCapturedPhoto2() {
+  //  if (this.capturedPhoto) {
+  //    const blob = this.dataURItoBlob(this.capturedPhoto);
+  //    const formData = new FormData();
+  //    formData.append('file', blob, 'capturedPhoto.png');
 
-      this.http.post(this.url1 + '/api/Image/upload', formData)
-        .subscribe(response => {
-          this.jsonResponse = response;
-          console.log('Foto capturada subida correctamente', response);
-          this.extractLicensePlate(response);
-          this.checkPlazasLibres();
-        }, error => {
-          console.error('Error al subir la foto capturada', error);
-        });
-    }
-  }
+  //    this.http.post(this.url1 + '/api/Image/upload', formData)
+  //      .subscribe(response => {
+  //        this.jsonResponse = response;
+  //       // console.log('Foto capturada subida correctamente', response);
+  //        this.extractLicensePlate(response);
+  //        this.checkPlazasLibres();
+  //      }, error => {
+  //        console.error('Error al subir la foto capturada', error);
+  //      });
+  //  }
+  //}
 
   dataURItoBlob(dataURI: string) {
     const byteString = atob(dataURI.split(',')[1]);
@@ -78,50 +78,53 @@ startCamera() {
     return new Blob([ab], { type: 'image/png' });
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
 
-    if (this.selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.imageUrl = e.target.result;
-      };
-      reader.readAsDataURL(this.selectedFile);
-    }
-  }
 
-  onSubmit(event: Event) {
-    event.preventDefault();
-    if (this.selectedFile) {
+ async uploadCapturedPhoto() {
+    if (this.capturedPhoto) {
+      const blob = this.dataURItoBlob(this.capturedPhoto);
       const formData = new FormData();
-      formData.append('file', this.selectedFile, this.selectedFile.name);
+      formData.append('file', blob, 'capturedPhoto.png');
 
-      this.http.post(this.url1 + '/api/Image/upload', formData)
-        .subscribe(response => {
-          this.jsonResponse = response;
-          console.log(this.jsonResponse);
-          this.checkPlazasLibres();
-          console.log('Plazas libres:', this.plazasLibres);
-        }, error => {
-          console.error('Error:', error);
-        });
+      try {
+        const response = await this.http.post(this.url1 + '/api/Image/upload', formData).toPromise();
+        this.jsonResponse = response;
+        console.log(this.jsonResponse);
+
+        const availableSpots = await this.checkPlazasLibres();
+        if (availableSpots > 0) {
+          console.log('Hay plazas libres:', availableSpots);
+          // Realiza alguna acción si hay plazas libres
+          let result = this.extractLicensePlate(response)
+          if (result) {
+            const registerCarResponse = await this.registerCar();
+            console.log("qrcode:",registerCarResponse.qrCode);
+          } else {
+            console.log("Algo ha salido mal, vuelve a pulsar el botón")
+          }
+        } else {
+          console.log('No hay plazas libres, por favor, espere');
+          // Realiza alguna acción si no hay plazas libres
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   }
-
-
-  checkPlazasLibres() {
-    this.http.get(this.url1 + '/api/Parking/status')
-      .subscribe((response: any) => {
-        this.plazasLibres = response.availableSpots;
-       // console.log(response, "response");
-        //console.log('Plazas libres:', this.plazasLibres);
-        this.registerCar();
-      }, error => {
-        console.error('Error al comprobar las plazas libres', error);
-      });
-  }
-
   
+  
+  async checkPlazasLibres(): Promise<number> {
+    try {
+      const response = await this.http.get<{ availableSpots: number }>(`${this.url1}/api/Parking/status`).toPromise();
+      const availableSpots: number = response!.availableSpots;
+     // this.plazasLibres = availableSpots;
+      console.log('Plazas libres:', availableSpots);
+      return availableSpots;
+    } catch (error) {
+      console.error('Error al comprobar las plazas libres', error);
+      throw error;  // Propaga el error para que el llamador pueda manejarlo
+    }
+  }
 
 
   extractLicensePlate(response: any) {
@@ -174,22 +177,25 @@ startCamera() {
 
           // Convertir a Base64
           this.licensePlate = btoa(result);
-          this.licenseIMG = response.fileName;
+          this.licenseIMG = response.fileUrl;
           console.log(this.licenseIMG, "imagen license");
           console.log('Matrícula en Base64:', this.licensePlate);
+          return true
         }
       } else {
         console.log('No se encontró una matrícula válida en el JSON.');
+        return false
       }
+      return false
     }
+    return false
   }
 
 
 
-  registerCar() {
+  registerCarq() {
     console.log('Registrando coche en un hueco libre...');
-    console.log(this.licensePlate, "licensePlate")
-    console.log(this.licensePlate, "licenseIMG")
+
     const carData = { licensePlate: this.licensePlate, licenseIMG: this.licenseIMG }; // Datos del coche que quieras registrar
 
     this.http.post(this.url1 + '/api/Parking/enter', carData, {
@@ -197,10 +203,32 @@ startCamera() {
     })
       .subscribe((response: any) => {
         console.log('Coche registrado correctamente', response);
+        return response
         // Actualiza el estado o muestra un mensaje de confirmación
       }, error => {
         console.error('Error al registrar el coche', error);
+        return error
       });
+     
+  }
+
+
+  async registerCar(): Promise<any> {
+    console.log('Registrando coche en un hueco libre...');
+    console.log(this.licensePlate, "licensePlate")
+    console.log(this.licenseIMG, "licenseIMG")
+    const carData = { licensePlate: this.licensePlate, licenseIMG: this.licenseIMG }; // Datos del coche que quieras registrar
+
+    try {
+      const response = await this.http.post(this.url1 + '/api/Parking/enter', carData, {
+        headers: { 'Content-Type': 'application/json' }
+      }).toPromise();
+      console.log('Coche registrado correctamente', response);
+      return response;
+    } catch (error) {
+      console.error('Error al registrar el coche', error);
+      throw error; // Propaga el error para que el llamador pueda manejarlo
+    }
   }
 
 }
