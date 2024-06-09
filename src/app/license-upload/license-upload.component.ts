@@ -117,8 +117,8 @@ export class LicenseUploadComponent implements AfterViewInit {
     this.http.get(this.url1 + '/api/Parking/status')
       .subscribe((response: any) => {
         this.plazasLibres = response.availableSpots;
-        console.log(response, "response");
-        console.log('Plazas libres:', this.plazasLibres);
+       // console.log(response, "response");
+        //console.log('Plazas libres:', this.plazasLibres);
         this.registerCar();
       }, error => {
         console.error('Error al comprobar las plazas libres', error);
@@ -134,8 +134,8 @@ export class LicenseUploadComponent implements AfterViewInit {
       return atob(encodedText);
     });
 
-    console.log('Type of response.textDetections:', typeof response.textDetections);
-    console.log(textDetections.length, "textDetections");
+    //console.log('Type of response.textDetections:', typeof response.textDetections);
+    //console.log(textDetections.length, "textDetections");
 
     if (textDetections && textDetections.length > 0) {
       const normalizeText = (text: string) => text.replace(/\s/g, ' ');
@@ -143,18 +143,15 @@ export class LicenseUploadComponent implements AfterViewInit {
       // Filtramos las detecciones de texto que coincidan con el formato de matrícula
       const licensePlateCandidates = textDetections.filter((text: string) => {
         const normalizedText = normalizeText(text);
-        console.log(`Evaluating text: "${normalizedText}"`);
+       // console.log(`Evaluating text: "${normalizedText}"`);
 
-        // Imprimir cada carácter y su código de carácter
-        for (let i = 0; i < normalizedText.length; i++) {
-          console.log(`Character[${i}]: "${normalizedText[i]}" - CharCode: ${normalizedText.charCodeAt(i)}`);
-        }
+    
 
         // Verificar si el texto es una matrícula válida
         const platePattern = /^\d{4} [A-Z]{3}$/;
         const fullPattern = /^\d{4} [A-Z]{3} \(\d{1,3}[.,]\d{2}%\)$/;
         const isValidPlate = platePattern.test(normalizedText) || fullPattern.test(normalizedText);
-        console.log(`Text: "${normalizedText}", IsValidPlate: ${isValidPlate}`);
+        //console.log(`Text: "${normalizedText}", IsValidPlate: ${isValidPlate}`);
         return isValidPlate;
       });
 
@@ -166,14 +163,11 @@ export class LicenseUploadComponent implements AfterViewInit {
         const matchedPlate = licensePlateCandidates[0];
         // Extraer los primeros 7 caracteres relevantes (4 números + 3 letras) y el porcentaje de confianza
         const matchedParts = matchedPlate.match(/^(\d{4} [A-Z]{3})( \((\d{1,3}[.,]\d{2})%\))?$/);
-        console.log (matchedParts, "matchedParts")
+        //console.log (matchedParts, "matchedParts")
 
         if (matchedParts) {
           const plate = matchedParts[1].replace(' ', '');
-          console.log(matchedParts[0],"matchedParts[0]");
-          console.log(matchedParts[1], "matchedParts[1]");
-          console.log(matchedParts[2], "matchedParts[2]");
-          console.log(matchedParts[3],"matchedParts[3]");
+
           let confidence = matchedParts[3]; // sin el símbolo de porcentaje
           if (confidence) {
             if (confidence.includes(',')) {
@@ -186,9 +180,9 @@ export class LicenseUploadComponent implements AfterViewInit {
           }
           const result = `${plate};${confidence}`;
           console.log('Matrícula detectada:', result);
-          console.log(matchedParts[0]);
-          console.log(matchedParts[1]);
-          if (matchedParts[3]) console.log(matchedParts[3]);
+          //console.log(matchedParts[0]);
+         // console.log(matchedParts[1]);
+          if (matchedParts[3]) console.log(matchedParts[3],"matchedParts[3]");
 
           // Convertir a Base64
           this.licensePlate = btoa(result);
