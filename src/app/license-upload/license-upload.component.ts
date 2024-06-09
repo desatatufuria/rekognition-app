@@ -23,6 +23,9 @@ export class LicenseUploadComponent implements AfterViewInit {
   vehicleSpot: string | null = null;
 
   ticket: boolean = false;
+  loadingTicket: boolean = false;
+
+  parkingSpots: boolean = true;
 
 
   //url: string | null = null;
@@ -36,7 +39,7 @@ export class LicenseUploadComponent implements AfterViewInit {
     this.startCamera();
   }
 
-startCamera() {
+  startCamera() {
     const video = this.videoElement.nativeElement;
     navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
       video.srcObject = stream;
@@ -103,6 +106,7 @@ startCamera() {
   async captureAndUpload() {
     try {
       await this.capture(); // Capturamos la imagen
+      this.loadingTicket = true;
 
       if (this.capturedPhoto) {
         const blob = this.dataURItoBlob(this.capturedPhoto);
@@ -124,58 +128,63 @@ startCamera() {
             this.licenseDecode = registerCarResponse.licensePlate;
             this.vehicleSpot = registerCarResponse.parkingSpotId;
             this.ticket = true;
+            this.loadingTicket = false;
+            this.parkingSpots = true;
           } else {
             console.log("Algo ha salido mal, vuelve a pulsar el botón")
           }
         } else {
           console.log('No hay plazas libres, por favor, espere');
+          this.parkingSpots = false;
+          this.loadingTicket = false;
         }
       }
     } catch (error) {
       console.error('Error:', error);
+      this.loadingTicket = false;
     }
   }
 
- //async uploadCapturedPhoto() {
- //   if (this.capturedPhoto) {
- //     const blob = this.dataURItoBlob(this.capturedPhoto);
- //     const formData = new FormData();
- //     formData.append('file', blob, 'capturedPhoto.png');
+  //async uploadCapturedPhoto() {
+  //   if (this.capturedPhoto) {
+  //     const blob = this.dataURItoBlob(this.capturedPhoto);
+  //     const formData = new FormData();
+  //     formData.append('file', blob, 'capturedPhoto.png');
 
- //     try {
- //       const response = await this.http.post(this.url1 + '/api/Image/upload', formData).toPromise();
- //       this.jsonResponse = response;
- //       console.log(this.jsonResponse);
+  //     try {
+  //       const response = await this.http.post(this.url1 + '/api/Image/upload', formData).toPromise();
+  //       this.jsonResponse = response;
+  //       console.log(this.jsonResponse);
 
- //       const availableSpots = await this.checkPlazasLibres();
- //       if (availableSpots > 0) {
- //         console.log('Hay plazas libres:', availableSpots);
- //         // Realiza alguna acción si hay plazas libres
- //         let result = this.extractLicensePlate(response)
- //         if (result) {
- //           const registerCarResponse = await this.registerCar();
- //           console.log("qrcode:", registerCarResponse.qrCode);
- //           this.imageUrl = 'data:image/png;base64,' + registerCarResponse.qrCode;
- //         } else {
- //           console.log("Algo ha salido mal, vuelve a pulsar el botón")
- //         }
- //         //await this.showQrCode();
- //       } else {
- //         console.log('No hay plazas libres, por favor, espere');
- //         // Realiza alguna acción si no hay plazas libres
- //       }
- //     } catch (error) {
- //       console.error('Error:', error);
- //     }
- //   }
- // }
-  
-  
+  //       const availableSpots = await this.checkPlazasLibres();
+  //       if (availableSpots > 0) {
+  //         console.log('Hay plazas libres:', availableSpots);
+  //         // Realiza alguna acción si hay plazas libres
+  //         let result = this.extractLicensePlate(response)
+  //         if (result) {
+  //           const registerCarResponse = await this.registerCar();
+  //           console.log("qrcode:", registerCarResponse.qrCode);
+  //           this.imageUrl = 'data:image/png;base64,' + registerCarResponse.qrCode;
+  //         } else {
+  //           console.log("Algo ha salido mal, vuelve a pulsar el botón")
+  //         }
+  //         //await this.showQrCode();
+  //       } else {
+  //         console.log('No hay plazas libres, por favor, espere');
+  //         // Realiza alguna acción si no hay plazas libres
+  //       }
+  //     } catch (error) {
+  //       console.error('Error:', error);
+  //     }
+  //   }
+  // }
+
+
   async checkPlazasLibres(): Promise<number> {
     try {
       const response = await this.http.get<{ availableSpots: number }>(`${this.url1}/api/Parking/status`).toPromise();
       const availableSpots: number = response!.availableSpots;
-     // this.plazasLibres = availableSpots;
+      // this.plazasLibres = availableSpots;
       console.log('Plazas libres:', availableSpots);
       return availableSpots;
     } catch (error) {
@@ -200,9 +209,9 @@ startCamera() {
       // Filtramos las detecciones de texto que coincidan con el formato de matrícula
       const licensePlateCandidates = textDetections.filter((text: string) => {
         const normalizedText = normalizeText(text);
-       // console.log(`Evaluating text: "${normalizedText}"`);
+        // console.log(`Evaluating text: "${normalizedText}"`);
 
-    
+
 
         // Verificar si el texto es una matrícula válida
         const platePattern = /^\d{4} [A-Z]{3}$/;
@@ -226,12 +235,12 @@ startCamera() {
           const plate = matchedParts[1].replace(' ', '');
 
           let confidence = matchedParts[3]; // sin el símbolo de porcentaje
-        
+
           const result = `${plate};${confidence}`;
           console.log('Matrícula detectada:', result);
           //console.log(matchedParts[0]);
-         // console.log(matchedParts[1]);
-          if (matchedParts[3]) console.log(matchedParts[3],"matchedParts[3]");
+          // console.log(matchedParts[1]);
+          if (matchedParts[3]) console.log(matchedParts[3], "matchedParts[3]");
           // Convertir a Base64
           this.licensePlate = btoa(result);
           this.licenseIMG = response.fileUrl;
@@ -266,7 +275,7 @@ startCamera() {
         console.error('Error al registrar el coche', error);
         return error
       });
-     
+
   }
 
 
