@@ -16,7 +16,7 @@ export class QrcodegeneratorComponent implements OnInit {
   constructor(private http: HttpClient, private sanitizer: DomSanitizer, private base64Service: Base64Service) { }
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://3.85.87.1/api/Parking/vehicles').subscribe(data => {
+    this.http.get<any[]>('https://localhost:7130/api/Parking/vehicles').subscribe(data => {
       this.vehiculos = data;
     // console.log(this.vehiculos[0].qrCode);
       this.imageUrl = this.createImageFromBase64("'data:image/png;base64,"+this.vehiculos[0].qrCode);

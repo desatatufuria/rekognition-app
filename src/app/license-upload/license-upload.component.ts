@@ -40,7 +40,9 @@ startCamera() {
       console.error("Error accessing the camera", err);
     });
   }
-  capture() {
+
+
+  capture2() {
     const video = this.videoElement.nativeElement;
     const canvas = this.canvasElement.nativeElement;
     const context = canvas.getContext('2d');
@@ -48,6 +50,19 @@ startCamera() {
     canvas.height = video.videoHeight;
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     this.capturedPhoto = canvas.toDataURL('image/png');
+  }
+
+  capture() {
+    return new Promise((resolve, reject) => {
+      const video = this.videoElement.nativeElement;
+      const canvas = this.canvasElement.nativeElement;
+      const context = canvas.getContext('2d');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      this.capturedPhoto = canvas.toDataURL('image/png');
+      resolve(null); // Resolvemos la promesa una vez que la captura está completa
+    });
   }
 
   //uploadCapturedPhoto2() {
@@ -80,13 +95,15 @@ startCamera() {
 
 
 
- async uploadCapturedPhoto() {
-    if (this.capturedPhoto) {
-      const blob = this.dataURItoBlob(this.capturedPhoto);
-      const formData = new FormData();
-      formData.append('file', blob, 'capturedPhoto.png');
+  async captureAndUpload() {
+    try {
+      await this.capture(); // Capturamos la imagen
 
-      try {
+      if (this.capturedPhoto) {
+        const blob = this.dataURItoBlob(this.capturedPhoto);
+        const formData = new FormData();
+        formData.append('file', blob, 'capturedPhoto.png');
+
         const response = await this.http.post(this.url1 + '/api/Image/upload', formData).toPromise();
         this.jsonResponse = response;
         console.log(this.jsonResponse);
@@ -94,23 +111,56 @@ startCamera() {
         const availableSpots = await this.checkPlazasLibres();
         if (availableSpots > 0) {
           console.log('Hay plazas libres:', availableSpots);
-          // Realiza alguna acción si hay plazas libres
           let result = this.extractLicensePlate(response)
           if (result) {
             const registerCarResponse = await this.registerCar();
-            console.log("qrcode:",registerCarResponse.qrCode);
+            console.log("qrcode:", registerCarResponse.qrCode);
+            this.imageUrl = 'data:image/png;base64,' + registerCarResponse.qrCode;
           } else {
             console.log("Algo ha salido mal, vuelve a pulsar el botón")
           }
         } else {
           console.log('No hay plazas libres, por favor, espere');
-          // Realiza alguna acción si no hay plazas libres
         }
-      } catch (error) {
-        console.error('Error:', error);
       }
+    } catch (error) {
+      console.error('Error:', error);
     }
   }
+
+ //async uploadCapturedPhoto() {
+ //   if (this.capturedPhoto) {
+ //     const blob = this.dataURItoBlob(this.capturedPhoto);
+ //     const formData = new FormData();
+ //     formData.append('file', blob, 'capturedPhoto.png');
+
+ //     try {
+ //       const response = await this.http.post(this.url1 + '/api/Image/upload', formData).toPromise();
+ //       this.jsonResponse = response;
+ //       console.log(this.jsonResponse);
+
+ //       const availableSpots = await this.checkPlazasLibres();
+ //       if (availableSpots > 0) {
+ //         console.log('Hay plazas libres:', availableSpots);
+ //         // Realiza alguna acción si hay plazas libres
+ //         let result = this.extractLicensePlate(response)
+ //         if (result) {
+ //           const registerCarResponse = await this.registerCar();
+ //           console.log("qrcode:", registerCarResponse.qrCode);
+ //           this.imageUrl = 'data:image/png;base64,' + registerCarResponse.qrCode;
+ //         } else {
+ //           console.log("Algo ha salido mal, vuelve a pulsar el botón")
+ //         }
+ //         //await this.showQrCode();
+ //       } else {
+ //         console.log('No hay plazas libres, por favor, espere');
+ //         // Realiza alguna acción si no hay plazas libres
+ //       }
+ //     } catch (error) {
+ //       console.error('Error:', error);
+ //     }
+ //   }
+ // }
   
   
   async checkPlazasLibres(): Promise<number> {
@@ -228,6 +278,40 @@ startCamera() {
     } catch (error) {
       console.error('Error al registrar el coche', error);
       throw error; // Propaga el error para que el llamador pueda manejarlo
+    }
+  }
+
+
+
+  //metodo para recoger el qrcode de la matricula del vehiculo registrado
+  //async getQrCode(): Promise<string> {
+  //  try {
+  //    const response = await this.http.get<{ qrCode: string }>(`${this.url1}/api/Parking/vehicles`).toPromise();
+  //    return response!.qrCode;
+  //  } catch (error) {
+  //    console.error('Error al obtener el qrcode', error);
+  //    throw error;  // Propaga el error para que el llamador pueda manejarlo
+  //  }
+  //}
+
+  async getQrCode() {
+    try {
+      const response = await this.http.get<any[]>(this.url1 + '/api/Parking/vehicles').toPromise();
+      console.log(response![0].qrCode);
+      return response![0].qrCode;
+    } catch (error) {
+      console.error('Error al obtener el qrcode del vehiculo', error);
+      throw error;
+    }
+  }
+
+  //metodo para mostrar el qrcode en pantalla
+  async showQrCode() {
+    try {
+      const qrCode = await this.getQrCode();
+      this.imageUrl = 'data:image/png;base64,' + qrCode;
+    } catch (error) {
+      console.error('Error al mostrar el qrcode', error);
     }
   }
 
