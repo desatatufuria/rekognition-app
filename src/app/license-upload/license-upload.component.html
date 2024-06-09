@@ -1,6 +1,5 @@
 <div class="container mt-5">
   <h2 class="text-center mb-4">Captura y Subida de Imágenes</h2>
-
   <div class="row justify-content-center mb-4">
     <div class="col-md-6 text-center">
       <div class="row">
@@ -21,79 +20,32 @@
       </div>
     </div>
   </div>
-
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div *ngIf="jsonResponse" class="alert alert-info">
-        <h5 class="alert-heading">Respuesta JSON Completa:</h5>
-        <pre>{{ jsonResponse | json }}</pre>
-      </div>
-    </div>
-  </div>
-
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div *ngIf="plazasLibres !== null" [ngClass]="{'alert alert-success': plazasLibres, 'alert alert-danger': !plazasLibres}">
-        <h5 class="alert-heading">Plazas Libres:</h5>
-        <p *ngIf="plazasLibres">¡Barrera abierta!</p>
-        <p *ngIf="!plazasLibres">No hay plazas libres en este momento.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div *ngIf="licensePlate" class="alert alert-warning">
-        <h5 class="alert-heading">Matrícula Reconocida:</h5>
-        <p>{{ licensePlate }}</p>
-      </div>
-    </div>
-  </div>
-
-
-</div>
-
-
-
-<!-- Contenedor para mostrar el código QR -->
-<!--<div class="row justify-content-center">
-  <div class="col-md-6">
-    <div *ngIf="imageUrl" class="alert alert-info qr-code-container">
-      <h5 class="alert-heading">Código QR del Vehículo:</h5>
-      <img [src]="imageUrl" alt="Código QR" class="img-fluid mb-3">
-    </div>
-  </div>
-</div>-->
-
-
-<!-- ---------------------------------------------------------------------------------------------------------------------------------------------- -->
-
-
-<div class="container mt-5">
-  <div class="ticket">
-    <!-- Contenedor para mostrar el código QR -->
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div *ngIf="imageUrl" class="qrcode">
-          <img [src]="imageUrl" alt="Código QR" class="img-fluid mb-3">
+  <div class="container mt-5" *ngIf="ticket">
+    <div class="ticket">
+      <!-- Contenedor para mostrar el código QR -->
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div *ngIf="imageUrl" class="qrcode">
+            <img [src]="imageUrl" alt="Código QR" class="img-fluid mb-3">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="ticket-body">
-      <div class="row">
-        <div class="col-12 text-center license">
-          <p>{{ licenseDecode }}</p>
-        </div>
-        <div class="col-12 text-center spot">
-          <p>P{{ vehicleSpot }}</p>
-        </div>
-        <div class="col-12 text-center">
-          <p class="date">L 25/12/24 15:50:24</p>
+      <div class="ticket-body">
+        <div class="row">
+          <div class="col-12 text-center license">
+            <p>{{ licenseDecode }}</p>
+          </div>
+          <div class="col-12 text-center spot">
+            <p>P{{ vehicleSpot }}</p>
+          </div>
+          <div class="col-12 text-center">
+            <p class="date">L 25/12/24 15:50:24</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="tariff">
-      <p class="text-right ">T. Estandar</p>
+      <div class="tariff">
+        <p class="text-right ">T. Estandar</p>
+      </div>
     </div>
   </div>
 </div>

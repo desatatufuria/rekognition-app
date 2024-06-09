@@ -22,6 +22,8 @@ export class LicenseUploadComponent implements AfterViewInit {
   licenseDecode: string | null = null;
   vehicleSpot: string | null = null;
 
+  ticket: boolean = false;
+
 
   //url: string | null = null;
   url: string = "http://3.85.87.1"
@@ -121,6 +123,7 @@ startCamera() {
             this.imageUrl = 'data:image/png;base64,' + registerCarResponse.qrCode;
             this.licenseDecode = registerCarResponse.licensePlate;
             this.vehicleSpot = registerCarResponse.parkingSpotId;
+            this.ticket = true;
           } else {
             console.log("Algo ha salido mal, vuelve a pulsar el botón")
           }
