@@ -1,11 +1,13 @@
 .ticket {
-  border: 1px solid #ccc; /* Agregamos un borde delgado */
+  border: 1px solid; /* Agregamos un borde delgado */
   border-radius: 10px;
-  background-color: #f7f7f7;
   padding: 30px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
+  max-width: 205px;
   margin: 0 auto;
+  position: relative;
+  height: auto;
+  margin-bottom: 100px;
 }
 
 .ticket-header h1 {
@@ -25,12 +27,69 @@
     color: #333;
   }
 
-.ticket-footer {
-  border-top: 2px solid #eee;
-  padding-top: 20px;
-  margin-top: 20px;
+.tariff {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #333;
+  color: #fff;
+  padding: 1px 8px;
+  border-bottom-right-radius: 7px;
 }
 
-  .ticket-footer p {
-    color: #666;
-  }
+.tariff p{
+  font-size: 15px;
+  position: relative;
+  top: 7px;
+}
+
+.ticket .date {
+  position: absolute;
+  left: 00px;
+  top: 95%;
+  transform: rotate(-90deg);
+  transform-origin: left top;
+  white-space: nowrap;
+}
+
+.ticket::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 18%;
+  width: 18px; /* Grosor de la línea */
+  height: 100%; /* Altura de la línea */
+  background-color: #333; /* Color de la línea */
+  transform: translateX(-50%); /* Centrar la línea horizontalmente */
+}
+
+.license p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: -40px;
+  margin-left: 34px;
+}
+
+
+.spot p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  margin-top: 0px;
+  margin-left: 33px;
+  position: relative;
+  top: -13px;
+}
+
+
+.qrcode {
+  height: auto;
+  width: 200%;
+  margin-bottom: 10px;
+  margin-left: -23%;
+}

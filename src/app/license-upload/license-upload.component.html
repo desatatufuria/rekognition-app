@@ -56,14 +56,14 @@
 
 
 <!-- Contenedor para mostrar el código QR -->
-<div class="row justify-content-center">
+<!--<div class="row justify-content-center">
   <div class="col-md-6">
     <div *ngIf="imageUrl" class="alert alert-info qr-code-container">
       <h5 class="alert-heading">Código QR del Vehículo:</h5>
       <img [src]="imageUrl" alt="Código QR" class="img-fluid mb-3">
     </div>
   </div>
-</div>
+</div>-->
 
 
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -71,31 +71,29 @@
 
 <div class="container mt-5">
   <div class="ticket">
-    <div class="ticket-header">
-      <h1 class="text-center">¡Bienvenido!</h1>
-      <p class="text-center">Tu ticket de parking</p>
-    </div>
     <!-- Contenedor para mostrar el código QR -->
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <div *ngIf="imageUrl">
+        <div *ngIf="imageUrl" class="qrcode">
           <img [src]="imageUrl" alt="Código QR" class="img-fluid mb-3">
         </div>
       </div>
     </div>
     <div class="ticket-body">
       <div class="row">
-        <div class="col-6">
-          <p><strong>Fecha:</strong> June 9, 2024</p>
-          <p><strong>Hora de entrada:</strong> 10:00 AM</p>
+        <div class="col-12 text-center license">
+          <p>{{ licenseDecode }}</p>
         </div>
-        <div class="col-6 text-right">
-          <p><strong>Placa:</strong> ABC-123</p>
+        <div class="col-12 text-center spot">
+          <p>P{{ vehicleSpot }}</p>
+        </div>
+        <div class="col-12 text-center">
+          <p class="date">L 25/12/24 15:50:24</p>
         </div>
       </div>
     </div>
-    <div class="ticket-footer">
-      <p class="text-center">¡Gracias por usar nuestros servicios de parking!</p>
+    <div class="tariff">
+      <p class="text-right ">T. Estandar</p>
     </div>
   </div>
 </div>

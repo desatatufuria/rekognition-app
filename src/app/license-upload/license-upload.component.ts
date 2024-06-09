@@ -19,6 +19,9 @@ export class LicenseUploadComponent implements AfterViewInit {
   licensePlate: string | null = null;
   licenseIMG: string | null = null;
 
+  licenseDecode: string | null = null;
+  vehicleSpot: string | null = null;
+
 
   //url: string | null = null;
   url: string = "http://3.85.87.1"
@@ -116,6 +119,8 @@ startCamera() {
             const registerCarResponse = await this.registerCar();
             console.log("qrcode:", registerCarResponse.qrCode);
             this.imageUrl = 'data:image/png;base64,' + registerCarResponse.qrCode;
+            this.licenseDecode = registerCarResponse.licensePlate;
+            this.vehicleSpot = registerCarResponse.parkingSpotId;
           } else {
             console.log("Algo ha salido mal, vuelve a pulsar el botón")
           }
@@ -224,7 +229,6 @@ startCamera() {
           //console.log(matchedParts[0]);
          // console.log(matchedParts[1]);
           if (matchedParts[3]) console.log(matchedParts[3],"matchedParts[3]");
-
           // Convertir a Base64
           this.licensePlate = btoa(result);
           this.licenseIMG = response.fileUrl;
