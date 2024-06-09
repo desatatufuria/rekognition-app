@@ -3,8 +3,17 @@
 
   <div class="row justify-content-center mb-4">
     <div class="col-md-6 text-center">
-      <div class="video-container border p-3 mb-3">
-        <video #videoElement width="100%" height="auto" class="rounded"></video>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="video-container border p-3 mb-3">
+            <video #videoElement width="100%" height="auto" class="rounded"></video>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div *ngIf="capturedPhoto" class="captured-image-container">
+            <img [src]="capturedPhoto" alt="Captured Image" class="img-thumbnail mb-3" style="width: 100%;">
+          </div>
+        </div>
       </div>
       <button class="btn btn-primary mb-3 p-3" (click)="capture()">Tomar Foto</button>
       <div class="canvas-container d-none">

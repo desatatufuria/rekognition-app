@@ -21,8 +21,8 @@ export class LicenseUploadComponent implements AfterViewInit {
 
 
   //url: string | null = null;
-  url1: string = "http://3.85.87.1"
-  url: string = "https://localhost:7130"
+  url: string = "http://3.85.87.1"
+  url1: string = "https://localhost:7130"
 
 
   constructor(private http: HttpClient) { }
@@ -31,19 +31,15 @@ export class LicenseUploadComponent implements AfterViewInit {
     this.startCamera();
   }
 
-
-  startCamera() {
+startCamera() {
     const video = this.videoElement.nativeElement;
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then((stream) => {
-        video.srcObject = stream;
-        video.play();
-      })
-      .catch((err) => {
-        console.error('Error accessing the camera: ', err);
-      });
+    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+      video.srcObject = stream;
+      video.play();
+    }).catch(err => {
+      console.error("Error accessing the camera", err);
+    });
   }
-
   capture() {
     const video = this.videoElement.nativeElement;
     const canvas = this.canvasElement.nativeElement;
