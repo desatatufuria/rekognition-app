@@ -17,8 +17,8 @@ export class LicenseUploadComponent implements AfterViewInit {
 
   plazasLibres: boolean | null = null;
   licensePlate: string | null = null;
+  licenseIMG: string | null = null;
 
-  licenseIMGURL: string | null = null;
 
   url: string | null = null;
   url0: string = "http://3.85.87.1"
@@ -192,8 +192,8 @@ export class LicenseUploadComponent implements AfterViewInit {
 
           // Convertir a Base64
           this.licensePlate = btoa(result);
-          this.licenseIMGURL = response.fileName;
-          console.log(this.licenseIMGURL, "imagen license");
+          this.licenseIMG = response.fileName;
+          console.log(this.licenseIMG, "imagen license");
           console.log('Matrícula en Base64:', this.licensePlate);
         }
       } else {
@@ -206,7 +206,7 @@ export class LicenseUploadComponent implements AfterViewInit {
 
   registerCar() {
     console.log('Registrando coche en un hueco libre...');
-    const carData = { licensePlate: this.licensePlate }; // Datos del coche que quieras registrar
+    const carData = { licensePlate: this.licensePlate, licenseIMG: this.licenseIMG }; // Datos del coche que quieras registrar
 
     this.http.post(this.url1 + '/api/Parking/enter', carData)
       .subscribe((response: any) => {
