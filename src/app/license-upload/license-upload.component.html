@@ -47,6 +47,19 @@
   </div>
 
 
+  <div class="container mt-5 text-center">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <div class="card text-white mb-3 pastel-danger fixed-size-card" *ngIf="!nolicense">
+          <div class="card-body">
+            <p class="card-text loading-message">Matrícula no reconocida</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="container mt-5" *ngIf="ticket">
     <div class="ticket">
       <!-- Contenedor para mostrar el código QR -->

@@ -23,14 +23,15 @@ export class LicenseUploadComponent implements AfterViewInit {
   vehicleSpot: string | null = null;
 
   ticket: boolean = false;
-  loadingTicket: boolean = false;
 
+  loadingTicket: boolean = false;
+  nolicense: boolean = true;
   parkingSpots: boolean = true;
 
 
   //url: string | null = null;
-  url: string = "http://3.85.87.1"
-  url1: string = "https://localhost:7130"
+  url1: string = "http://3.85.87.1"
+  url: string = "https://localhost:7130"
 
 
   constructor(private http: HttpClient) { }
@@ -132,6 +133,8 @@ export class LicenseUploadComponent implements AfterViewInit {
             this.parkingSpots = true;
           } else {
             console.log("Algo ha salido mal, vuelve a pulsar el botón")
+            this.nolicense = false;
+            this.loadingTicket = false;
           }
         } else {
           console.log('No hay plazas libres, por favor, espere');
