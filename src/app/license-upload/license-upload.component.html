@@ -9,17 +9,11 @@
               <video #videoElement class="rounded"></video>
             </div>
             <!--<div class="col-md-6">
-              <div *ngIf="capturedPhoto" class="captured-image-container">
-                <img [src]="capturedPhoto" alt="Captured Image" class="img-thumbnail mb-3">
-              </div>
-            </div>-->
-          </div>
-          <button class="btn btn-primary mb-3 p-3" (click)="captureAndUpload()">Sacar Ticket</button>
-          <div class="canvas-container d-none">
-            <canvas #canvasElement style="display: none;"></canvas>
-          </div>
+        <div *ngIf="capturedPhoto" class="captured-image-container">
+          <img [src]="capturedPhoto" alt="Captured Image" class="img-thumbnail mb-3">
         </div>
-      </div>
+      </div>-->
+          </div>
 
 
 
@@ -27,57 +21,71 @@
 
 
 
-      <div class="ticket-output">
 
 
-        <!--<div class="container mt-5 text-center">
-    <div class="row justify-content-center">
-      <div class="col-auto">
-        <div class="card text-white mb-3 pastel-primary fixed-size-card" *ngIf="loadingTicket">
-          <div class="card-body">
-            <p class="card-text loading-message">Cargando ticket...</p>
+
+
+          <!--<div class="container mt-5 text-center">
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <div class="card text-white mb-3 pastel-primary fixed-size-card" *ngIf="loadingTicket">
+            <div class="card-body">
+              <p class="card-text loading-message">Cargando ticket...</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="container mt-5 text-center">
-    <div class="row justify-content-center">
-      <div class="col-auto">
-        <div class="card text-white mb-3 pastel-danger fixed-size-card" *ngIf="!parkingSpots">
-          <div class="card-body">
-            <p class="card-text loading-message">Sin plazas</p>
+    <div class="container mt-5 text-center">
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <div class="card text-white mb-3 pastel-danger fixed-size-card" *ngIf="!parkingSpots">
+            <div class="card-body">
+              <p class="card-text loading-message">Sin plazas</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
 
-  <div class="container mt-5 text-center">
-    <div class="row justify-content-center">
-      <div class="col-auto">
-        <div class="card text-white mb-3 pastel-danger fixed-size-card" *ngIf="!nolicense">
-          <div class="card-body">
-            <p class="card-text loading-message">Matrícula no reconocida</p>
+    <div class="container mt-5 text-center">
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <div class="card text-white mb-3 pastel-danger fixed-size-card" *ngIf="!nolicense">
+            <div class="card-body">
+              <p class="card-text loading-message">Matrícula no reconocida</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>-->
+    </div>-->
 
 
-        <div class="container mt-5 text-center">
-          <div class="row justify-content-center">
-            <div class="col-auto">
-              <div class="card text-white mb-3" [ngClass]="{'pastel-primary fixed-size-card': loadingTicket, 'pastel-danger fixed-size-card': !parkingSpots || !nolicense}">
-                <div class="card-body">
-                  <p class="card-text loading-message" *ngIf="loadingTicket">Cargando ticket...</p>
-                  <p class="card-text loading-message" *ngIf="!parkingSpots">Sin plazas</p>
-                  <p class="card-text loading-message" *ngIf="!nolicense">Matrícula no reconocida</p>
+
+
+          <div class="ticket-output">
+
+            <div class="container mt-5 text-center">
+              <div class="row justify-content-center">
+                <div class="col-auto">
+                  <div class="screen-container">
+                    <div class="card text-white mb-3">
+                      <div class="card-body message-info">
+                        <p class="card-text loading-message pastel-primary fixed-size-card" *ngIf="loadingTicket">Cargando ticket...</p>
+                        <p class="card-text loading-message pastel-danger fixed-size-card" *ngIf="!parkingSpots">Sin plazas</p>
+                        <p class="card-text loading-message pastel-danger fixed-size-card" *ngIf="!nolicense">Matrícula no reconocida</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+
+            <button class="btn btn-primary mb-3 p-3" (click)="captureAndUpload()"></button>
+            <div class="canvas-container d-none">
+              <canvas #canvasElement style="display: none;"></canvas>
             </div>
           </div>
         </div>

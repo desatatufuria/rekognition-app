@@ -115,14 +115,23 @@
 .fixed-size-card {
   width: 400px; /* Ancho fijo */
   height: 80px; /* Alto fijo */
+  position: relative;
+  top: -20px;
+  right: 20px;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
 }
 
+.message-info p {
+  font-size: 26px; /* Tamaño de fuente más grande */
+}
 
 
 video {
   width: 555px;
   height: auto;
-  top: 28px;
+  top: 0px;
   right: 150px;
   position: relative;
 }
@@ -165,5 +174,39 @@ img {
   border-radius: 5px;
   position: absolute;
   background-color: #fff;
-  right: -24px;
+  right: -22px;
+  top: 340px;
+
+}
+
+.btn-primary {
+  background-color: green;
+  border-color: green;
+  border-radius: 20px;
+  padding: 20px 40px; /* Aumentar el padding para hacer el botón más grande */
+  font-size: 18px; /* Ajustar el tamaño de la fuente */
+}
+
+  .btn-primary:hover {
+    background-color: darkgreen;
+    border-color: darkgreen;
+  }
+
+.screen-container {
+  margin: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 20px 20px 0 20px;
+  background-color: #f0f0f0;
+}
+
+.message-info {
+  background-color: #cce5ff;
+  padding: 20px;
+  width: 400px;
+  height: 80px;
+}
+
+.loading-message {
+  font-size: 18px;
 }
