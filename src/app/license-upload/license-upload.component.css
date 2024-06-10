@@ -8,7 +8,23 @@
   position: relative;
   height: auto;
   margin-bottom: 100px;
+  top: -60px;
+  animation: slideDown 1s forwards; /* Aplica la animación para deslizar hacia abajo */
+  opacity: 0;
 }
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-5%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 
 .ticket-header h1 {
   font-size: 2rem;
@@ -150,6 +166,7 @@ img {
   margin: 0 auto;
   background-color: #f0f0f0;
   position: relative;
+  top: 60px;
 }
 
 .screen {
@@ -169,14 +186,13 @@ img {
 
 .ticket-output {
   width: 600px;
-  height: 700px;
+  height: 800px;
   border: 2px solid #000;
   border-radius: 5px;
   position: absolute;
   background-color: #fff;
   right: -24px;
   top: 340px;
-
 }
 
 .btn-primary {
@@ -201,7 +217,7 @@ img {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  
+
 
 .screen-container {
   margin: 20px;
@@ -220,4 +236,22 @@ img {
 
 .loading-message {
   font-size: 18px;
+}
+
+
+.nozzle-container {
+  margin: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 20px 20px 0 20px;
+  background-color: #f0f0f0;
+  width: 275px;
+  height: 35px;
+}
+
+
+.ticket-nozzle {
+  background-color: #454344;
+  width: 230px;
+  height: 20px;
 }

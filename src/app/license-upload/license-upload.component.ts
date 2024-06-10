@@ -144,7 +144,7 @@ export class LicenseUploadComponent implements AfterViewInit {
 
             // Formatear solo la fecha en UTC
             const rawEntryTime = new Date(registerCarResponse.entryTime);
-            this.entryTime = this.datePipe.transform(rawEntryTime, 'yyyy-MM-dd / HH:mm:ss');
+            this.entryTime = this.datePipe.transform(rawEntryTime, 'dd-MM-yyyy / HH:mm:ss');
 
 
             this.ticket = true;
