@@ -11,6 +11,7 @@
   top: -60px;
   animation: slideDown 1s forwards; /* Aplica la animación para deslizar hacia abajo */
   opacity: 0;
+  background-color: white; /* Color de fondo */
 }
 
 @keyframes slideDown {
@@ -45,8 +46,8 @@
 
 .tariff {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: -1px;
+  right: -2px;
   background-color: #333;
   color: #fff;
   padding: 1px 8px;
@@ -145,10 +146,10 @@
 
 
 video {
-  width: 555px;
+  width: 490px;
   height: auto;
-  top: 0px;
-  right: 150px;
+  top: -8px;
+  right: 134px;
   position: relative;
 }
 
@@ -159,41 +160,77 @@ img {
 
 
 .machine {
-  border: 2px solid #000;
-  border-radius: 10px;
-  padding: 20px;
+  background-color: #454344; /* Nuevo color de fondo */
+  border: 4px solid #000; /* Grosor del borde aumentado */
+  border-radius: 20px; /* Borde redondeado */
+  padding: 30px; /* Espaciado interno */
   width: 600px;
   margin: 0 auto;
-  background-color: #f0f0f0;
   position: relative;
   top: 60px;
 }
+  .machine::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 4px solid #fff; /* Borde blanco alrededor de la máquina */
+    border-radius: 24px; /* Borde redondeado más grande */
+  }
 
 .screen {
   background-color: darkolivegreen;
   color: #fff;
   border: 2px solid #fff;
   border-radius: 5px;
-  width: 100%;
-  height: 300px;
+  width: calc(100% - 40px); /* Ancho reducido para tener en cuenta los bordes */
+  height: 275px;
+  right: -15px; /* Alineado a la derecha */
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
   position: relative;
+  z-index: 1; /* Asegura que la pantalla esté sobre el borde */
+}
+
+/* Para agregar un diseño único, podrías usar un gradiente o una textura de fondo */
+.machine::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  background-size: cover;
+  opacity: 0.1; /* Ajusta la opacidad según tu preferencia */
+  z-index: -1; /* Detrás de todos los demás elementos */
 }
 
 
 .ticket-output {
   width: 600px;
   height: 800px;
-  border: 2px solid #000;
-  border-radius: 5px;
+  border: 4px solid #000; /* Grosor del borde aumentado */
+  border-radius: 20px; /* Borde redondeado */
   position: absolute;
-  background-color: #fff;
-  right: -24px;
-  top: 340px;
+  background-color: #454344; /* Nuevo color de fondo */
+  left: -50px;
+  top: 310px;
+  padding: 30px; /* Espaciado interno */
 }
+
+  .ticket-output::before {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 4px solid #fff; /* Borde blanco alrededor del ticket-output */
+    border-radius: 24px; /* Borde redondeado más grande */
+  }
 
 .btn-primary {
   background-color: #4CAF50;
@@ -224,7 +261,7 @@ img {
   border: 2px solid #ccc;
   border-radius: 10px;
   padding: 20px 20px 0 20px;
-  background-color: #f0f0f0;
+  background-color: #454344;
 }
 
 .message-info {
