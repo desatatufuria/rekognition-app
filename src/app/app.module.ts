@@ -10,6 +10,7 @@ import { Base64ImageComponent } from './base64-image/base64-image.component';
 import { GarageManagementComponent } from './garage-management/garage-management.component';
 import { LicensedetectorComponent } from './licensedetector/licensedetector.component';
 import { LicenseUploadComponent } from './license-upload/license-upload.component';
+import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,8 @@ import { LicenseUploadComponent } from './license-upload/license-upload.componen
     Base64ImageComponent,
     GarageManagementComponent,
     LicensedetectorComponent,
-    LicenseUploadComponent
+    LicenseUploadComponent,
+    QrScannerComponent
   ],
   imports: [
     BrowserModule,
