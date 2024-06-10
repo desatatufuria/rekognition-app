@@ -8,65 +8,9 @@
             <div class="col-md-6">
               <video #videoElement class="rounded"></video>
             </div>
-            <!--<div class="col-md-6">
-        <div *ngIf="capturedPhoto" class="captured-image-container">
-          <img [src]="capturedPhoto" alt="Captured Image" class="img-thumbnail mb-3">
-        </div>
-      </div>-->
           </div>
-
-
-
-
-
-
-
-
-
-
-
-          <!--<div class="container mt-5 text-center">
-      <div class="row justify-content-center">
-        <div class="col-auto">
-          <div class="card text-white mb-3 pastel-primary fixed-size-card" *ngIf="loadingTicket">
-            <div class="card-body">
-              <p class="card-text loading-message">Cargando ticket...</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container mt-5 text-center">
-      <div class="row justify-content-center">
-        <div class="col-auto">
-          <div class="card text-white mb-3 pastel-danger fixed-size-card" *ngIf="!parkingSpots">
-            <div class="card-body">
-              <p class="card-text loading-message">Sin plazas</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="container mt-5 text-center">
-      <div class="row justify-content-center">
-        <div class="col-auto">
-          <div class="card text-white mb-3 pastel-danger fixed-size-card" *ngIf="!nolicense">
-            <div class="card-body">
-              <p class="card-text loading-message">Matrícula no reconocida</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>-->
-
-
-
 
           <div class="ticket-output">
-
             <div class="container mt-5 text-center">
               <div class="row justify-content-center">
                 <div class="col-auto">
@@ -82,50 +26,44 @@
                 </div>
               </div>
             </div>
-
             <button class="btn btn-primary mb-3 p-3" (click)="captureAndUpload()"></button>
             <div class="canvas-container d-none">
               <canvas #canvasElement style="display: none;"></canvas>
             </div>
-          </div>
-        </div>
 
 
-
-
-
-
-
-        <div class="container mt-5" *ngIf="ticket">
-          <div class="ticket">
-            <!-- Contenedor para mostrar el código QR -->
-            <div class="row justify-content-center">
-              <div class="col-md-6">
-                <div *ngIf="imageUrl" class="qrcode">
-                  <img [src]="imageUrl" alt="Código QR" class="img-fluid mb-3">
+            <div class="container mt-5" *ngIf="ticket">
+              <div class="ticket">
+                <!-- Contenedor para mostrar el código QR -->
+                <div class="row justify-content-center">
+                  <div class="col-md-6">
+                    <div *ngIf="imageUrl" class="qrcode">
+                      <img [src]="imageUrl" alt="Código QR" class="img-fluid mb-3">
+                    </div>
+                  </div>
+                </div>
+                <div class="ticket-body">
+                  <div class="row">
+                    <div class="col-12 text-center license">
+                      <p>{{ licenseDecode }}</p>
+                    </div>
+                    <div class="col-12 text-center spot">
+                      <p>P{{ vehicleSpot }}</p>
+                    </div>
+                    <div class="col-12 text-center">
+                      <p class="date">{{entryTime}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="tariff">
+                  <p class="text-right ">T. Estandar</p>
                 </div>
               </div>
-            </div>
-            <div class="ticket-body">
-              <div class="row">
-                <div class="col-12 text-center license">
-                  <p>{{ licenseDecode }}</p>
-                </div>
-                <div class="col-12 text-center spot">
-                  <p>P{{ vehicleSpot }}</p>
-                </div>
-                <div class="col-12 text-center">
-                  <p class="date">L 25/12/24 15:50:24</p>
-                </div>
-              </div>
-            </div>
-            <div class="tariff">
-              <p class="text-right ">T. Estandar</p>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </div>
-

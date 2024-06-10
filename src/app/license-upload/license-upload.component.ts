@@ -1,10 +1,12 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-license-upload',
   templateUrl: './license-upload.component.html',
-  styleUrls: ['./license-upload.component.css']
+  styleUrls: ['./license-upload.component.css'],
+  providers: [DatePipe]
 })
 export class LicenseUploadComponent implements AfterViewInit {
   selectedFile: File | null = null;
@@ -21,6 +23,7 @@ export class LicenseUploadComponent implements AfterViewInit {
 
   licenseDecode: string | null = null;
   vehicleSpot: string | null = null;
+  entryTime: string | null = null;
 
   ticket: boolean = false;
 
@@ -34,7 +37,7 @@ export class LicenseUploadComponent implements AfterViewInit {
   url: string = "https://localhost:7130"
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private datePipe: DatePipe) { }
 
   ngAfterViewInit() {
     this.startCamera();
@@ -137,6 +140,13 @@ export class LicenseUploadComponent implements AfterViewInit {
             this.imageUrl = 'data:image/png;base64,' + registerCarResponse.qrCode;
             this.licenseDecode = registerCarResponse.licensePlate;
             this.vehicleSpot = registerCarResponse.parkingSpotId;
+
+
+            // Formatear solo la fecha en UTC
+            const rawEntryTime = new Date(registerCarResponse.entryTime);
+            this.entryTime = this.datePipe.transform(rawEntryTime, 'yyyy-MM-dd / HH:mm:ss');
+
+
             this.ticket = true;
             this.loadingTicket = false;
             this.parkingSpots = true;

@@ -49,6 +49,7 @@
   transform: rotate(-90deg);
   transform-origin: left top;
   white-space: nowrap;
+  left: 0%;
 }
 
 .ticket::after {
