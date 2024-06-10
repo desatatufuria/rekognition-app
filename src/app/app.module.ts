@@ -11,6 +11,8 @@ import { GarageManagementComponent } from './garage-management/garage-management
 import { LicensedetectorComponent } from './licensedetector/licensedetector.component';
 import { LicenseUploadComponent } from './license-upload/license-upload.component';
 import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
+import { CalculateparkingfeeComponent } from './calculateparkingfee/calculateparkingfee.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,10 +22,12 @@ import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
     GarageManagementComponent,
     LicensedetectorComponent,
     LicenseUploadComponent,
-    QrScannerComponent
+    QrScannerComponent,
+    CalculateparkingfeeComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
   ],

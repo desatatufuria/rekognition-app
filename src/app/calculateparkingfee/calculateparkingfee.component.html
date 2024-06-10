@@ -1,0 +1,13 @@
+<div>
+  <h2>Parking Fee Details</h2>
+  <form (ngSubmit)="fetchData()">
+    <label for="licensePlate">License Plate:</label>
+    <input type="text" id="licensePlate" name="licensePlate" [(ngModel)]="licensePlate" required>
+    <button type="submit">Calculate Fee</button>
+  </form>
+  <div *ngIf="data">
+    <p>Entry Time: {{ data.entryTime }}</p>
+    <p>Current Time: {{ data.currentTime }}</p>
+    <p>Parking Fee: {{ data.parkingFee }}€</p>
+  </div>
+</div>
