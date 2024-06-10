@@ -106,6 +106,15 @@ export class LicenseUploadComponent implements AfterViewInit {
 
   async captureAndUpload() {
     try {
+      // Limpiar estado anterior
+      this.loadingTicket = false;
+      this.nolicense = true;
+      this.parkingSpots = true;
+      this.imageUrl = null;
+      this.licenseDecode = null;
+      this.vehicleSpot = null;
+      this.ticket = false;
+
       await this.capture(); // Capturamos la imagen
       this.loadingTicket = true;
 
@@ -145,6 +154,7 @@ export class LicenseUploadComponent implements AfterViewInit {
     } catch (error) {
       console.error('Error:', error);
       this.loadingTicket = false;
+      this.nolicense = false;
     }
   }
 
