@@ -33,8 +33,8 @@ export class LicenseUploadComponent implements AfterViewInit {
 
 
   //url: string | null = null;
-  url1: string = "http://3.85.87.1"
-  url: string = "https://localhost:7130"
+  url: string = "http://3.85.87.1"
+  url1: string = "https://localhost:7130"
 
 
   constructor(private http: HttpClient, private datePipe: DatePipe) { }
