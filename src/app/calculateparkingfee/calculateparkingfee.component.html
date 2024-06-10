@@ -9,8 +9,9 @@
           <label for="licensePlate">License Plate:</label>
           <input type="text" id="licensePlate" name="licensePlate" class="form-control" [(ngModel)]="licensePlate" required>
         </div>
-        <button type="submit" class="btn btn-primary mt-2">Calculate Fee</button>
+        <!--<button type="submit" class="btn btn-primary mt-2">Calculate Fee</button>-->
       </form>
+      <!--<app-qr-scanner></app-qr-scanner>--> 
       <div *ngIf="data">
         <p><strong>Entry Time:</strong> {{ formatTime(data.entryTime) }}</p>
         <p><strong>Current Time:</strong> {{ formatTime(data.currentTime) }}</p>
