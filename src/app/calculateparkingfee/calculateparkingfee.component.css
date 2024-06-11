@@ -241,8 +241,8 @@ img {
   }
 
 .btn-primary {
-  background-color: #4CAF50;
-  border-color: green;
+  background-color: #ff6347; /* Tomate */
+  border-color: #e04e39; /* Rojo oscuro con un tono cálido */
   border-radius: 50%;
   padding: 20px 40px; /* Aumentar el padding para hacer el botón más grande */
   font-size: 18px; /* Ajustar el tamaño de la fuente */
@@ -253,14 +253,15 @@ img {
 }
 
   .btn-primary:hover {
-    background-color: #45a049;
+    background-color: #ff4500; /* Naranja rojizo oscuro */
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
   }
 
   .btn-primary:active {
-    background-color: #3e8e41;
+    background-color: #e5533d; /* Rojo tomate más oscuro */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+
 
 
 
