@@ -39,4 +39,6 @@ export class CalculateparkingfeeComponent implements OnInit {
   formatTime(dateTime: string): string {
     return this.datePipe.transform(dateTime, 'dd/MM/yyyy HH:mm:ss')!;
   }
+
+  
 }
