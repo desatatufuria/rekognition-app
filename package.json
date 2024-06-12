@@ -21,6 +21,7 @@
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "html2canvas": "^1.4.1",
+    "ngx-bootstrap-icons": "^1.9.3",
     "ngx-qrcode": "^0.1.0-rc.1",
     "qr-scanner": "^1.4.2",
     "rxjs": "~7.8.0",
