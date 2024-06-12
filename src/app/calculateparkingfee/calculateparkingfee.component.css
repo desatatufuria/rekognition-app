@@ -219,14 +219,14 @@ img {
 
 
 .ticket-output {
-  width: 600px;
-  height: 800px;
+  width: 500px;
+  height: 675px;
   border: 4px solid #000; /* Grosor del borde aumentado */
   border-radius: 20px; /* Borde redondeado */
   position: absolute;
   background-color: #454344; /* Nuevo color de fondo */
-  left: -45px;
-  top: 535px;
+  left: 5px;
+  top: 475px;
   padding: 30px; /* Espaciado interno */
 }
 
@@ -246,10 +246,12 @@ img {
   border-radius: 50%;
   padding: 20px 40px; /* Aumentar el padding para hacer el botón más grande */
   font-size: 18px; /* Ajustar el tamaño de la fuente */
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: -60px;
 }
 
   .btn-primary:hover {
@@ -271,17 +273,20 @@ img {
   border-radius: 10px;
   padding: 20px 20px 0 20px;
   background-color: #454344;
-  width: 492px;
+  width: 395px;
   position: relative;
   right: 11px;
-  height: 350px;
+  height: 255px;
+  top: -60px;
 }
 
 .message-info {
   background-color: #cce5ff;
   padding: 20px;
-  width: 448px;
-  height: 305px;
+  width: 350px;
+  height: 211px;
+  position: relative;
+
 }
 
 .loading-message {
@@ -297,6 +302,8 @@ img {
   background-color: #f0f0f0;
   width: 275px;
   height: 35px;
+  position: relative;
+  top: -100px;
 }
 
 
