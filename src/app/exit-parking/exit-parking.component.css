@@ -150,12 +150,14 @@
 
 
 video {
-  width: 430px;
+  width: 390px;
   height: 220px;
   top: -8px;
-  right: 120px;
+  right: 100px;
   position: relative;
+  border: 1px solid #ccc;
 }
+
 
 img {
   width: 250px;
