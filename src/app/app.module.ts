@@ -13,6 +13,7 @@ import { LicenseUploadComponent } from './license-upload/license-upload.componen
 import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
 import { CalculateparkingfeeComponent } from './calculateparkingfee/calculateparkingfee.component';
 import { FormsModule } from '@angular/forms';
+import { ExitParkingComponent } from './exit-parking/exit-parking.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     LicensedetectorComponent,
     LicenseUploadComponent,
     QrScannerComponent,
-    CalculateparkingfeeComponent
+    CalculateparkingfeeComponent,
+    ExitParkingComponent
   ],
   imports: [
     BrowserModule,
