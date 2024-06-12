@@ -14,6 +14,8 @@ import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
 import { CalculateparkingfeeComponent } from './calculateparkingfee/calculateparkingfee.component';
 import { FormsModule } from '@angular/forms';
 import { ExitParkingComponent } from './exit-parking/exit-parking.component';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { QrParkingfeeComponent } from './qr-parkingfee/qr-parkingfee.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,9 @@ import { ExitParkingComponent } from './exit-parking/exit-parking.component';
     LicenseUploadComponent,
     QrScannerComponent,
     CalculateparkingfeeComponent,
-    ExitParkingComponent
+    ExitParkingComponent,
+    NavMenuComponent,
+    QrParkingfeeComponent
   ],
   imports: [
     BrowserModule,
