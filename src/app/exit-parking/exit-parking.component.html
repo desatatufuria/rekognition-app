@@ -1,0 +1,56 @@
+<div class="machine">
+  <div class="screen">
+    <div class="container mt-5">
+      <!--<h2 class="text-center mb-4">Captura y Subida de Imágenes</h2>-->
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-6 text-center">
+          <div class="row">
+            <div class="col-md-6">
+              <video #videoElement class="rounded"></video>
+            </div>
+          </div>
+
+          <div class="ticket-output">
+            <div class="container mt-5 text-center">
+              <div class="row justify-content-center">
+                <div class="col-auto">
+                  <div class="screen-container">
+                    <div class="card text-white mb-3">
+                      <div class="card-body message-info">
+                        <p class="card-text loading-message pastel-primary fixed-size-card" *ngIf="loadingTicket">Saliendo...</p>
+                        <p class="card-text loading-message pastel-primary fixed-size-card" *ngIf="!parkingSpots">¡Hasta la próxima!</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary mb-3 p-3" (click)="captureAndUpload()"></button>
+
+
+            <div class="container mt-5 text-center">
+              <div class="row justify-content-center">
+                <div class="col-auto">
+                  <div class="nozzle-container">
+                    <div class="card text-white mb-3">
+                      <div class="ticket-nozzle">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="canvas-container d-none">
+              <canvas #canvasElement style="display: none;"></canvas>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
