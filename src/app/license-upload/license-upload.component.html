@@ -28,6 +28,7 @@
             </div>
             <button class="btn btn-primary mb-3 p-3" (click)="captureAndUpload()"></button>
 
+            <button (click)="captureTicket()">Capturar Ticket</button>
 
             <div class="container mt-5 text-center">
               <div class="row justify-content-center">
@@ -48,9 +49,8 @@
               <canvas #canvasElement style="display: none;"></canvas>
             </div>
 
-
             <div class="container mt-5" *ngIf="ticket">
-              <div class="ticket">
+              <div class="ticket" #ticketDiv>
                 <!-- Contenedor para mostrar el código QR -->
                 <div class="row justify-content-center">
                   <div class="col-md-6">
@@ -77,6 +77,10 @@
                 </div>
               </div>
             </div>
+
+
+            <img *ngIf="capturedTicketImage" [src]="capturedTicketImage" alt="Captured Ticket" class="img-fluid mt-3">
+
           </div>
         </div>
       </div>
