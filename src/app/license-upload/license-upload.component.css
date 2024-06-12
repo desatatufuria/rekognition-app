@@ -292,3 +292,30 @@ img {
   width: 230px;
   height: 20px;
 }
+
+
+
+.capture-ticket-button {
+  background-color: #4CAF50; /* Color de fondo verde */
+  color: #fff; /* Color del texto blanco */
+  font-size: 18px; /* Tamaño de fuente */
+  padding: 20px 40px; /* Ajuste de relleno para hacer el botón más largo */
+  border-radius: 10px; /* Borde redondeado */
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Transición suave en cambios */
+  display: block; /* Hace que el botón se muestre como bloque para ocupar todo el ancho disponible */
+  margin: 20px auto; /* Centra horizontalmente y agrega espacio vertical */
+  width: 300px; /* Ancho del botón */
+  text-align: center; /* Alinea el texto al centro */
+  height: 60px; /* Altura del botón */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+  .capture-ticket-button:hover {
+    background-color: #45a049;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .capture-ticket-button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
