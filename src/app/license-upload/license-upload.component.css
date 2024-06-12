@@ -319,3 +319,20 @@ img {
     background-color: #3e8e41;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+
+
+
+.image-container {
+  position: fixed; /* Posición fija para mantenerla en la misma posición al hacer scroll */
+  top: 60px; /* Ajusta la distancia desde la parte superior */
+  right: 20px; /* Ajusta la distancia desde la derecha */
+  z-index: 1000; /* Ajusta el índice z para que esté sobre otros elementos */
+}
+
+.captured-ticket-image {
+  width: 200px; /* Ancho de la imagen */
+  height: auto; /* Altura automática para mantener la proporción */
+  border: 2px solid #007bff; /* Borde azul */
+  border-radius: 10px; /* Borde redondeado */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}

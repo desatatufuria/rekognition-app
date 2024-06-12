@@ -29,6 +29,8 @@ export class LicenseUploadComponent implements AfterViewInit {
   entryTime: string | null = null;
 
   ticket: boolean = false;
+  ticketVisible: boolean = true; // Inicialmente visible
+  private ticketTimeout: any; // Variable para almacenar el timeout
 
   loadingTicket: boolean = false;
   nolicense: boolean = true;
@@ -242,6 +244,12 @@ export class LicenseUploadComponent implements AfterViewInit {
         html2canvas(this.ticketDiv.nativeElement, { scale: 2, useCORS: true }).then(canvas => {
           this.capturedTicketImage = canvas.toDataURL('image/png');
 
+          // Ocultar el ticket dinámico generado
+          this.ticketVisible = false;
+
+          // Iniciar el temporizador para ocultar el ticket después de 10 segundos
+          this.startTicketTimer();
+
           // Restaurar la animación después de la captura
           //this.ticketDiv.nativeElement.style.animation = 'slideDown 1s forwards';
 
@@ -252,6 +260,26 @@ export class LicenseUploadComponent implements AfterViewInit {
           console.error('Error capturing the ticket div:', error);
         });
       }, 1000); // Asegúrate de que este tiempo coincida con la duración de tu animación
+    }
+  }
+
+  startTicketTimer() {
+    // Reinicia el temporizador si ya está activo para evitar múltiples contadores
+    if (this.ticketTimeout) {
+      clearTimeout(this.ticketTimeout);
+    }
+
+    // Configura el temporizador para ocultar el ticket después de 10 segundos
+    this.ticketTimeout = setTimeout(() => {
+      this.ticketVisible = false;
+      this.capturedTicketImage = null; // Limpiar la imagen capturada si es necesario
+    }, 10000); // 10000 milisegundos = 10 segundos
+  }
+
+  // Método para cancelar el temporizador si el ticket se cierra manualmente antes del tiempo
+  cancelTicketTimer() {
+    if (this.ticketTimeout) {
+      clearTimeout(this.ticketTimeout);
     }
   }
 

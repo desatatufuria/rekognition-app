@@ -51,7 +51,7 @@
               <canvas #canvasElement style="display: none;"></canvas>
             </div>
 
-            <div class="container mt-5" *ngIf="ticket">
+            <div class="container mt-5" *ngIf="ticketVisible && ticket">
               <div class="ticket" #ticketDiv>
                 <!-- Contenedor para mostrar el código QR -->
                 <div class="row justify-content-center">
@@ -81,7 +81,13 @@
             </div>
 
 
-            <img *ngIf="capturedTicketImage" [src]="capturedTicketImage" alt="Captured Ticket" class="img-fluid mt-3">
+            <!--<img *ngIf="capturedTicketImage" [src]="capturedTicketImage" alt="Captured Ticket" class="img-fluid mt-3">-->
+
+            <div class="image-container" *ngIf="capturedTicketImage">
+              <img [src]="capturedTicketImage" alt="Captured Ticket" class="img-fluid mt-3 captured-ticket-image">
+            </div>
+
+
 
           </div>
         </div>
