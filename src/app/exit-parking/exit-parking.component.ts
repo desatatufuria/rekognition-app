@@ -116,10 +116,19 @@ export class ExitParkingComponent implements AfterViewInit {
 
   async registerCarExit(): Promise<any> {
     console.log('Registrando salida del vehículo...');
+
+    //const carData = { licensePlate: this.licensePlate }; // Solo se envía la matrícula
     console.log(this.licensePlate, "licensePlate");
 
+    //decode licensePlate
+    this.licensePlate = atob(this.licensePlate || '');
+    this.licensePlate=this.licensePlate.split(';')[0];
+    console.log(this.licensePlate, "licensePlate");
+
+    //this.licensePlate = "0411KMT";
+    const carData = { licensePlate: this.licensePlate };
+    
     try {
-      const carData = { licensePlate: this.licensePlate }; // Solo se envía la matrícula
       const response = await this.http.post(this.url1 + '/api/Parking/exit', carData, {
         headers: { 'Content-Type': 'application/json' }
       }).toPromise();
