@@ -98,6 +98,7 @@ export class LicenseUploadComponent implements AfterViewInit {
       this.licenseDecode = null;
       this.vehicleSpot = null;
       this.ticket = false;
+      this.ticketVisible = false; // Asegúrate de ocultar el ticket inicialmente
 
       await this.capture(); // Capturamos la imagen
       this.loadingTicket = true;
@@ -114,7 +115,7 @@ export class LicenseUploadComponent implements AfterViewInit {
         const availableSpots = await this.checkPlazasLibres();
         if (availableSpots > 0) {
           console.log('Hay plazas libres:', availableSpots);
-          let result = this.extractLicensePlate(response)
+          let result = this.extractLicensePlate(response);
           if (result) {
             const registerCarResponse = await this.registerCar();
             console.log("qrcode:", registerCarResponse.qrCode);
@@ -129,8 +130,14 @@ export class LicenseUploadComponent implements AfterViewInit {
             this.ticket = true;
             this.loadingTicket = false;
             this.parkingSpots = true;
+
+            this.ticketVisible = true; // Mostrar el ticket
+            this.hideTicketAfterTimeout(); // Ocultar el ticket después de 5 segundos
+
+            // Capturar el ticket
+            this.captureTicket();
           } else {
-            console.log("Algo ha salido mal, vuelve a pulsar el botón")
+            console.log("Algo ha salido mal, vuelve a pulsar el botón");
             this.nolicense = false;
             this.loadingTicket = false;
           }
@@ -146,6 +153,7 @@ export class LicenseUploadComponent implements AfterViewInit {
       this.nolicense = false;
     }
   }
+
 
   async checkPlazasLibres(): Promise<number> {
     try {
@@ -244,12 +252,6 @@ export class LicenseUploadComponent implements AfterViewInit {
         html2canvas(this.ticketDiv.nativeElement, { scale: 2, useCORS: true }).then(canvas => {
           this.capturedTicketImage = canvas.toDataURL('image/png');
 
-          // Ocultar el ticket dinámico generado
-          this.ticketVisible = false;
-
-          // Iniciar el temporizador para ocultar el ticket después de 10 segundos
-          this.startTicketTimer();
-
           // Restaurar la animación después de la captura
           //this.ticketDiv.nativeElement.style.animation = 'slideDown 1s forwards';
 
@@ -263,26 +265,17 @@ export class LicenseUploadComponent implements AfterViewInit {
     }
   }
 
-  startTicketTimer() {
-    // Reinicia el temporizador si ya está activo para evitar múltiples contadores
+  hideTicketAfterTimeout() {
     if (this.ticketTimeout) {
-      clearTimeout(this.ticketTimeout);
+      clearTimeout(this.ticketTimeout); // Clear any existing timeout to avoid conflicts
     }
-
-    // Configura el temporizador para ocultar el ticket después de 10 segundos
     this.ticketTimeout = setTimeout(() => {
       this.ticketVisible = false;
-      this.capturedTicketImage = null; // Limpiar la imagen capturada si es necesario
-    }, 10000); // 10000 milisegundos = 10 segundos
+    }, 5000); // 5000ms = 5 seconds
   }
 
-  // Método para cancelar el temporizador si el ticket se cierra manualmente antes del tiempo
-  cancelTicketTimer() {
-    if (this.ticketTimeout) {
-      clearTimeout(this.ticketTimeout);
-    }
-  }
 
+  
   uploadCapturedImage(imageData: string) {
     const blob = this.dataURItoBlob(imageData);
     const formData = new FormData();
