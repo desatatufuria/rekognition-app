@@ -1,14 +1,30 @@
-video {
+/*video {
   border: 1px solid #ccc;
   border-radius: 4px;
   transform: scaleX(1) !important;
-
   width: 400px;
   height: 227px;
   top: -11px;
   right: 109px;
   position: relative;
+}*/
+
+
+video {
+  width: 390px;
+  height: 220px;
+  top: -8px;
+  right: 102px;
+  position: relative;
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transform: scaleX(1) !important;
 }
+
+
+
+
 
 
 .machine {
@@ -39,9 +55,9 @@ video {
   color: #fff;
   border: 0px solid #fff;
   border-radius: 5px;
-  width: calc(100% - 40px); /* Ancho reducido para tener en cuenta los bordes */
-  height: 190px;
-  right: -15px; /* Alineado a la derecha */
+  width: 365px; /* Ancho reducido para tener en cuenta los bordes */
+  height: 188px;
+  right: -19px; /* Alineado a la derecha */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,4 +78,3 @@ video {
   opacity: 0.1; /* Ajusta la opacidad según tu preferencia */
   z-index: -1; /* Detrás de todos los demás elementos */
 }
-
