@@ -171,53 +171,6 @@ img {
 }
 
 
-.machine {
-  border-radius: 20px; /* Borde redondeado */
-  padding: 30px; /* Espaciado interno */
-  width: 600px;
-  margin: 0 auto;
-  position: relative;
-  top: -500px;
-}
-
-  .machine::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
-    border-radius: 24px; /* Borde redondeado más grande */
-    background-color: transparent;
-  }
-
-.screen {
-  background-color: transparent;
-  border-radius: 5px;
-  width: calc(100% - 40px); /* Ancho reducido para tener en cuenta los bordes */
-  height: 275px;
-  right: -15px; /* Alineado a la derecha */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  z-index: 1; /* Asegura que la pantalla esté sobre el borde */
-}
-
-/* Para agregar un diseño único, podrías usar un gradiente o una textura de fondo */
-.machine::after {
-  content: '';
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  right: 10%;
-  bottom: 10%;
-  background-size: cover;
-  opacity: 0.1; /* Ajusta la opacidad según tu preferencia */
-  z-index: -1; /* Detrás de todos los demás elementos */
-}
-
-
 .ticket-output {
   width: 500px;
   height: 675px;
@@ -225,8 +178,8 @@ img {
   border-radius: 20px; /* Borde redondeado */
   position: absolute;
   background-color: #454344; /* Nuevo color de fondo */
-  left: 5px;
-  top: 475px;
+  left: 702px;
+  top:328px;
   padding: 30px; /* Espaciado interno */
 }
 
