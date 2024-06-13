@@ -89,70 +89,67 @@ export class LicenseUploadComponent implements AfterViewInit {
   }
 
   async captureAndUpload() {
-    try {
-      // Limpiar estado anterior
-      this.loadingTicket = false;
-      this.nolicense = true;
-      this.parkingSpots = true;
-      this.imageUrl = null;
-      this.licenseDecode = null;
-      this.vehicleSpot = null;
-      this.ticket = false;
-      this.ticketVisible = false; // Asegúrate de ocultar el ticket inicialmente
+  try {
+    // Limpiar estado anterior
+    this.loadingTicket = false;
+    this.nolicense = true;
+    this.parkingSpots = true;
+    this.imageUrl = null;
+    this.licenseDecode = null;
+    this.vehicleSpot = null;
+    this.ticket = false;
+    this.ticketVisible = false; // Asegúrate de ocultar el ticket inicialmente
 
-      await this.capture(); // Capturamos la imagen
-      this.loadingTicket = true;
+    await this.capture(); // Capturamos la imagen
+    this.loadingTicket = true;
 
-      if (this.capturedPhoto) {
-        const blob = this.dataURItoBlob(this.capturedPhoto);
-        const formData = new FormData();
-        formData.append('file', blob, 'capturedPhoto.png');
+    if (this.capturedPhoto) {
+      const blob = this.dataURItoBlob(this.capturedPhoto);
+      const formData = new FormData();
+      formData.append('file', blob, 'capturedPhoto.png');
 
-        const response = await this.http.post(this.url1 + '/api/Image/upload', formData).toPromise();
-        this.jsonResponse = response;
-        console.log(this.jsonResponse);
+      const response = await this.http.post(this.url1 + '/api/Image/upload', formData).toPromise();
+      this.jsonResponse = response;
+      console.log(this.jsonResponse);
 
-        const availableSpots = await this.checkPlazasLibres();
-        if (availableSpots > 0) {
-          console.log('Hay plazas libres:', availableSpots);
-          let result = this.extractLicensePlate(response);
-          if (result) {
-            const registerCarResponse = await this.registerCar();
-            console.log("qrcode:", registerCarResponse.qrCode);
-            this.imageUrl = 'data:image/png;base64,' + registerCarResponse.qrCode;
-            this.licenseDecode = registerCarResponse.licensePlate;
-            this.vehicleSpot = registerCarResponse.parkingSpotId;
+      const availableSpots = await this.checkPlazasLibres();
+      if (availableSpots > 0) {
+        console.log('Hay plazas libres:', availableSpots);
+        let result = this.extractLicensePlate(response);
+        if (result) {
+          const registerCarResponse = await this.registerCar();
+          console.log("qrcode:", registerCarResponse.qrCode);
+          this.imageUrl = 'data:image/png;base64,' + registerCarResponse.qrCode;
+          this.licenseDecode = registerCarResponse.licensePlate;
+          this.vehicleSpot = registerCarResponse.parkingSpotId;
 
-            // Formatear solo la fecha en UTC
-            const rawEntryTime = new Date(registerCarResponse.entryTime);
-            this.entryTime = this.datePipe.transform(rawEntryTime, 'dd-MM-yyyy / HH:mm:ss');
+          // Formatear solo la fecha en UTC
+          const rawEntryTime = new Date(registerCarResponse.entryTime);
+          this.entryTime = this.datePipe.transform(rawEntryTime, 'dd-MM-yyyy / HH:mm:ss');
 
-            this.ticket = true;
-            this.loadingTicket = false;
-            this.parkingSpots = true;
+          this.ticket = true;
+          this.loadingTicket = false;
+          this.parkingSpots = true;
 
-            this.ticketVisible = true; // Mostrar el ticket
-            this.hideTicketAfterTimeout(); // Ocultar el ticket después de 5 segundos
-
-            // Capturar el ticket
-            this.captureTicket();
-          } else {
-            console.log("Algo ha salido mal, vuelve a pulsar el botón");
-            this.nolicense = false;
-            this.loadingTicket = false;
-          }
+          this.ticketVisible = true; // Mostrar el ticket
+          this.hideTicketAfterTimeout(); // Ocultar el ticket después de 5 segundos
         } else {
-          console.log('No hay plazas libres, por favor, espere');
-          this.parkingSpots = false;
+          console.log("Algo ha salido mal, vuelve a pulsar el botón");
+          this.nolicense = false;
           this.loadingTicket = false;
         }
+      } else {
+        console.log('No hay plazas libres, por favor, espere');
+        this.parkingSpots = false;
+        this.loadingTicket = false;
       }
-    } catch (error) {
-      console.error('Error:', error);
-      this.loadingTicket = false;
-      this.nolicense = false;
     }
+  } catch (error) {
+    console.error('Error:', error);
+    this.loadingTicket = false;
+    this.nolicense = false;
   }
+}
 
 
   async checkPlazasLibres(): Promise<number> {
@@ -287,4 +284,16 @@ export class LicenseUploadComponent implements AfterViewInit {
       console.error('Error uploading image to backend:', error);
     });
   }
+
+
+  onButtonClick() {
+    this.captureAndUpload();
+    setTimeout(() => {
+      this.captureTicket();
+    }, 5000); // 3000 milisegundos = 3 segundos
+  }
+
+
 }
+
+
