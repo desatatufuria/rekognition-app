@@ -215,14 +215,14 @@ img {
   width: 395px;
   position: relative;
   right: 11px;
-  height: 365px;
+  height: 390px;
   top: -60px;
   overflow: hidden;
 }
 
 .message-info {
   width: 349px;
-  height: 315px;
+  height: 340px;
   background: #222;
   color: #fff;
   text-shadow: 1px 0 rgba(255, 0, 0, 0.9), -1px 0 rgba(0, 0, 255, 0.9);
