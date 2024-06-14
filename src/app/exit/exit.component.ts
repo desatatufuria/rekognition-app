@@ -28,7 +28,7 @@ export class ExitComponent implements AfterViewInit {
 
   loadingTicket: boolean = false;
   nolicense: boolean = true;
-  parkingSpots: boolean = true;
+  carExit: boolean = true;
 
   url: string = "http://3.85.87.1"
   url1: string = "https://localhost:7130"
@@ -37,6 +37,7 @@ export class ExitComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.startCamera();
+    this.startAutoCapture();
   }
 
   startCamera() {
@@ -47,6 +48,13 @@ export class ExitComponent implements AfterViewInit {
     }).catch(err => {
       console.error("Error accessing the camera", err);
     });
+  }
+
+  async startAutoCapture() {
+    while (true) {
+      await this.captureAndUpload();
+      await this.sleep(10000);  // Esperar 10 segundos antes de la próxima captura
+    }
   }
 
   capture() {
@@ -60,6 +68,10 @@ export class ExitComponent implements AfterViewInit {
       this.capturedPhoto = canvas.toDataURL('image/png');
       resolve(null); // Resolvemos la promesa una vez que la captura está completa
     });
+  }
+
+  sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   dataURItoBlob(dataURI: string) {
@@ -77,7 +89,7 @@ export class ExitComponent implements AfterViewInit {
       // Limpiar estado anterior
       this.loadingTicket = false;
       this.nolicense = true;
-      this.parkingSpots = true;
+      this.carExit = true;
       this.imageUrl = null;
       this.licenseDecode = null;
       this.vehicleSpot = null;
@@ -100,11 +112,20 @@ export class ExitComponent implements AfterViewInit {
           const registerCarResponse = await this.registerCarExit();
           console.log("Hora de salida registrada:", registerCarResponse.exitTime);
           this.loadingTicket = false;
-          this.parkingSpots = true;
+          this.carExit = false;
+          //timeout de carExit
+          setTimeout(() => {
+            this.carExit = true;
+          }, 3000);
+
         } else {
           console.log("Algo ha salido mal, vuelve a pulsar el botón")
-          this.nolicense = false;
+          //this.nolicense = false;
           this.loadingTicket = false;
+          //timeout de nolicense
+          setTimeout(() => {
+            this.nolicense = true;
+          }, 3000);
         }
       }
     } catch (error) {

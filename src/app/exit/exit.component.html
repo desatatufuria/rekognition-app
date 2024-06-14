@@ -16,14 +16,15 @@
                     <div class="card text-white mb-3">
                       <div class="card-body message-info">
                         <p class="card-text loading-message pastel-primary fixed-size-card" *ngIf="loadingTicket">Saliendo...</p>
-                        <p class="card-text loading-message pastel-primary fixed-size-card" *ngIf="!parkingSpots">¡Hasta la próxima!</p>
+                        <p class="card-text loading-message pastel-primary fixed-size-card" *ngIf="!carExit">¡Hasta la próxima!</p>
+                        <p class="card-text loading-message pastel-danger fixed-size-card" *ngIf="!nolicense">Matrícula no reconocida</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary mb-3 p-3" (click)="captureAndUpload()"></button>
+            <!--<button class="btn btn-primary mb-3 p-3" (click)="captureAndUpload()"></button>-->
             <div class="canvas-container d-none">
               <canvas #canvasElement style="display: none;"></canvas>
             </div>
