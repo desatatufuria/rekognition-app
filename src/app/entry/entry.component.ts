@@ -1,7 +1,11 @@
 import { DatePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
-import html2canvas from 'html2canvas';
+import { lastValueFrom } from 'rxjs';
+// Services
+import { CameraService } from '../services/camera.service';
+import { LicensePlateService } from '../services/license-plate.service';
+import { TicketService } from '../services/ticket.service';
+import { ParkingHttpService } from '../services/parking-http.service';
 
 @Component({
   selector: 'app-entry',
@@ -10,289 +14,150 @@ import html2canvas from 'html2canvas';
   providers: [DatePipe]
 })
 export class EntryComponent implements AfterViewInit {
-  selectedFile: File | null = null;
-  imageUrl: string | ArrayBuffer | null = null;
-  jsonResponse: any = null;
 
   @ViewChild('videoElement', { static: true }) videoElement!: ElementRef;
   @ViewChild('canvasElement', { static: true }) canvasElement!: ElementRef;
   @ViewChild('ticketDiv') ticketDiv!: ElementRef;
+
+  selectedFile: File | null = null;
+  imageUrl: string | ArrayBuffer | null = null;
+  jsonResponse: any = null;
   capturedPhoto: string | null = null;
   capturedTicketImage: string | null = null;
-
   plazasLibres: number | null = null;
   licensePlate: string | null = null;
   licenseIMG: string | null = null;
-
   licenseDecode: string | null = null;
   vehicleSpot: string | null = null;
   entryTime: string | null = null;
-
   ticket: boolean = false;
-  ticketVisible: boolean = true; 
-  private ticketTimeout: any; 
-
+  ticketVisible: boolean = true;
+  private ticketTimeout: any;
   loadingTicket: boolean = false;
   nolicense: boolean = true;
   parkingSpots: boolean = true;
 
-  url: string = "http://3.85.87.1"
-  url1: string = "https://localhost:7130"
-
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, private datePipe: DatePipe) { }
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private datePipe: DatePipe,
+    private cameraService: CameraService,
+    private licensePlateService: LicensePlateService,
+    private ticketService: TicketService,
+    private parkingHttpService: ParkingHttpService
+  ) { }
 
   ngAfterViewInit() {
-    this.startCamera();
+    this.cameraService.startCamera(this.videoElement);
   }
 
-  startCamera() {
-    const video = this.videoElement.nativeElement;
-    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-      video.srcObject = stream;
-      video.play();
-    }).catch(err => {
-      console.error("Error accessing the camera", err);
-    });
-  }
-
-  capture2() {
-    const video = this.videoElement.nativeElement;
-    const canvas = this.canvasElement.nativeElement;
-    const context = canvas.getContext('2d');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    this.capturedPhoto = canvas.toDataURL('image/png');
-  }
-
-  capture() {
-    return new Promise((resolve, reject) => {
-      const video = this.videoElement.nativeElement;
-      const canvas = this.canvasElement.nativeElement;
-      const context = canvas.getContext('2d');
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      this.capturedPhoto = canvas.toDataURL('image/png');
-      resolve(null); // Resolvemos la promesa una vez que la captura está completa
-    });
-  }
-
-  dataURItoBlob(dataURI: string) {
-    const byteString = atob(dataURI.split(',')[1]);
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    return new Blob([ab], { type: 'image/png' });
+  onButtonClick() {
+    this.captureAndUpload();
   }
 
   async captureAndUpload() {
     try {
       // Limpiar estado anterior
-      this.loadingTicket = false;
-      this.nolicense = true;
-      this.parkingSpots = true;
-      this.imageUrl = null;
-      this.licenseDecode = null;
-      this.vehicleSpot = null;
-      this.ticket = false;
-      this.ticketVisible = false; // Asegúrate de ocultar el ticket inicialmente
+      this.resetState();
 
-      await this.capture(); // Capturamos la imagen
+      const capturedPhoto = this.cameraService.captureImage(this.videoElement, this.canvasElement);
       this.loadingTicket = true;
 
-      if (this.capturedPhoto) {
-        const blob = this.dataURItoBlob(this.capturedPhoto);
-        const formData = new FormData();
-        formData.append('file', blob, 'capturedPhoto.png');
-
-        const response = await this.http.post(this.url1 + '/api/Image/upload', formData).toPromise();
+      if (capturedPhoto) {
+        const blob = this.cameraService.dataURItoBlob(capturedPhoto);
+        const response = await lastValueFrom(this.parkingHttpService.uploadImage(blob));
         this.jsonResponse = response;
-        console.log(this.jsonResponse);
 
         const availableSpots = await this.checkPlazasLibres();
         if (availableSpots > 0) {
-          console.log('Hay plazas libres:', availableSpots);
-          let result = this.extractLicensePlate(response);
+          const result = this.licensePlateService.extractLicensePlate(response);
           if (result) {
+            this.licensePlate = result.licensePlate;
+            this.licenseIMG = result.licenseIMG;
             const registerCarResponse = await this.registerCar();
-            console.log("qrcode:", registerCarResponse.qrCode);
-            this.imageUrl = 'data:image/png;base64,' + registerCarResponse.qrCode;
-            this.licenseDecode = registerCarResponse.licensePlate;
-            this.vehicleSpot = registerCarResponse.parkingSpotId;
-
-            // Formatear solo la fecha en UTC
-            const rawEntryTime = new Date(registerCarResponse.entryTime);
-            this.entryTime = this.datePipe.transform(rawEntryTime, 'dd-MM-yyyy / HH:mm:ss');
-
-            this.ticket = true;
-            this.loadingTicket = false;
-            this.parkingSpots = true;
-
-            this.ticketVisible = true; // Mostrar el ticket
-           
+            this.processRegisterCarResponse(registerCarResponse);
           } else {
-            console.log("Algo ha salido mal, vuelve a pulsar el botón");
-            this.nolicense = false;
-            this.loadingTicket = false;
+            this.handleError('Algo ha salido mal, vuelve a pulsar el botón');
           }
         } else {
-          console.log('No hay plazas libres, por favor, espere');
-          this.parkingSpots = false;
-          this.loadingTicket = false;
+          this.handleError('No hay plazas libres, por favor, espere');
         }
       }
     } catch (error) {
       console.error('Error:', error);
-      this.loadingTicket = false;
-      this.nolicense = false;
+      this.handleError('Error al capturar y subir la imagen');
     }
     this.cdr.detectChanges();
-    this.captureTicket();
+    await this.uploadCapturedTicket();
   }
 
+  private resetState() {
+    this.loadingTicket = false;
+    this.nolicense = true;
+    this.parkingSpots = true;
+    this.imageUrl = null;
+    this.licenseDecode = null;
+    this.vehicleSpot = null;
+    this.ticket = false;
+    this.ticketVisible = false;
+  }
 
-  async checkPlazasLibres(): Promise<number> {
+  private handleError(message: string) {
+    console.log(message);
+    this.nolicense = false;
+    this.loadingTicket = false;
+  }
+
+  private async checkPlazasLibres(): Promise<number> {
     try {
-      const response = await this.http.get<{ availableSpots: number }>(`${this.url1}/api/Parking/status`).toPromise();
-      const availableSpots: number = response!.availableSpots;
-      console.log('Plazas libres:', availableSpots);
-      return availableSpots;
+      const response = await lastValueFrom(this.parkingHttpService.checkAvailableSpots());
+      return response!.availableSpots;
     } catch (error) {
       console.error('Error al comprobar las plazas libres', error);
-      throw error;  // Propaga el error para que el llamador pueda manejarlo
+      throw error;
     }
   }
 
-  extractLicensePlate(response: any) {
-    console.log('Response:', response);
-    const textDetections = response.textDetections.map((encodedText: string) => {
-      return atob(encodedText);
-    });
-
-    if (textDetections && textDetections.length > 0) {
-      const normalizeText = (text: string) => text.replace(/\s/g, ' ');
-
-      const licensePlateCandidates = textDetections.filter((text: string) => {
-        const normalizedText = normalizeText(text);
-        const platePattern = /^\d{4} [A-Z]{3}$/;
-        const fullPattern = /^\d{4} [A-Z]{3} \(\d{1,3}[.,]\d{2}%\)$/;
-        const isValidPlate = platePattern.test(normalizedText) || fullPattern.test(normalizedText);
-        return isValidPlate;
-      });
-
-      if (licensePlateCandidates.length > 0) {
-        const matchedPlate = licensePlateCandidates[0];
-        const matchedParts = matchedPlate.match(/^(\d{4} [A-Z]{3})( \((\d{1,3}[.,]\d{2})%\))?$/);
-
-        if (matchedParts) {
-          const plate = matchedParts[1].replace(' ', '');
-          let confidence = matchedParts[3];
-          const result = `${plate};${confidence}`;
-          this.licensePlate = btoa(result);
-          this.licenseIMG = response.fileUrl;
-          return true;
-        }
-      } else {
-        console.log('No se encontró una matrícula válida en el JSON.');
-        return false;
-      }
-      return false;
-    }
-    return false;
-  }
-
-  async registerCar(): Promise<any> {
-    console.log('Registrando coche en un hueco libre...');
-    const carData = { licensePlate: this.licensePlate, licenseIMG: this.licenseIMG };
-
+  private async registerCar(): Promise<any> {
     try {
-      const response = await this.http.post(this.url1 + '/api/Parking/enter', carData, {
-        headers: { 'Content-Type': 'application/json' }
-      }).toPromise();
-      console.log('Coche registrado correctamente', response);
-      return response;
+      return await lastValueFrom(this.parkingHttpService.registerCar(this.licensePlate, this.licenseIMG));
     } catch (error) {
       console.error('Error al registrar el coche', error);
       throw error;
     }
   }
 
-  async getQrCode() {
+  private processRegisterCarResponse(response: any) {
+    console.log("qrcode:", response.qrCode);
+    this.imageUrl = 'data:image/png;base64,' + response.qrCode;
+    this.licenseDecode = response.licensePlate;
+    this.vehicleSpot = response.parkingSpotId;
+
+    const rawEntryTime = new Date(response.entryTime);
+    this.entryTime = this.datePipe.transform(rawEntryTime, 'dd-MM-yyyy / HH:mm:ss');
+
+    this.ticket = true;
+    this.loadingTicket = false;
+    this.parkingSpots = true;
+    this.ticketVisible = true;
+  }
+
+  private async uploadCapturedTicket() {
     try {
-      const response = await this.http.get<any[]>(this.url1 + '/api/Parking/vehicles').toPromise();
-      console.log(response![0].qrCode);
-      return response![0].qrCode;
+      const capturedTicketImage = await this.ticketService.captureTicket(this.ticketDiv);
+      const response = await lastValueFrom(this.parkingHttpService.uploadCapturedTicketImage(capturedTicketImage));
+      console.log('Image uploaded to backend:', response);
+      this.hideTicketAfterTimeout();
     } catch (error) {
-      console.error('Error al obtener el qrcode del vehiculo', error);
-      throw error;
+      console.error('Error uploading image to backend:', error);
     }
   }
 
-  async showQrCode() {
-    try {
-      const qrCode = await this.getQrCode();
-      this.imageUrl = 'data:image/png;base64,' + qrCode;
-    } catch (error) {
-      console.error('Error al mostrar el qrcode', error);
-    }
-  }
-
-  captureTicket() {
-    if (this.ticketDiv) {
-      // Temporalmente desactivar la animación
-      this.ticketDiv.nativeElement.style.animation = 'none';
-      this.ticketDiv.nativeElement.style.opacity = '1';
-
-      // Esperar a que la animación original haya terminado
-   //   setTimeout(() => {
-        html2canvas(this.ticketDiv.nativeElement, { scale: 2, useCORS: true }).then(canvas => {
-          this.capturedTicketImage = canvas.toDataURL('image/png');
-
-          // Restaurar la animación después de la captura
-          //this.ticketDiv.nativeElement.style.animation = 'slideDown 1s forwards';
-
-          // Enviar la imagen al backend
-          this.uploadCapturedImage(this.capturedTicketImage);
-          
-        }).catch(error => {
-          console.error('Error capturing the ticket div:', error);
-        });
-     // }, 1000); // Asegúrate de que este tiempo coincida con la duración de tu animación
-    }
-  }
-
-  hideTicketAfterTimeout() {
+  private hideTicketAfterTimeout() {
     if (this.ticketTimeout) {
-      clearTimeout(this.ticketTimeout); // Clear any existing timeout to avoid conflicts
+      clearTimeout(this.ticketTimeout);
     }
     this.ticketTimeout = setTimeout(() => {
       this.ticketVisible = false;
-    }, 5000); // 5000ms = 5 seconds
+    }, 5000);
   }
-
-
-
-  uploadCapturedImage(imageData: string) {
-    const blob = this.dataURItoBlob(imageData);
-    const formData = new FormData();
-    formData.append('file', blob, 'capturedTicket.png');
-
-    this.http.post(`${this.url1}/api/Image/uploadAndSendToTelegram`, formData).subscribe(response => {
-      console.log('Image uploaded to backend:', response);
-      this.hideTicketAfterTimeout()
-    }, error => {
-      console.error('Error uploading image to backend:', error);
-    });
-  }
-
-
-  onButtonClick() {
-    this.captureAndUpload();
-    
-  }
-
-
 }
