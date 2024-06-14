@@ -10,11 +10,7 @@ export class ParkingHttpService {
 
   constructor(private http: HttpClient) { }
 
-  uploadImage(blob: Blob): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', blob, 'capturedPhoto.png');
-    return this.http.post(`${this.baseUrl}/api/Image/upload`, formData);
-  }
+
 
   checkAvailableSpots(): Observable<{ availableSpots: number }> {
     return this.http.get<{ availableSpots: number }>(`${this.baseUrl}/api/Parking/status`);
@@ -26,7 +22,22 @@ export class ParkingHttpService {
       headers: { 'Content-Type': 'application/json' }
     });
   }
+  registerCarExit(carData: { licensePlate: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/Parking/exit`, carData, {
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
 
+
+  // Upload License Plate Image
+  uploadImage(blob: Blob): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', blob, 'capturedPhoto.png');
+    return this.http.post(`${this.baseUrl}/api/Image/upload`, formData);
+  }
+
+
+  // Upload Captured Ticket Image
   uploadCapturedTicketImage(imageData: string): Observable<any> {
     const blob = this.dataURItoBlob(imageData);
     const formData = new FormData();
