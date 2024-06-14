@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import html2canvas from 'html2canvas';
 
 @Component({
@@ -39,7 +39,7 @@ export class EntryComponent implements AfterViewInit {
   url: string = "http://3.85.87.1"
   url1: string = "https://localhost:7130"
 
-  constructor(private http: HttpClient, private datePipe: DatePipe) { }
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, private datePipe: DatePipe) { }
 
   ngAfterViewInit() {
     this.startCamera();
@@ -132,7 +132,7 @@ export class EntryComponent implements AfterViewInit {
             this.parkingSpots = true;
 
             this.ticketVisible = true; // Mostrar el ticket
-            this.hideTicketAfterTimeout(); // Ocultar el ticket después de 5 segundos
+           
           } else {
             console.log("Algo ha salido mal, vuelve a pulsar el botón");
             this.nolicense = false;
@@ -149,6 +149,8 @@ export class EntryComponent implements AfterViewInit {
       this.loadingTicket = false;
       this.nolicense = false;
     }
+    this.cdr.detectChanges();
+    this.captureTicket();
   }
 
 
@@ -245,7 +247,7 @@ export class EntryComponent implements AfterViewInit {
       this.ticketDiv.nativeElement.style.opacity = '1';
 
       // Esperar a que la animación original haya terminado
-      setTimeout(() => {
+   //   setTimeout(() => {
         html2canvas(this.ticketDiv.nativeElement, { scale: 2, useCORS: true }).then(canvas => {
           this.capturedTicketImage = canvas.toDataURL('image/png');
 
@@ -254,11 +256,11 @@ export class EntryComponent implements AfterViewInit {
 
           // Enviar la imagen al backend
           this.uploadCapturedImage(this.capturedTicketImage);
-
+          
         }).catch(error => {
           console.error('Error capturing the ticket div:', error);
         });
-      }, 1000); // Asegúrate de que este tiempo coincida con la duración de tu animación
+     // }, 1000); // Asegúrate de que este tiempo coincida con la duración de tu animación
     }
   }
 
@@ -280,6 +282,7 @@ export class EntryComponent implements AfterViewInit {
 
     this.http.post(`${this.url1}/api/Image/uploadAndSendToTelegram`, formData).subscribe(response => {
       console.log('Image uploaded to backend:', response);
+      this.hideTicketAfterTimeout()
     }, error => {
       console.error('Error uploading image to backend:', error);
     });
@@ -288,9 +291,7 @@ export class EntryComponent implements AfterViewInit {
 
   onButtonClick() {
     this.captureAndUpload();
-    setTimeout(() => {
-      this.captureTicket();
-    }, 5000); // 3000 milisegundos = 3 segundos
+    
   }
 
 
