@@ -48,7 +48,6 @@ video {
   z-index: 1; /* Asegura que la pantalla esté sobre el borde */
 }
 
-/* Para agregar un diseño único, podrías usar un gradiente o una textura de fondo */
 .machine::after {
   content: '';
   position: absolute;
@@ -61,159 +60,12 @@ video {
   z-index: -1; /* Detrás de todos los demás elementos */
 }
 
-
-
-
 .container {
   max-width: 600px;
 }
 
 .card {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.ticket {
-  border: 1px solid;
-  border-radius: 10px;
-  padding: 30px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 205px;
-  margin: 0 auto;
-  position: relative;
-  height: auto;
-  margin-bottom: 100px;
-  top: -60px;
-  animation: slideDown 1s forwards;
-  opacity: 0;
-  background-color: white;
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-5%);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.ticket-header h1 {
-  font-size: 2rem;
-  color: #333;
-}
-
-.ticket-header p {
-  color: #666;
-}
-
-.ticket-body {
-  padding-top: 20px;
-}
-
-  .ticket-body p {
-    color: #333;
-  }
-
-.tariff {
-  position: absolute;
-  bottom: -1px;
-  right: -2px;
-  background-color: #333;
-  color: #fff;
-  padding: 1px 8px;
-  border-bottom-right-radius: 7px;
-}
-
-  .tariff p {
-    font-size: 15px;
-    position: relative;
-    top: 7px;
-  }
-
-.ticket .date {
-  position: absolute;
-  top: 95%;
-  transform: rotate(-90deg);
-  transform-origin: left top;
-  white-space: nowrap;
-  left: 0%;
-}
-
-.ticket::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 18%;
-  width: 18px;
-  height: 100%;
-  background-color: #333;
-  transform: translateX(-50%);
-}
-
-.license p {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: -40px;
-  margin-left: 34px;
-}
-
-.spot p {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 40px;
-  font-weight: bold;
-  margin-top: 0px;
-  margin-left: 33px;
-  position: relative;
-  top: -13px;
-}
-
-.qrcode {
-  height: auto;
-  width: 200%;
-  margin-bottom: 10px;
-  margin-left: -23%;
-}
-
-.bawphoto {
-  height: auto;
-  width: 200%;
-  margin-bottom: 10px;
-  margin-left: -23%;
-}
-
-.pastel-primary {
-  background-color: #cce5ff !important;
-  color: #004085 !important;
-}
-
-.pastel-danger {
-  background-color: #f8d7da !important;
-  color: #721c24 !important;
-}
-
-.fixed-size-card {
-  width: 400px;
-  height: 80px;
-  position: relative;
-  top: -20px;
-  right: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-img {
-  width: 250px;
-  height: auto;
 }
 
 .ticket-output {
@@ -297,46 +149,14 @@ img {
     mix-blend-mode: multiply;
   }
 
-
-
-.loading-message {
-  font-size: 10px;
-}
-
-.nozzle-container {
-  margin: 20px;
-  border: 2px solid #ffffff; /* Borde blanco */
-  border-radius: 10px;
-  padding: 20px;
-  background-color: #454344; /* Color de fondo similar al ticket-output */
-  width: 275px;
-  height: 35px;
+.ticket-data p {
+  font-size: 16px;
   position: relative;
-  top: -100px;
+  top: -15px;
+  left: -18px;
+  color: #00cc00; /* Nuevo tono de verde */
+  font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
 }
-
-.ticket-nozzle {
-  background-color: #454344; /* Color de fondo similar al ticket-output */
-  width: 230px;
-  height: 20px;
-}
-
-.ticket-data {
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 10px 20px;
-  text-align: left;
-}
-
-  .ticket-data p {
-    font-size: 16px;
-    position: relative;
-    top: -15px;
-    left: -18px;
-    color: #00cc00; /* Nuevo tono de verde */
-    font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
-  }
 
 form p {
   font-size: 16px;
@@ -345,6 +165,11 @@ form p {
 }
 
 .ticket-data {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  text-align: left;
   margin-top: -10px;
 }
 
@@ -357,11 +182,3 @@ form p {
       display: block;
       margin-top: 2px;
     }
-
-
-
-
-h1 {
-  font-size: 60px;
-  font-weight: 200;
-}
