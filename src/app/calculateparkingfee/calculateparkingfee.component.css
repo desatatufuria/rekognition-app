@@ -177,7 +177,7 @@ img {
   position: absolute;
   background-color: #454344; /* Nuevo color de fondo */
   left: 702px;
-  top:328px;
+  top: 328px;
   padding: 30px; /* Espaciado interno */
 }
 
@@ -203,7 +203,7 @@ img {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   top: -60px;
-  left:185px;
+  left: 185px;
 }
 
   .btn-primary:hover {
@@ -228,7 +228,7 @@ img {
   width: 395px;
   position: relative;
   right: 11px;
-  height: 350px;
+  height: 365px;
   top: -60px;
 }
 
@@ -236,9 +236,8 @@ img {
   background-color: #cce5ff;
   padding: 20px;
   width: 349px;
-  height: 305px;
+  height: 315px;
   position: relative;
-
 }
 
   .message-info p {
@@ -291,4 +290,20 @@ img {
 form p {
   font-size: 16px;
   color: #454344;
+  font-family:""
 }
+
+
+.ticket-data {
+  margin-top: -10px; /* Sube todo el bloque hacia arriba */
+}
+
+  .ticket-data p {
+    line-height: 1.2; /* Ajusta el interlineado */
+    margin: 0 0 10px; /* Espacio entre párrafos */
+  }
+
+    .ticket-data p .result {
+      display: block;
+      margin-top: 2px; /* Ajusta el espacio entre el título y el resultado */
+    }

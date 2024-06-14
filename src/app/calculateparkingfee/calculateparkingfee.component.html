@@ -9,10 +9,11 @@
                 <p><strong>Matrícula:</strong> {{ licensePlate }}</p>
               </form>
               <div *ngIf="data" class="ticket-data">
-                <p><strong>Hora de entrada:</strong> {{ formatTime(data.entryTime) }}</p>
-                <p><strong>Hora actual:</strong> {{ formatTime(data.currentTime) }}</p>
-                <p><strong>Intervalo de tiempo:</strong> {{ data.timeDifference }}</p>
-                <p><strong>Importe:</strong> {{ data.parkingFee | number:'1.2-2' }}€</p>
+                <p><b>Entrada:</b><br> <span class="result">{{ formatTime(data.entryTime) }}</span></p>
+                <p><b>Salida:</b><br> <span class="result">{{ formatTime(data.currentTime) }}</span></p>
+                <p><b>Intervalo:</b><br> <span class="result">{{ data.timeDifference }}</span></p>
+                <p><b>Importe:</b><br> <span class="result">{{ data.parkingFee | number:'1.2-2' }}€</span></p>
+                <p><b>Tarifa:</b><br> <span class="result">{{ data.parkingRate }}€/min</span></p>
               </div>
             </div>
           </div>
