@@ -1,0 +1,354 @@
+.ticket {
+  border: 1px solid; /* Agregamos un borde delgado */
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 205px;
+  margin: 0 auto;
+  position: relative;
+  /*margin-bottom: 100px;*/
+  top: -185px;
+  animation: slideDown 1s forwards; /* Aplica la animación para deslizar hacia abajo */
+  opacity: 0;
+  background-color: white; /* Color de fondo */
+  height: 285px;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-5%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+.ticket-header h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.ticket-header p {
+  color: #666;
+}
+
+.ticket-body {
+  padding-top: 20px;
+}
+
+  .ticket-body p {
+    color: #333;
+  }
+
+.tariff {
+  position: absolute;
+  bottom: -1px;
+  right: -2px;
+  background-color: #333;
+  color: #fff;
+  padding: 1px 8px;
+  border-bottom-right-radius: 7px;
+}
+
+  .tariff p {
+    font-size: 15px;
+    position: relative;
+    top: 7px;
+  }
+
+.ticket .date {
+  position: absolute;
+  top: 95%;
+  transform: rotate(-90deg);
+  transform-origin: left top;
+  white-space: nowrap;
+  left: 0%;
+}
+
+.ticket::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 18%;
+  width: 18px; /* Grosor de la línea */
+  height: 100%; /* Altura de la línea */
+  background-color: #333; /* Color de la línea */
+  transform: translateX(-50%); /* Centrar la línea horizontalmente */
+}
+
+.license p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: -40px;
+  margin-left: 34px;
+  position: relative;
+  top: -20px;
+}
+
+
+.spot p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  margin-top: 0px;
+  margin-left: 33px;
+  position: relative;
+  top: -29px;
+}
+
+
+.qrcode {
+  height: auto;
+  width: 200%;
+  margin-bottom: 10px;
+  margin-left: -23%;
+  top: -20px;
+  position: relative;
+}
+
+.bawphoto {
+  height: auto;
+  width: 200%;
+  margin-bottom: 10px;
+  margin-left: -23%;
+}
+
+
+.pastel-primary {
+  background-color: #cce5ff !important; /* Color pastel azul */
+  color: #004085 !important; /* Texto oscuro para contraste */
+}
+
+.pastel-danger {
+  background-color: #f8d7da !important; /* Color pastel rojo */
+  color: #721c24 !important; /* Texto oscuro para contraste */
+}
+
+.fixed-size-card {
+  width: 400px; /* Ancho fijo */
+  height: 80px; /* Alto fijo */
+  position: relative;
+  top: -20px;
+  right: 20px;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+.message-info p {
+  font-size: 26px; /* Tamaño de fuente más grande */
+}
+
+
+video {
+  width: 390px;
+  height: 220px;
+  top: -8px;
+  right: 102px;
+  position: relative;
+  border: 1px solid #ccc;
+}
+
+
+img {
+  width: 250px;
+  height: auto;
+}
+
+
+.machine {
+  background-color: #454344; /* Nuevo color de fondo */
+  border: 4px solid #000; /* Grosor del borde aumentado */
+  border-radius: 20px; /* Borde redondeado */
+  padding: 30px; /* Espaciado interno */
+  width: 500px;
+  height: 250px;
+  margin: 0 auto;
+  position: relative;
+  top: 5px;
+}
+
+  .machine::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 4px solid #fff; /* Borde blanco alrededor de la máquina */
+    border-radius: 24px; /* Borde redondeado más grande */
+  }
+
+.screen {
+  background-color: #454344;
+  color: #fff;
+  border: 0px solid #fff;
+  border-radius: 5px;
+  width: 365px; /* Ancho reducido para tener en cuenta los bordes */
+  height: 188px;
+  right: -19px; /* Alineado a la derecha */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*margin-bottom: 20px;*/
+  position: relative;
+  z-index: 1; /* Asegura que la pantalla esté sobre el borde */
+}
+
+/* Para agregar un diseño único, podrías usar un gradiente o una textura de fondo */
+.machine::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  background-size: cover;
+  opacity: 0.1; /* Ajusta la opacidad según tu preferencia */
+  z-index: -1; /* Detrás de todos los demás elementos */
+}
+
+
+.ticket-output {
+  width: 500px;
+  height: 670px;
+  border: 4px solid #000; /* Grosor del borde aumentado */
+  border-radius: 20px; /* Borde redondeado */
+  position: absolute;
+  background-color: #454344; /* Nuevo color de fondo */
+  left: -53px;
+  top: 216px;
+  padding: 30px; /* Espaciado interno */
+}
+
+  .ticket-output::before {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 4px solid #fff; /* Borde blanco alrededor del ticket-output */
+    border-radius: 24px; /* Borde redondeado más grande */
+  }
+
+.btn-primary {
+  background-color: #4CAF50;
+  border-color: green;
+  border-radius: 50%;
+  padding: 20px 40px; /* Aumentar el padding para hacer el botón más grande */
+  font-size: 18px; /* Ajustar el tamaño de la fuente */
+  width: 75px;
+  height: 75px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: -70px;
+}
+
+  .btn-primary:hover {
+    background-color: #45a049;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-primary:active {
+    background-color: #3e8e41;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+
+
+.screen-container {
+  margin: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 20px 20px 0 20px;
+  background-color: #454344;
+  top: -65px;
+  position: relative;
+}
+
+.message-info {
+  background-color: #cce5ff;
+  padding: 20px;
+  width: 285px;
+  height: 80px;
+}
+
+.loading-message {
+  font-size: 18px;
+}
+
+
+.nozzle-container {
+  margin: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 20px 20px 0 20px;
+  background-color: #f0f0f0;
+  width: 275px;
+  height: 35px;
+  position: relative;
+  top: -125px;
+}
+
+
+.ticket-nozzle {
+  background-color: #454344;
+  width: 230px;
+  height: 20px;
+}
+
+
+
+.capture-ticket-button {
+  background-color: #4CAF50; /* Color de fondo verde */
+  color: #fff; /* Color del texto blanco */
+  font-size: 18px; /* Tamaño de fuente */
+  padding: 20px 40px; /* Ajuste de relleno para hacer el botón más largo */
+  border-radius: 10px; /* Borde redondeado */
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Transición suave en cambios */
+  display: block; /* Hace que el botón se muestre como bloque para ocupar todo el ancho disponible */
+  margin: 20px auto; /* Centra horizontalmente y agrega espacio vertical */
+  width: 200px; /* Ancho del botón */
+  text-align: center; /* Alinea el texto al centro */
+  height: 60px; /* Altura del botón */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: -90px;
+}
+
+  .capture-ticket-button:hover {
+    background-color: #45a049;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .capture-ticket-button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+
+
+.image-container {
+  position: fixed; /* Posición fija para mantenerla en la misma posición al hacer scroll */
+  top: 60px; /* Ajusta la distancia desde la parte superior */
+  right: 20px; /* Ajusta la distancia desde la derecha */
+  z-index: 1000; /* Ajusta el índice z para que esté sobre otros elementos */
+}
+
+.captured-ticket-image {
+  width: 200px; /* Ancho de la imagen */
+  height: auto; /* Altura automática para mantener la proporción */
+  border: 2px solid #007bff; /* Borde azul */
+  border-radius: 10px; /* Borde redondeado */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}

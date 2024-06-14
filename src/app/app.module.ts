@@ -16,6 +16,9 @@ import { FormsModule } from '@angular/forms';
 import { ExitParkingComponent } from './exit-parking/exit-parking.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { QrParkingfeeComponent } from './qr-parkingfee/qr-parkingfee.component';
+import { EntryComponent } from './entry/entry.component';
+import { PaymentComponent } from './payment/payment.component';
+import { ExitComponent } from './exit/exit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +32,10 @@ import { QrParkingfeeComponent } from './qr-parkingfee/qr-parkingfee.component';
     CalculateparkingfeeComponent,
     ExitParkingComponent,
     NavMenuComponent,
-    QrParkingfeeComponent
+    QrParkingfeeComponent,
+    EntryComponent,
+    PaymentComponent,
+    ExitComponent
   ],
   imports: [
     BrowserModule,
