@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { QrcodegeneratorComponent } from './qrcodegenerator/qrcodegenerator.component';
 import { GarageManagementComponent } from './garage-management/garage-management.component';
 import { LicenseUploadComponent } from './license-upload/license-upload.component';
 import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
@@ -19,7 +18,6 @@ import { ExitComponent } from './exit/exit.component';
 @NgModule({
   declarations: [
     AppComponent,
-    QrcodegeneratorComponent,
     GarageManagementComponent,
     LicenseUploadComponent,
     QrScannerComponent,
