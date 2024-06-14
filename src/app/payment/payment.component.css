@@ -1,0 +1,367 @@
+video {
+  width: 390px;
+  height: 220px;
+  top: -8px;
+  right: 102px;
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transform: scaleX(1) !important;
+}
+
+.machine {
+  background-color: #454344; /* Nuevo color de fondo */
+  border: 4px solid #000; /* Grosor del borde aumentado */
+  border-radius: 20px; /* Borde redondeado */
+  padding: 30px; /* Espaciado interno */
+  width: 500px;
+  height: 250px;
+  margin: 0 auto;
+  position: relative;
+  top: 5px;
+}
+
+  .machine::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 4px solid #fff; /* Borde blanco alrededor de la máquina */
+    border-radius: 24px; /* Borde redondeado más grande */
+  }
+
+.screen {
+  background-color: #454344;
+  color: #fff;
+  border: 0px solid #fff;
+  border-radius: 5px;
+  width: 365px; /* Ancho reducido para tener en cuenta los bordes */
+  height: 188px;
+  right: -19px; /* Alineado a la derecha */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*margin-bottom: 20px;*/
+  position: relative;
+  z-index: 1; /* Asegura que la pantalla esté sobre el borde */
+}
+
+/* Para agregar un diseño único, podrías usar un gradiente o una textura de fondo */
+.machine::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  background-size: cover;
+  opacity: 0.1; /* Ajusta la opacidad según tu preferencia */
+  z-index: -1; /* Detrás de todos los demás elementos */
+}
+
+
+
+
+.container {
+  max-width: 600px;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.ticket {
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 205px;
+  margin: 0 auto;
+  position: relative;
+  height: auto;
+  margin-bottom: 100px;
+  top: -60px;
+  animation: slideDown 1s forwards;
+  opacity: 0;
+  background-color: white;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-5%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.ticket-header h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.ticket-header p {
+  color: #666;
+}
+
+.ticket-body {
+  padding-top: 20px;
+}
+
+  .ticket-body p {
+    color: #333;
+  }
+
+.tariff {
+  position: absolute;
+  bottom: -1px;
+  right: -2px;
+  background-color: #333;
+  color: #fff;
+  padding: 1px 8px;
+  border-bottom-right-radius: 7px;
+}
+
+  .tariff p {
+    font-size: 15px;
+    position: relative;
+    top: 7px;
+  }
+
+.ticket .date {
+  position: absolute;
+  top: 95%;
+  transform: rotate(-90deg);
+  transform-origin: left top;
+  white-space: nowrap;
+  left: 0%;
+}
+
+.ticket::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 18%;
+  width: 18px;
+  height: 100%;
+  background-color: #333;
+  transform: translateX(-50%);
+}
+
+.license p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: -40px;
+  margin-left: 34px;
+}
+
+.spot p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  margin-top: 0px;
+  margin-left: 33px;
+  position: relative;
+  top: -13px;
+}
+
+.qrcode {
+  height: auto;
+  width: 200%;
+  margin-bottom: 10px;
+  margin-left: -23%;
+}
+
+.bawphoto {
+  height: auto;
+  width: 200%;
+  margin-bottom: 10px;
+  margin-left: -23%;
+}
+
+.pastel-primary {
+  background-color: #cce5ff !important;
+  color: #004085 !important;
+}
+
+.pastel-danger {
+  background-color: #f8d7da !important;
+  color: #721c24 !important;
+}
+
+.fixed-size-card {
+  width: 400px;
+  height: 80px;
+  position: relative;
+  top: -20px;
+  right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+img {
+  width: 250px;
+  height: auto;
+}
+
+.ticket-output {
+  width: 500px;
+  height: 675px;
+  border: 4px solid #000;
+  border-radius: 20px;
+  position: absolute;
+  background-color: #454344;
+  padding: 30px;
+  left: -53px;
+  top: 216px;
+}
+
+  .ticket-output::before {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 4px solid #fff;
+    border-radius: 24px;
+  }
+
+.btn-primary {
+  background-color: #ff6347;
+  border-color: #e04e39;
+  border-radius: 50%;
+  padding: 20px 40px;
+  font-size: 18px;
+  width: 75px;
+  height: 75px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: -60px;
+}
+
+  .btn-primary:hover {
+    background-color: #ff4500;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-primary:active {
+    background-color: #e5533d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+.screen-container {
+  margin: 20px;
+  border: 2px solid #ffffff; /* Borde blanco */
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #454344; /* Color de fondo similar al ticket-output */
+  width: 395px;
+  position: relative;
+  right: 11px;
+  height: 390px;
+  top: -60px;
+  overflow: hidden;
+}
+
+.message-info {
+  width: 349px;
+  height: 340px;
+  background: #222;
+  color: #fff;
+  text-shadow: 1px 0 rgba(255, 0, 0, 0.9), -1px 0 rgba(0, 0, 255, 0.9);
+  padding: 40px;
+}
+
+  .message-info::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to top, rgba(255, 255, 255, 0.2) 33.33333%, rgba(255, 255, 255, 0.4) 33.33333%, rgba(255, 255, 255, 0.4) 66.66666%, rgba(255, 255, 255, 0.6) 66.66666%), linear-gradient(to right, rgba(255, 0, 0, 0.7) 33.33333%, rgba(0, 255, 0, 0.7) 33.33333%, rgba(0, 255, 0, 0.7) 66.66666%, rgba(0, 0, 255, 0.7) 66.66666%);
+    background-size: 3px 3px;
+    mix-blend-mode: multiply;
+  }
+
+
+
+.loading-message {
+  font-size: 10px;
+}
+
+.nozzle-container {
+  margin: 20px;
+  border: 2px solid #ffffff; /* Borde blanco */
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #454344; /* Color de fondo similar al ticket-output */
+  width: 275px;
+  height: 35px;
+  position: relative;
+  top: -100px;
+}
+
+.ticket-nozzle {
+  background-color: #454344; /* Color de fondo similar al ticket-output */
+  width: 230px;
+  height: 20px;
+}
+
+.ticket-data {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  text-align: left;
+}
+
+  .ticket-data p {
+    font-size: 16px;
+    position: relative;
+    top: -15px;
+    left: -18px;
+    color: #00cc00; /* Nuevo tono de verde */
+    font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
+  }
+
+form p {
+  font-size: 16px;
+  color: #00cc00; /* Nuevo tono de verde */
+  font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
+}
+
+.ticket-data {
+  margin-top: -10px;
+}
+
+  .ticket-data p {
+    line-height: 1.2;
+    margin: 0 0 10px;
+  }
+
+    .ticket-data p .result {
+      display: block;
+      margin-top: 2px;
+    }
+
+
+
+
+h1 {
+  font-size: 60px;
+  font-weight: 200;
+}
