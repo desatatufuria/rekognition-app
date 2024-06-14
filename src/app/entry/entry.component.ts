@@ -29,8 +29,8 @@ export class EntryComponent implements AfterViewInit {
   entryTime: string | null = null;
 
   ticket: boolean = false;
-  ticketVisible: boolean = true; // Inicialmente visible
-  private ticketTimeout: any; // Variable para almacenar el timeout
+  ticketVisible: boolean = true; 
+  private ticketTimeout: any; 
 
   loadingTicket: boolean = false;
   nolicense: boolean = true;
