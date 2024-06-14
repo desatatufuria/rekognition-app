@@ -134,7 +134,7 @@
 }
 
 .fixed-size-card {
-  width: 400px; /* Ancho fijo */
+  width: 285px; /* Ancho fijo */
   height: 80px; /* Alto fijo */
   position: relative;
   top: -20px;
