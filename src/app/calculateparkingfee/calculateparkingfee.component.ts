@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ParkingService } from '../parking.service';
 import { DatePipe } from '@angular/common';
-import { QrDataService } from '../qr-data.service';
+import { ParkingService } from '../services/parking.service';
+import { QrDataService } from '../services/qr-data.service';
 
 @Component({
   selector: 'app-calculateparkingfee',

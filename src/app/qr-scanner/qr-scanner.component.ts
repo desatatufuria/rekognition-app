@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, NgZone, OnDestroy } from '@angular/core';
 import QrScanner from 'qr-scanner';
-import { QrDataService } from '../qr-data.service';
+import { QrDataService } from '../services/qr-data.service';
 
 @Component({
   selector: 'app-qr-scanner',
