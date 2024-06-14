@@ -123,18 +123,18 @@
 }
 
 
-.pastel-primary {
-  background-color: #cce5ff !important; /* Color pastel azul */
-  color: #004085 !important; /* Texto oscuro para contraste */
-}
+/*.pastel-primary {
+  background-color: #cce5ff !important;*/ /* Color pastel azul */
+/*color: #004085 !important;*/ /* Texto oscuro para contraste */
+/*}
 
 .pastel-danger {
-  background-color: #f8d7da !important; /* Color pastel rojo */
-  color: #721c24 !important; /* Texto oscuro para contraste */
-}
+  background-color: #f8d7da !important;*/ /* Color pastel rojo */
+/*color: #721c24 !important;*/ /* Texto oscuro para contraste */
+/*}*/
 
 .fixed-size-card {
-  width: 400px; /* Ancho fijo */
+  width: 285px; /* Ancho fijo */
   height: 80px; /* Alto fijo */
   position: relative;
   top: -20px;
@@ -146,6 +146,7 @@
 
 .message-info p {
   font-size: 26px; /* Tamaño de fuente más grande */
+  color: #00cc00;
 }
 
 
@@ -157,7 +158,6 @@ video {
   position: relative;
   border: 1px solid #ccc;
 }
-
 
 img {
   width: 250px;
@@ -276,12 +276,47 @@ img {
   position: relative;
 }
 
+
+
+
+
+
+
+
+
 .message-info {
-  background-color: #cce5ff;
-  padding: 20px;
   width: 285px;
   height: 80px;
+  background-color: #cce5ff;
+  background: #222;
+  color: #fff;
+  text-shadow: 1px 0 rgba(255, 0, 0, 0.9), -1px 0 rgba(0, 0, 255, 0.9);
+  padding: 20px;
 }
+
+
+  .message-info::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to top, rgba(255, 255, 255, 0.2) 33.33333%, rgba(255, 255, 255, 0.4) 33.33333%, rgba(255, 255, 255, 0.4) 66.66666%, rgba(255, 255, 255, 0.6) 66.66666%), linear-gradient(to right, rgba(255, 0, 0, 0.7) 33.33333%, rgba(0, 255, 0, 0.7) 33.33333%, rgba(0, 255, 0, 0.7) 66.66666%, rgba(0, 0, 255, 0.7) 66.66666%);
+    background-size: 3px 3px;
+    mix-blend-mode: multiply;
+  }
+
+
+
+
+
+
+
+
+
+
+
 
 .loading-message {
   font-size: 18px;
@@ -324,31 +359,4 @@ img {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   top: -90px;
-}
-
-  .capture-ticket-button:hover {
-    background-color: #45a049;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .capture-ticket-button:active {
-    background-color: #3e8e41;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-
-
-.image-container {
-  position: fixed; /* Posición fija para mantenerla en la misma posición al hacer scroll */
-  top: 60px; /* Ajusta la distancia desde la parte superior */
-  right: 20px; /* Ajusta la distancia desde la derecha */
-  z-index: 1000; /* Ajusta el índice z para que esté sobre otros elementos */
-}
-
-.captured-ticket-image {
-  width: 200px; /* Ancho de la imagen */
-  height: auto; /* Altura automática para mantener la proporción */
-  border: 2px solid #007bff; /* Borde azul */
-  border-radius: 10px; /* Borde redondeado */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
 }
