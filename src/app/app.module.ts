@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { HttpClientModule } from '@angular/common/http';
 import { QrcodegeneratorComponent } from './qrcodegenerator/qrcodegenerator.component';
 import { GarageManagementComponent } from './garage-management/garage-management.component';
@@ -21,7 +20,6 @@ import { ExitComponent } from './exit/exit.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ImageUploadComponent,
     QrcodegeneratorComponent,
     GarageManagementComponent,
     LicensedetectorComponent,
