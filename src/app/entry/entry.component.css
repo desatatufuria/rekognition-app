@@ -26,7 +26,6 @@
   }
 }
 
-
 .ticket-header h1 {
   font-size: 2rem;
   color: #333;
@@ -92,7 +91,6 @@
   top: -20px;
 }
 
-
 .spot p {
   display: flex;
   justify-content: center;
@@ -104,7 +102,6 @@
   position: relative;
   top: -29px;
 }
-
 
 .qrcode {
   height: auto;
@@ -122,17 +119,6 @@
   margin-left: -23%;
 }
 
-
-/*.pastel-primary {
-  background-color: #cce5ff !important;*/ /* Color pastel azul */
-  /*color: #004085 !important;*/ /* Texto oscuro para contraste */
-/*}
-
-.pastel-danger {
-  background-color: #f8d7da !important;*/ /* Color pastel rojo */
-  /*color: #721c24 !important;*/ /* Texto oscuro para contraste */
-/*}*/
-
 .fixed-size-card {
   width: 285px; /* Ancho fijo */
   height: 80px; /* Alto fijo */
@@ -149,7 +135,6 @@
   color: #00cc00;
 }
 
-
 video {
   width: 390px;
   height: 220px;
@@ -163,7 +148,6 @@ img {
   width: 250px;
   height: auto;
 }
-
 
 .machine {
   background-color: #454344; /* Nuevo color de fondo */
@@ -204,7 +188,6 @@ img {
   z-index: 1; /* Asegura que la pantalla esté sobre el borde */
 }
 
-/* Para agregar un diseño único, podrías usar un gradiente o una textura de fondo */
 .machine::after {
   content: '';
   position: absolute;
@@ -216,7 +199,6 @@ img {
   opacity: 0.1; /* Ajusta la opacidad según tu preferencia */
   z-index: -1; /* Detrás de todos los demás elementos */
 }
-
 
 .ticket-output {
   width: 500px;
@@ -264,8 +246,6 @@ img {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-
-
 .screen-container {
   margin: 20px;
   border: 2px solid #ccc;
@@ -276,14 +256,6 @@ img {
   position: relative;
 }
 
-
-
-
-
-
-
-
-
 .message-info {
   width: 285px;
   height: 80px;
@@ -293,7 +265,6 @@ img {
   text-shadow: 1px 0 rgba(255, 0, 0, 0.9), -1px 0 rgba(0, 0, 255, 0.9);
   padding: 20px;
 }
-
 
   .message-info::after {
     content: "";
@@ -307,21 +278,9 @@ img {
     mix-blend-mode: multiply;
   }
 
-
-
-
-
-
-
-
-
-
-
-
 .loading-message {
   font-size: 18px;
 }
-
 
 .nozzle-container {
   margin: 20px;
@@ -335,14 +294,11 @@ img {
   top: -125px;
 }
 
-
 .ticket-nozzle {
   background-color: #454344;
   width: 230px;
   height: 20px;
 }
-
-
 
 .capture-ticket-button {
   background-color: #4CAF50; /* Color de fondo verde */
@@ -360,7 +316,6 @@ img {
   position: relative;
   top: -90px;
 }
-
   .capture-ticket-button:hover {
     background-color: #45a049;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
