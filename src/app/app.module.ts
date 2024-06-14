@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GarageManagementComponent } from './garage-management/garage-management.component';
 import { LicenseUploadComponent } from './license-upload/license-upload.component';
@@ -15,6 +14,7 @@ import { QrParkingfeeComponent } from './qr-parkingfee/qr-parkingfee.component';
 import { EntryComponent } from './entry/entry.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ExitComponent } from './exit/exit.component';
+import { AppComponent } from './app/app.component';
 @NgModule({
   declarations: [
     AppComponent,
