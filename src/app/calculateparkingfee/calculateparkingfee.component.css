@@ -152,9 +152,7 @@
   align-items: center; /* Centra verticalmente */
 }
 
-.message-info p {
-  font-size: 26px; /* Tamaño de fuente más grande */
-}
+
 
 
 video {
@@ -230,21 +228,25 @@ img {
   width: 395px;
   position: relative;
   right: 11px;
-  height: 255px;
+  height: 350px;
   top: -60px;
 }
 
 .message-info {
   background-color: #cce5ff;
   padding: 20px;
-  width: 350px;
-  height: 211px;
+  width: 349px;
+  height: 305px;
   position: relative;
 
 }
 
+  .message-info p {
+    font-size: 24px; /* Tamaño de fuente más grande */
+  }
+
 .loading-message {
-  font-size: 18px;
+  font-size: 10px;
 }
 
 
@@ -278,7 +280,7 @@ img {
 }
 
   .ticket-data p {
-    font-size: 19px;
+    font-size: 16px;
     position: relative;
     top: -15px;
     left: -18px;
@@ -287,6 +289,6 @@ img {
 
 
 form p {
-  font-size: 19px;
+  font-size: 16px;
   color: #454344;
 }

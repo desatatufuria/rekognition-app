@@ -12,7 +12,7 @@
                 <p><strong>Hora de entrada:</strong> {{ formatTime(data.entryTime) }}</p>
                 <p><strong>Hora actual:</strong> {{ formatTime(data.currentTime) }}</p>
                 <p><strong>Intervalo de tiempo:</strong> {{ data.timeDifference }}</p>
-                <p><strong>Tarifa de estacionamiento:</strong> {{ data.parkingFee | number:'1.2-2' }}€</p>
+                <p><strong>Importe:</strong> {{ data.parkingFee | number:'1.2-2' }}€</p>
               </div>
             </div>
           </div>
@@ -23,52 +23,13 @@
   <button class="btn btn-primary mb-3 p-3"></button>
 
 
-  <div class="container mt-5 text-center">
-    <div class="row justify-content-center">
-      <div class="col-auto">
-        <div class="nozzle-container">
-          <div class="card text-white mb-3">
-            <div class="ticket-nozzle">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
 
-
-  <div class="canvas-container d-none">
+  <!--<div class="canvas-container d-none">
     <canvas #canvasElement style="display: none;"></canvas>
-  </div>
+  </div>-->
 
 
-  <div class="container mt-5">
-    <div class="ticket">
-      <!-- Contenedor para mostrar el código QR -->
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="qrcode">
-            <!--<img [src]="imageUrl" alt="Código QR" class="img-fluid mb-3">-->
-          </div>
-        </div>
-      </div>
-      <div class="ticket-body">
-        <div class="row">
-          <div class="col-12 text-center license">
-            <!--<p>{{ licenseDecode }}</p>-->
-          </div>
-          <div class="col-12 text-center spot">
-            <!--<p>P{{ vehicleSpot }}</p>-->
-          </div>
-          <div class="col-12 text-center">
-            <!--<p class="date">{{entryTime}}</p>-->
-          </div>
-        </div>
-      </div>
-      <div class="tariff">
-        <p class="text-right ">T. Estandar</p>
-      </div>
-    </div>
-  </div>
+ 
 </div>
