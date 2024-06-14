@@ -28,7 +28,7 @@ export class ExitComponent implements AfterViewInit {
 
   loadingTicket: boolean = false;
   nolicense: boolean = true;
-  parkingSpots: boolean = true;
+  carExit: boolean = true;
 
   url: string = "http://3.85.87.1"
   url1: string = "https://localhost:7130"
@@ -77,7 +77,7 @@ export class ExitComponent implements AfterViewInit {
       // Limpiar estado anterior
       this.loadingTicket = false;
       this.nolicense = true;
-      this.parkingSpots = true;
+      this.carExit = true;
       this.imageUrl = null;
       this.licenseDecode = null;
       this.vehicleSpot = null;
@@ -100,7 +100,7 @@ export class ExitComponent implements AfterViewInit {
           const registerCarResponse = await this.registerCarExit();
           console.log("Hora de salida registrada:", registerCarResponse.exitTime);
           this.loadingTicket = false;
-          this.parkingSpots = true;
+          this.carExit = false;
         } else {
           console.log("Algo ha salido mal, vuelve a pulsar el botón")
           this.nolicense = false;
