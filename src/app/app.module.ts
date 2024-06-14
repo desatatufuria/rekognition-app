@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { QrcodegeneratorComponent } from './qrcodegenerator/qrcodegenerator.component';
 import { GarageManagementComponent } from './garage-management/garage-management.component';
-import { LicensedetectorComponent } from './licensedetector/licensedetector.component';
 import { LicenseUploadComponent } from './license-upload/license-upload.component';
 import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
 import { CalculateparkingfeeComponent } from './calculateparkingfee/calculateparkingfee.component';
@@ -22,7 +21,6 @@ import { ExitComponent } from './exit/exit.component';
     AppComponent,
     QrcodegeneratorComponent,
     GarageManagementComponent,
-    LicensedetectorComponent,
     LicenseUploadComponent,
     QrScannerComponent,
     CalculateparkingfeeComponent,
