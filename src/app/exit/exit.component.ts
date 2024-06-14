@@ -117,7 +117,6 @@ export class ExitComponent implements AfterViewInit {
   async registerCarExit(): Promise<any> {
     console.log('Registrando salida del vehículo...');
 
-    //const carData = { licensePlate: this.licensePlate }; // Solo se envía la matrícula
     console.log(this.licensePlate, "licensePlate");
 
     //decode licensePlate
@@ -139,11 +138,6 @@ export class ExitComponent implements AfterViewInit {
       throw error;
     }
   }
-
-
-
-
-
 
   extractLicensePlate(response: any) {
     console.log('Response:', response);
