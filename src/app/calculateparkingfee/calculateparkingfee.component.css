@@ -6,12 +6,8 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-
-
-
-
 .ticket {
-  border: 1px solid; /* Agregamos un borde delgado */
+  border: 1px solid;
   border-radius: 10px;
   padding: 30px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -21,9 +17,9 @@
   height: auto;
   margin-bottom: 100px;
   top: -60px;
-  animation: slideDown 1s forwards; /* Aplica la animación para deslizar hacia abajo */
+  animation: slideDown 1s forwards;
   opacity: 0;
-  background-color: white; /* Color de fondo */
+  background-color: white;
 }
 
 @keyframes slideDown {
@@ -37,7 +33,6 @@
     opacity: 1;
   }
 }
-
 
 .ticket-header h1 {
   font-size: 2rem;
@@ -86,10 +81,10 @@
   position: absolute;
   top: 0;
   left: 18%;
-  width: 18px; /* Grosor de la línea */
-  height: 100%; /* Altura de la línea */
-  background-color: #333; /* Color de la línea */
-  transform: translateX(-50%); /* Centrar la línea horizontalmente */
+  width: 18px;
+  height: 100%;
+  background-color: #333;
+  transform: translateX(-50%);
 }
 
 .license p {
@@ -102,7 +97,6 @@
   margin-left: 34px;
 }
 
-
 .spot p {
   display: flex;
   justify-content: center;
@@ -114,7 +108,6 @@
   position: relative;
   top: -13px;
 }
-
 
 .qrcode {
   height: auto;
@@ -130,30 +123,26 @@
   margin-left: -23%;
 }
 
-
 .pastel-primary {
-  background-color: #cce5ff !important; /* Color pastel azul */
-  color: #004085 !important; /* Texto oscuro para contraste */
+  background-color: #cce5ff !important;
+  color: #004085 !important;
 }
 
 .pastel-danger {
-  background-color: #f8d7da !important; /* Color pastel rojo */
-  color: #721c24 !important; /* Texto oscuro para contraste */
+  background-color: #f8d7da !important;
+  color: #721c24 !important;
 }
 
 .fixed-size-card {
-  width: 400px; /* Ancho fijo */
-  height: 80px; /* Alto fijo */
+  width: 400px;
+  height: 80px;
   position: relative;
   top: -20px;
   right: 20px;
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
+  justify-content: center;
+  align-items: center;
 }
-
-
-
 
 video {
   width: 490px;
@@ -168,17 +157,16 @@ img {
   height: auto;
 }
 
-
 .ticket-output {
   width: 500px;
   height: 675px;
-  border: 4px solid #000; /* Grosor del borde aumentado */
-  border-radius: 20px; /* Borde redondeado */
+  border: 4px solid #000;
+  border-radius: 20px;
   position: absolute;
-  background-color: #454344; /* Nuevo color de fondo */
+  background-color: #454344;
   left: 702px;
   top: 328px;
-  padding: 30px; /* Espaciado interno */
+  padding: 30px;
 }
 
   .ticket-output::before {
@@ -187,16 +175,16 @@ img {
     left: -8px;
     right: -8px;
     bottom: -8px;
-    border: 4px solid #fff; /* Borde blanco alrededor del ticket-output */
-    border-radius: 24px; /* Borde redondeado más grande */
+    border: 4px solid #fff;
+    border-radius: 24px;
   }
 
 .btn-primary {
-  background-color: #ff6347; /* Tomate */
-  border-color: #e04e39; /* Rojo oscuro con un tono cálido */
+  background-color: #ff6347;
+  border-color: #e04e39;
   border-radius: 50%;
-  padding: 20px 40px; /* Aumentar el padding para hacer el botón más grande */
-  font-size: 18px; /* Ajustar el tamaño de la fuente */
+  padding: 20px 40px;
+  font-size: 18px;
   width: 75px;
   height: 75px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -207,75 +195,69 @@ img {
 }
 
   .btn-primary:hover {
-    background-color: #ff4500; /* Naranja rojizo oscuro */
+    background-color: #ff4500;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
   }
 
   .btn-primary:active {
-    background-color: #e5533d; /* Rojo tomate más oscuro */
+    background-color: #e5533d;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-
-
-
 .screen-container {
   margin: 20px;
-  border: 2px solid #ccc;
+  border: 2px solid #ffffff; /* Borde blanco */
   border-radius: 10px;
-  padding: 20px 20px 0 20px;
-  background-color: #454344;
+  padding: 20px;
+  background-color: #454344; /* Color de fondo similar al ticket-output */
   width: 395px;
   position: relative;
   right: 11px;
   height: 365px;
   top: -60px;
+  overflow: hidden;
 }
 
 .message-info {
-  background-color: #cce5ff;
+  background-color: #454344; /* Color de fondo similar al ticket-output */
   padding: 20px;
   width: 349px;
   height: 315px;
   position: relative;
+  font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
+  color: #00cc00; /* Nuevo tono de verde */
+  font-size: 16px;
+  line-height: 1.4;
 }
-
-  .message-info p {
-    font-size: 24px; /* Tamaño de fuente más grande */
-  }
 
 .loading-message {
   font-size: 10px;
 }
 
-
 .nozzle-container {
   margin: 20px;
-  border: 2px solid #ccc;
+  border: 2px solid #ffffff; /* Borde blanco */
   border-radius: 10px;
-  padding: 20px 20px 0 20px;
-  background-color: #f0f0f0;
+  padding: 20px;
+  background-color: #454344; /* Color de fondo similar al ticket-output */
   width: 275px;
   height: 35px;
   position: relative;
   top: -100px;
 }
 
-
 .ticket-nozzle {
-  background-color: #454344;
+  background-color: #454344; /* Color de fondo similar al ticket-output */
   width: 230px;
   height: 20px;
 }
 
-
-
 .ticket-data {
-  width: 100%; /* Ajusta el ancho al 100% */
-  max-width: 400px; /* Establece un ancho máximo para evitar que se extienda demasiado */
-  margin: 0 auto; /* Centra horizontalmente */
-  padding: 10px 20px; /* Añade un poco de espacio interno */
-  text-align: left; /* Alinea el texto a la izquierda */
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  text-align: left;
 }
 
   .ticket-data p {
@@ -283,27 +265,26 @@ img {
     position: relative;
     top: -15px;
     left: -18px;
-    color: #454344;
+    color: #00cc00; /* Nuevo tono de verde */
+    font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
   }
-
 
 form p {
   font-size: 16px;
-  color: #454344;
-  font-family:""
+  color: #00cc00; /* Nuevo tono de verde */
+  font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
 }
 
-
 .ticket-data {
-  margin-top: -10px; /* Sube todo el bloque hacia arriba */
+  margin-top: -10px;
 }
 
   .ticket-data p {
-    line-height: 1.2; /* Ajusta el interlineado */
-    margin: 0 0 10px; /* Espacio entre párrafos */
+    line-height: 1.2;
+    margin: 0 0 10px;
   }
 
     .ticket-data p .result {
       display: block;
-      margin-top: 2px; /* Ajusta el espacio entre el título y el resultado */
+      margin-top: 2px;
     }
