@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { GarageManagementComponent } from './garage-management/garage-management.component';
-import { LicenseUploadComponent } from './license-upload/license-upload.component';
 import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
 import { CalculateparkingfeeComponent } from './calculateparkingfee/calculateparkingfee.component';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +17,6 @@ import { AppComponent } from './app/app.component';
   declarations: [
     AppComponent,
     GarageManagementComponent,
-    LicenseUploadComponent,
     QrScannerComponent,
     CalculateparkingfeeComponent,
     ExitParkingComponent,
