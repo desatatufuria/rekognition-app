@@ -12,6 +12,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   @Output() scanResult = new EventEmitter<string>(); // Emitir evento cuando se detecte un QR
   result: string | null = null;
   qrScanner!: QrScanner;
+  private qrDetected: boolean = false; // Bandera para detectar si ya se ha procesado un QR
 
   constructor(private ngZone: NgZone, private qrDataService: QrDataService) { }
 
@@ -38,8 +39,13 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   }
 
   setResult(result: any): void {
+    if (this.qrDetected) {
+      return; // Si ya se ha detectado y procesado un QR, no hacer nada
+    }
+    this.qrDetected = true;
     this.result = result.data;
     console.log('QR Code detected:', this.result);
     this.qrDataService.setQrData(this.result!); // Enviar el resultado al servicio
+    this.scanResult.emit(this.result!); // Emitir el resultado para cualquier escucha externa
   }
 }
