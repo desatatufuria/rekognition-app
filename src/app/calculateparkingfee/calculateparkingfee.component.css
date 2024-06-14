@@ -1,3 +1,5 @@
+
+
 .container {
   max-width: 600px;
 }
@@ -219,16 +221,29 @@ img {
 }
 
 .message-info {
-  background-color: #454344; /* Color de fondo similar al ticket-output */
-  padding: 20px;
   width: 349px;
   height: 315px;
-  position: relative;
-  font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
-  color: #00cc00; /* Nuevo tono de verde */
-  font-size: 16px;
-  line-height: 1.4;
+  background: #222;
+  color: #fff;
+  text-shadow: 1px 0 rgba(255, 0, 0, 0.9), -1px 0 rgba(0, 0, 255, 0.9);
+  padding: 40px;
+
 }
+
+  .message-info::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to top, rgba(255, 255, 255, 0.2) 33.33333%, rgba(255, 255, 255, 0.4) 33.33333%, rgba(255, 255, 255, 0.4) 66.66666%, rgba(255, 255, 255, 0.6) 66.66666%), linear-gradient(to right, rgba(255, 0, 0, 0.7) 33.33333%, rgba(0, 255, 0, 0.7) 33.33333%, rgba(0, 255, 0, 0.7) 66.66666%, rgba(0, 0, 255, 0.7) 66.66666%);
+    background-size: 3px 3px;
+    mix-blend-mode: multiply;
+  }
+
+
 
 .loading-message {
   font-size: 10px;
@@ -288,3 +303,11 @@ form p {
       display: block;
       margin-top: 2px;
     }
+
+
+
+
+h1 {
+  font-size: 60px;
+  font-weight: 200;
+}
