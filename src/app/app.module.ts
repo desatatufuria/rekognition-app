@@ -7,7 +7,6 @@ import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
 import { CalculateparkingfeeComponent } from './calculateparkingfee/calculateparkingfee.component';
 import { FormsModule } from '@angular/forms';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { QrParkingfeeComponent } from './qr-parkingfee/qr-parkingfee.component';
 import { EntryComponent } from './entry/entry.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ExitComponent } from './exit/exit.component';
@@ -19,7 +18,6 @@ import { AppComponent } from './app/app.component';
     QrScannerComponent,
     CalculateparkingfeeComponent,
     NavMenuComponent,
-    QrParkingfeeComponent,
     EntryComponent,
     PaymentComponent,
     ExitComponent
