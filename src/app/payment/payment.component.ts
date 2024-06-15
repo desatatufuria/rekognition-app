@@ -1,10 +1,11 @@
 import { Component, ElementRef, EventEmitter, NgZone, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ParkingService } from '../services/parking.service';
+import { ParkingHttpService } from '../services/parking-http.service';
 import { QrDataService } from '../services/qr-data.service';
 import QrScanner from 'qr-scanner';
 import { HttpClient } from '@angular/common/http';
-
+import { interval } from 'rxjs';
+import { switchMap, takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-payment',
@@ -14,21 +15,37 @@ import { HttpClient } from '@angular/common/http';
 
 })
 export class PaymentComponent implements OnInit, OnDestroy {
-  licensePlate: string = ''; // Initialize licensePlate property
-  data: any;
-
-  buttonDisabled: boolean = true;
-
-  qrCodeUrl: string = "";
-
-
   @ViewChild('video', { static: true }) video!: ElementRef<HTMLVideoElement>;
   @Output() scanResult = new EventEmitter<string>(); // Emitir evento cuando se detecte un QR
+
+
+  licensePlate: string = ''; // Initialize licensePlate property
+  data: any;
+  buttonDisabled: boolean = true;
+
+
+
   result: string | null = null;
   qrScanner!: QrScanner;
+  qrCodeUrl: string = "";
   private qrDetected: boolean = false; // Bandera para detectar si ya se ha procesado un QR
 
-  constructor(private parkingService: ParkingService, private datePipe: DatePipe, private qrDataService: QrDataService, private ngZone: NgZone, private http: HttpClient) { }
+
+
+  paymentId: string | null = null;;
+  approvalUrl: string | null = null;;
+  qrCodeBase64: string | null = null;;
+  paymentStatus: string | null = null;;
+
+
+
+
+  constructor(
+    private parkingHttpService: ParkingHttpService,
+    private datePipe: DatePipe,
+    private qrDataService: QrDataService,
+    private ngZone: NgZone,
+    private http: HttpClient) { }
 
   ngOnInit() {
     this.initializeScanner();
@@ -74,7 +91,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   fetchData() {
-    this.parkingService.fetchData(this.licensePlate).subscribe(
+    this.parkingHttpService.fetchData(this.licensePlate).subscribe(
       (response) => {
         this.data = response;
         this.buttonDisabled = false;
@@ -92,19 +109,38 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   createPayment(): void {
     const baseUrl = window.location.origin;
-    this.http.post<{ id: string, approvalUrl: string, qrCodeBase64: string }>('https://localhost:7130/api/Payments/create-payment', { total: 20.00, baseUrl: baseUrl })
+    this.parkingHttpService.createPayment(20.00, baseUrl)
       .subscribe(response => {
         if (response && response.approvalUrl) {
-          this.qrCodeUrl = 'data:image/png;base64,' + response.qrCodeBase64; // Call generateQRCode only when approvalUrl is received
+          this.qrCodeBase64 = 'data:image/png;base64,' + response.qrCodeBase64;
+          this.paymentId = response.id;
+          this.approvalUrl = response.approvalUrl;
+          this.checkPaymentStatus();
         } else {
           console.error('Invalid response from server:', response);
         }
-      }, error => {
+      }, (error: any) => {
         console.error('Error creating payment:', error);
       });
   }
 
-
+  checkPaymentStatus(): void {
+    interval(5000)
+      .pipe(
+        switchMap(() => this.parkingHttpService.checkPaymentStatus(this.paymentId!)),
+        takeWhile((response: any) => response.status !== 'approved', true)
+      )
+      .subscribe((response: any) => {
+        this.paymentStatus = response.status;
+        if (response.status === 'approved') {
+          console.log('Payment approved!');
+        } else {
+          console.log('Payment status:', response.status);
+        }
+      }, (error: any) => {
+        console.error('Error checking payment status:', error);
+      });
+  }
 
 
 }

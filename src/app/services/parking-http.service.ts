@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ParkingHttpService {
-  private baseUrl: string = 'https://localhost:7130';
+  private baseUrl1: string = 'https://localhost:7130';
+  private baseUrl: string = 'http://3.85.87.1';
 
   constructor(private http: HttpClient) { }
 
@@ -27,7 +28,9 @@ export class ParkingHttpService {
       headers: { 'Content-Type': 'application/json' }
     });
   }
-
+  fetchData(licensePlate: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/api/Parking/CalculateParkingFee/${licensePlate}`);
+  }
 
   // Upload License Plate Image
   uploadImage(blob: Blob): Observable<any> {
@@ -35,6 +38,22 @@ export class ParkingHttpService {
     formData.append('file', blob, 'capturedPhoto.png');
     return this.http.post(`${this.baseUrl}/api/Image/upload`, formData);
   }
+
+
+   // Paypal ,method to create payment
+  createPayment(total: number, baseUrl: string): Observable<{ id: string, approvalUrl: string, qrCodeBase64: string }> {
+    return this.http.post<{ id: string, approvalUrl: string, qrCodeBase64: string }>(
+      `${this.baseUrl}/api/Payments/create-payment`,
+      { total, baseUrl }
+    );
+  }
+
+  // Paypal ,method to check payment status
+  checkPaymentStatus(paymentId: string): Observable<{ status: string }> {
+    return this.http.get<{ status: string }>(`${this.baseUrl}/api/Payments/check-payment-status/${paymentId}`);
+  }
+
+
 
 
   // Upload Captured Ticket Image
