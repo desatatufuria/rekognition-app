@@ -18,25 +18,24 @@
                         <form (ngSubmit)="fetchData()" class="mb-4">
                           <p><strong>Matrícula:</strong> {{ licensePlate }}</p>
                         </form>
-
-
-
-                        <div *ngIf="qrCodeBase64" class="qr-payment text-center">
+                        <div *ngIf="qrCodeBase64 && (!paymentStatus || paymentStatus === 'created')" class="qr-payment text-center">
                           <h6>Escanea para realizar el pago</h6>
                           <img [src]="qrCodeBase64" alt="QR Code for Payment">
                           <div class="payment-info">
                             <p><b>Estancia:</b> <span class="result">{{ data.timeDifference }}</span></p>
-                            <p><b>Importe:</b> <span class="result">{{ data.parkingFee | number:'1.2-2' }}€</span></p>
+                            <p class="importe"><b>Importe:</b> <span class="result">{{ data.parkingFee | number:'1.2-2' }}€</span></p>
                           </div>
                         </div>
-
-
                         <div *ngIf="data && hideAttr" class="ticket-data">
                           <p><b>Entrada:</b><br> <span class="result">{{ formatTime(data.entryTime) }}</span></p>
                           <p><b>Salida:</b><br> <span class="result">{{ formatTime(data.currentTime) }}</span></p>
                           <p><b>Estancia:</b><br> <span class="result">{{ data.timeDifference }}</span></p>
                           <p><b>Importe:</b><br> <span class="result">{{ data.parkingFee | number:'1.2-2' }}€</span></p>
                           <p><b>Tarifa:</b><br> <span class="result">{{ data.parkingRate }}€/min</span></p>
+                        </div>
+                        <div *ngIf="paymentStatus === 'approved'" class="payment-completed-message">
+                          <h3>¡Estancia Pagada!</h3>
+                          <p>Gracias por utilizar nuestros servicios</p>
                         </div>
                       </div>
                     </div>

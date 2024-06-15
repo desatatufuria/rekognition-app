@@ -16,8 +16,8 @@ img {
 }
 
 .machine {
-  background-color: #454344; /* Nuevo color de fondo */
-  border: 4px solid #000; /* Grosor del borde aumentado */
+  background-color: #454344; /* Color de fondo */
+  border: 4px solid #000; /* Grosor del borde */
   border-radius: 20px; /* Borde redondeado */
   padding: 30px; /* Espaciado interno */
   width: 500px;
@@ -40,8 +40,8 @@ img {
 
 .screen {
   background-color: #454344;
-  color: #fff;
-  border: 0px solid #fff;
+  color: #fff; /* Texto en color blanco */
+  border: 0px solid #fff; /* Borde sin color */
   border-radius: 5px;
   width: 365px; /* Ancho reducido para tener en cuenta los bordes */
   height: 188px;
@@ -49,7 +49,6 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  /*margin-bottom: 20px;*/
   position: relative;
   z-index: 1; /* Asegura que la pantalla esté sobre el borde */
 }
@@ -71,7 +70,7 @@ img {
 }
 
 .card {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ticket-output {
@@ -138,7 +137,7 @@ img {
   width: 349px;
   height: 340px;
   background: #222;
-  color: #fff;
+  color: #fff; /* Texto en color blanco */
   text-shadow: 1px 0 rgba(255, 0, 0, 0.9), -1px 0 rgba(0, 0, 255, 0.9);
   padding: 40px;
 }
@@ -160,7 +159,7 @@ img {
   position: relative;
   top: -15px;
   left: -18px;
-  color: #00cc00; /* Nuevo tono de verde */
+  color: #fff; /* Texto en color blanco */
   font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
 }
 
@@ -169,7 +168,7 @@ img {
   position: relative;
   top: -27px;
   left: -26px;
-  color: #00cc00;
+  color: #fff; /* Texto en color blanco */
   font-family: 'LCD', monospace;
   width: 326px;
   text-align: center;
@@ -178,26 +177,33 @@ img {
 }
 
   .qr-payment p .result {
-    margin-left: 10px; /* Adjust the spacing as needed */
+    margin-left: 10px; /* Ajustar el espaciado según sea necesario */
   }
 
-  .qr-payment .importe {
-    left: -84px; /* Adjust the spacing as needed */
-  }
+.qr-payment .importe {
+  left: -84px; /* Ajustar el espaciado según sea necesario */
+}
 
 .qr-payment h6 {
   position: relative;
   top: -35px;
   left: -26px;
-  color: #00cc00;
+  color: #fff; /* Texto en color blanco */
   font-family: 'LCD', monospace;
   width: 326px;
 }
 
+.payment-completed-message {
+  font-size: 18px;
+  color: #fff; /* Texto en color blanco */
+  font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
+  position: relative;
+  top: -20px;
+}
 
 form p {
   font-size: 18px;
-  color: #00cc00; /* Nuevo tono de verde */
+  color: #fff; /* Texto en color blanco */
   font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
   position: relative;
   top: -20px;
