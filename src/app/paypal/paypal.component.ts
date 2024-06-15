@@ -90,7 +90,8 @@ export class PaypalComponent implements OnInit, OnDestroy {
 
 
   createPayment(): void {
-    this.http.post<{ id: string, approvalUrl: string, qrCodeBase64: string }>('https://localhost:7130/api/Payments/create-payment', { total: 20.00 })
+    const baseUrl = window.location.origin;
+    this.http.post<{ id: string, approvalUrl: string, qrCodeBase64: string }>('https://localhost:7130/api/Payments/create-payment', { total: 20.00, baseUrl: baseUrl })
       .subscribe(response => {
         if (response && response.approvalUrl) {
           this.qrCodeUrl = 'data:image/png;base64,' + response.qrCodeBase64; // Call generateQRCode only when approvalUrl is received
