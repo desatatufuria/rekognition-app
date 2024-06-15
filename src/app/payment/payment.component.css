@@ -9,6 +9,16 @@ video {
   transform: scaleX(1) !important;
 }
 
+img {
+  position: relative;
+  /*top: -146px;*/
+  /*right: -105px;*/
+
+  top: -135px;
+  right: -110px;
+  height: 110px;
+}
+
 .machine {
   background-color: #454344; /* Nuevo color de fondo */
   border: 4px solid #000; /* Grosor del borde aumentado */
@@ -159,7 +169,7 @@ video {
 }
 
 form p {
-  font-size: 16px;
+  font-size: 18px;
   color: #00cc00; /* Nuevo tono de verde */
   font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
 }
