@@ -25,13 +25,16 @@
                           <p><b>Importe:</b><br> <span class="result">{{ data.parkingFee | number:'1.2-2' }}€</span></p>
                           <p><b>Tarifa:</b><br> <span class="result">{{ data.parkingRate }}€/min</span></p>
                         </div>
+                        <div *ngIf="qrCodeUrl">
+                          <img [src]="qrCodeUrl" alt="QR Code for Payment">
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary mb-3 p-3"></button>
+            <button class="btn btn-primary mb-3 p-3" [disabled]="buttonDisabled" (click)="createPayment()"></button>
           </div>
         </div>
       </div>

@@ -3,6 +3,8 @@ import { DatePipe } from '@angular/common';
 import { ParkingService } from '../services/parking.service';
 import { QrDataService } from '../services/qr-data.service';
 import QrScanner from 'qr-scanner';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-payment',
@@ -15,7 +17,9 @@ export class PaymentComponent implements OnInit, OnDestroy {
   licensePlate: string = ''; // Initialize licensePlate property
   data: any;
 
+  buttonDisabled: boolean = true;
 
+  qrCodeUrl: string = "";
 
 
   @ViewChild('video', { static: true }) video!: ElementRef<HTMLVideoElement>;
@@ -24,10 +28,12 @@ export class PaymentComponent implements OnInit, OnDestroy {
   qrScanner!: QrScanner;
   private qrDetected: boolean = false; // Bandera para detectar si ya se ha procesado un QR
 
-  constructor(private parkingService: ParkingService, private datePipe: DatePipe, private qrDataService: QrDataService, private ngZone: NgZone) { }
+  constructor(private parkingService: ParkingService, private datePipe: DatePipe, private qrDataService: QrDataService, private ngZone: NgZone, private http: HttpClient) { }
 
   ngOnInit() {
     this.initializeScanner();
+
+    //this.createPayment();
 
     // Suscribirse a los cambios en los datos del QR
     this.qrDataService.qrData$.subscribe(data => {
@@ -71,6 +77,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.parkingService.fetchData(this.licensePlate).subscribe(
       (response) => {
         this.data = response;
+        this.buttonDisabled = false;
       },
       (error) => {
         console.error('Error fetching data:', error);
@@ -81,6 +88,23 @@ export class PaymentComponent implements OnInit, OnDestroy {
   formatTime(dateTime: string): string {
     return this.datePipe.transform(dateTime, 'dd/MM/yyyy HH:mm:ss')!;
   }
+
+
+  createPayment(): void {
+    const baseUrl = window.location.origin;
+    this.http.post<{ id: string, approvalUrl: string, qrCodeBase64: string }>('https://localhost:7130/api/Payments/create-payment', { total: 20.00, baseUrl: baseUrl })
+      .subscribe(response => {
+        if (response && response.approvalUrl) {
+          this.qrCodeUrl = 'data:image/png;base64,' + response.qrCodeBase64; // Call generateQRCode only when approvalUrl is received
+        } else {
+          console.error('Invalid response from server:', response);
+        }
+      }, error => {
+        console.error('Error creating payment:', error);
+      });
+  }
+
+
 
 
 }
