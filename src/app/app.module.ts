@@ -9,7 +9,6 @@ import { EntryComponent } from './entry/entry.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ExitComponent } from './exit/exit.component';
 import { AppComponent } from './app/app.component';
-import { PaypalComponent } from './paypal/paypal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +17,6 @@ import { PaypalComponent } from './paypal/paypal.component';
     EntryComponent,
     PaymentComponent,
     ExitComponent,
-    PaypalComponent
   ],
   imports: [
     BrowserModule,
