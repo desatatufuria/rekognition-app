@@ -109,8 +109,14 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
 
   createPayment(): void {
-    
-    this.parkingHttpService.createPayment(20.00)
+    if (!this.data || !this.data.parkingFee) {
+      console.error('No se pudo crear el pago porque no hay datos válidos.');
+      return;
+    }
+
+    const parkingFee = this.data.parkingFee; // Obtener el importe del parkingFee de los datos
+
+    this.parkingHttpService.createPayment(parkingFee)
       .subscribe(response => {
         if (response && response.approvalUrl) {
           this.qrCodeBase64 = 'data:image/png;base64,' + response.qrCodeBase64;
@@ -125,6 +131,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
         console.error('Error creating payment:', error);
       });
   }
+
 
   checkPaymentStatus(): void {
     interval(5000)
