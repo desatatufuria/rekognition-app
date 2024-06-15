@@ -108,8 +108,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
 
   createPayment(): void {
-    const baseUrl = window.location.origin;
-    this.parkingHttpService.createPayment(20.00, baseUrl)
+    
+    this.parkingHttpService.createPayment(20.00)
       .subscribe(response => {
         if (response && response.approvalUrl) {
           this.qrCodeBase64 = 'data:image/png;base64,' + response.qrCodeBase64;

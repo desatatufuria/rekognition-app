@@ -25,8 +25,8 @@
                           <p><b>Importe:</b><br> <span class="result">{{ data.parkingFee | number:'1.2-2' }}€</span></p>
                           <p><b>Tarifa:</b><br> <span class="result">{{ data.parkingRate }}€/min</span></p>
                         </div>
-                        <div *ngIf="qrCodeUrl">
-                          <img [src]="qrCodeUrl" alt="QR Code for Payment">
+                        <div *ngIf="qrCodeBase64">
+                          <img [src]="qrCodeBase64" alt="QR Code for Payment">
                         </div>
                       </div>
                     </div>
