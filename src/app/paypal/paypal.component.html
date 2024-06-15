@@ -1,1 +1,43 @@
-<p>paypal works!</p>
+<div class="machine">
+  <div class="screen">
+    <div class="container mt-5">
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-6 text-center">
+          <div class="row">
+            <div class="col-md-6">
+              <video #video class="rounded"></video>
+            </div>
+          </div>
+          <div class="ticket-output">
+            <div class="container mt-5 text-center">
+              <div class="row justify-content-center">
+                <div class="col-auto">
+                  <div class="screen-container">
+                    <div class="card text-white mb-3">
+                      <div class="card-body message-info">
+                        <form (ngSubmit)="fetchData()" class="mb-4">
+                          <p><strong>Matrícula:</strong> {{ licensePlate }}</p>
+                        </form>
+                        <div *ngIf="data" class="ticket-data">
+                          <p><b>Entrada:</b><br> <span class="result">{{ formatTime(data.entryTime) }}</span></p>
+                          <p><b>Salida:</b><br> <span class="result">{{ formatTime(data.currentTime) }}</span></p>
+                          <p><b>Intervalo:</b><br> <span class="result">{{ data.timeDifference }}</span></p>
+                          <p><b>Importe:</b><br> <span class="result">{{ data.parkingFee | number:'1.2-2' }}€</span></p>
+                          <p><b>Tarifa:</b><br> <span class="result">{{ data.parkingRate }}€/min</span></p>
+                        </div>
+                        <div *ngIf="qrCodeUrl">
+                          <img [src]="qrCodeUrl" alt="QR Code for Payment">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary mb-3 p-3" [disabled]="buttonDisabled" (click)="createPayment()"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
