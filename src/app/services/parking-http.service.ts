@@ -40,11 +40,15 @@ export class ParkingHttpService {
   }
 
 
-   // Paypal ,method to create payment
-  createPayment(total: number): Observable<{ id: string, approvalUrl: string, qrCodeBase64: string }> {
+  // Paypal ,method to create payment
+  createPayment(total: number, licensePlate: string): Observable<{ id: string, approvalUrl: string, qrCodeBase64: string }> {
     return this.http.post<{ id: string, approvalUrl: string, qrCodeBase64: string }>(
       `${this.baseUrl}/api/Payments/create-payment`,
-      { total, baseUrl: `${this.baseUrl}/api/Payments` }
+      {
+        total,
+        baseUrl: `${this.baseUrl}/api/Payments`,
+        licensePlate: licensePlate
+      }
     );
   }
 

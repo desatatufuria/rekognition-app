@@ -117,7 +117,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
     const parkingFee = this.data.parkingFee; // Obtener el importe del parkingFee de los datos
 
-    this.parkingHttpService.createPayment(parkingFee)
+    this.parkingHttpService.createPayment(parkingFee, this.licensePlate)
       .subscribe(response => {
         if (response && response.approvalUrl) {
           this.qrCodeBase64 = 'data:image/png;base64,' + response.qrCodeBase64;
