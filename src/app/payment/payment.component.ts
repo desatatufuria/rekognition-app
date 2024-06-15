@@ -81,15 +81,16 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   setResult(result: any): void {
-    if (this.qrDetected) {
-      return; // Si ya se ha detectado y procesado un QR, no hacer nada
+    if (this.result === result.data) {
+      return; // Si el QR detectado es el mismo que el último, no hacer nada
     }
-    this.qrDetected = true;
+
     this.result = result.data;
     console.log('QR Code detected:', this.result);
     this.qrDataService.setQrData(this.result!); // Enviar el resultado al servicio
     this.scanResult.emit(this.result!); // Emitir el resultado para cualquier escucha externa
   }
+
 
   fetchData() {
     this.parkingHttpService.fetchData(this.licensePlate).subscribe(
