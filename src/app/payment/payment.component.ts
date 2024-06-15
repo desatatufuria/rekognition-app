@@ -38,6 +38,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   paymentStatus: string | null = null;;
 
 
+  hideAttr: boolean = true;
 
 
   constructor(
@@ -116,6 +117,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
           this.paymentId = response.id;
           this.approvalUrl = response.approvalUrl;
           this.checkPaymentStatus();
+          this.hideAttr = false;
         } else {
           console.error('Invalid response from server:', response);
         }
