@@ -132,7 +132,7 @@
 
 .message-info p {
   font-size: 26px; /* Tamaño de fuente más grande */
-  color: #00cc00;
+  color: #fff;
 }
 
 video {
@@ -159,6 +159,7 @@ img {
   margin: 0 auto;
   position: relative;
   top: 5px;
+  color: #fff;
 }
 
   .machine::before {
@@ -234,6 +235,7 @@ img {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   top: -70px;
+  color: #fff;
 }
 
   .btn-primary:hover {
@@ -254,6 +256,7 @@ img {
   background-color: #454344;
   top: -65px;
   position: relative;
+  color: #fff;
 }
 
 .message-info {
@@ -280,6 +283,7 @@ img {
 
 .loading-message {
   font-size: 18px;
+  color: #fff;
 }
 
 .nozzle-container {

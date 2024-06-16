@@ -11,7 +11,7 @@
 
 .message-info p {
   font-size: 26px; /* Tamaño de fuente más grande */
-  color: #00cc00;
+  color: #fff; /* Cambiado a blanco */
 }
 
 video {
@@ -38,6 +38,7 @@ img {
   margin: 0 auto;
   position: relative;
   top: 5px;
+  color: #fff; /* Cambiado a blanco */
 }
 
   .machine::before {
@@ -53,7 +54,7 @@ img {
 
 .screen {
   background-color: #454344;
-  color: #fff;
+  color: #fff; /* Cambiado a blanco */
   border: 0px solid #fff;
   border-radius: 5px;
   width: 365px; /* Ancho reducido para tener en cuenta los bordes */
@@ -67,7 +68,6 @@ img {
   z-index: 1; /* Asegura que la pantalla esté sobre el borde */
 }
 
-/* Para agregar un diseño único, podrías usar un gradiente o una textura de fondo */
 .machine::after {
   content: '';
   position: absolute;
@@ -90,6 +90,7 @@ img {
   left: -53px;
   top: 216px;
   padding: 30px; /* Espaciado interno */
+  color: #fff; /* Cambiado a blanco */
 }
 
   .ticket-output::before {
@@ -114,6 +115,7 @@ img {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   top: -70px;
+  color: #fff; /* Cambiado a blanco */
 }
 
   .btn-primary:hover {
@@ -134,6 +136,7 @@ img {
   background-color: #454344;
   top: -65px;
   position: relative;
+  color: #fff; /* Cambiado a blanco */
 }
 
 .message-info {
@@ -141,9 +144,10 @@ img {
   height: 80px;
   background-color: #cce5ff;
   background: #222;
-  color: #fff;
+  color: #fff; /* Cambiado a blanco */
   text-shadow: 1px 0 rgba(255, 0, 0, 0.9), -1px 0 rgba(0, 0, 255, 0.9);
   padding: 20px;
+  position: relative; /* Agregado para que el ::after funcione correctamente */
 }
 
   .message-info::after {
@@ -160,4 +164,5 @@ img {
 
 .loading-message {
   font-size: 18px;
+  color: #fff; /* Cambiado a blanco */
 }
