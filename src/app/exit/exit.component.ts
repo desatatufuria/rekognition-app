@@ -89,7 +89,7 @@ export class ExitComponent implements AfterViewInit {
       this.readingLicense = false;
      // this.nolicense = true;
       setTimeout(() => {
-        this.nolicense = false;
+        this.resetState();
       }, 5000);
     }
   }
