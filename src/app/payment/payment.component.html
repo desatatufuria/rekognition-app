@@ -15,7 +15,7 @@
                   <div class="screen-container">
                     <div class="card text-white mb-3">
                       <div class="card-body message-info">
-                        <form (ngSubmit)="fetchData()" class="mb-4" *ngIf="showResults">
+                        <form (ngSubmit)="fetchData()" class="mb-4" *ngIf="showResults && !hideLicense">
                           <p><strong>Matrícula:</strong> {{ licensePlate }}</p>
                         </form>
                         <div *ngIf="initMessage" class="init-message">
@@ -41,7 +41,10 @@
                           <p>Gracias por utilizar nuestros servicios</p>
                         </div>
                         <div *ngIf="errorMessage" class="error-message">
-                          {{ errorMessage }}
+                          <p>TICKET NO VÁLIDO</p>
+                        </div>
+                        <div *ngIf="(!initMessage && !qrCodeBase64 && !paymentStatus && !errorMessage) || (qrCodeBase64 && (!paymentStatus || paymentStatus === 'created'))" class="countdown-timer">
+                          <p>{{ countdownMinutes }}:{{ countdownSeconds | number:'2.0' }}</p>
                         </div>
                       </div>
                     </div>

@@ -23,29 +23,32 @@ export class PaymentComponent implements OnInit, OnDestroy {
   data: any;
   buttonDisabled: boolean = true;
 
-
-
   result: string | null = null;
   qrScanner!: QrScanner;
   qrCodeUrl: string = "";
   private qrDetected: boolean = false; // Bandera para detectar si ya se ha procesado un QR
-
-
 
   paymentId: string | null = null;
   approvalUrl: string | null = null;
   qrCodeBase64: string | null = null;
   paymentStatus: string | null = null;
 
-
   hideAttr: boolean = true;
+  hideLicense: boolean = true;
 
   initMessage: boolean = true;
-  errorMessage: string | null = null;
+  errorMessage: boolean = false;
 
 
   showResults: boolean = false;
 
+
+  private timeoutRef: any;
+
+
+  countdownMinutes: number = 5; // Inicializar minutos restantes
+  countdownSeconds: number = 0; // Inicializar segundos restantes
+  countdownInterval: any;
 
   constructor(
     private parkingHttpService: ParkingHttpService,
@@ -57,7 +60,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initializeScanner();
 
-    //this.createPayment();
+    // Iniciar el intervalo para actualizar el contador cada segundo
+    this.countdownInterval = setInterval(() => {
+      this.updateCountdown();
+    }, 1000);
 
     // Suscribirse a los cambios en los datos del QR
     this.qrDataService.qrData$.subscribe(data => {
@@ -70,6 +76,33 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.qrScanner.stop();
+
+    // Limpiar el intervalo al destruir el componente para evitar fugas de memoria
+    clearInterval(this.countdownInterval);
+  }
+
+  updateCountdown(): void {
+    // Reducir el tiempo restante cada segundo
+    if (this.countdownSeconds > 0) {
+      this.countdownSeconds--;
+    } else if (this.countdownMinutes > 0) {
+      this.countdownMinutes--;
+      this.countdownSeconds = 59; // Reiniciar los segundos
+    } else {
+      // Cuando el contador llega a cero, realizar las acciones necesarias
+      clearInterval(this.countdownInterval); // Detener el intervalo
+      this.handleTimeout(); // Llamar a la función que maneja el timeout
+    }
+  }
+
+  handleTimeout(): void {
+    // Aquí colocas la lógica que deseas ejecutar cuando se complete el tiempo de espera (5 minutos)
+    console.log('Timeout reached after 5 minutes.');
+    // Restablecer variables o estado necesario
+    this.initMessage = true;
+    this.buttonDisabled = true;
+    this.result = null; // Limpiar el resultado del QR
+    // También podrías reiniciar otros estados según tu lógica de la aplicación
   }
 
   initializeScanner(): void {
@@ -96,7 +129,21 @@ export class PaymentComponent implements OnInit, OnDestroy {
     console.log('QR Code detected:', this.result);
     this.qrDataService.setQrData(this.result!); // Enviar el resultado al servicio
     this.scanResult.emit(this.result!); // Emitir el resultado para cualquier escucha externa
+
+    // Reiniciar el timeout cada vez que se detecta un nuevo QR válido
+    clearTimeout(this.timeoutRef);
+    this.timeoutRef = setTimeout(() => {
+      this.handleTimeout();
+      this.initMessage = true;
+      this.buttonDisabled = true;
+      this.result = null; // Limpiar el resultado del QR
+      this.data = null;
+      this.licensePlate = '';
+      this.hideLicense = true;
+      this.errorMessage = false;
+    }, 5 * 60 * 1000); // 5 minutos en milisegundos
   }
+
 
 
   fetchData() {
@@ -105,24 +152,21 @@ export class PaymentComponent implements OnInit, OnDestroy {
         this.data = response;
         this.buttonDisabled = false;
         this.showResults = true;
-
-        setTimeout(() => {
-          this.showResults = false;
-          this.initMessage = true;
-          this.buttonDisabled = true;
-        }, 15000);
+        this.hideLicense = false;
       },
       (error) => {
         console.error('Error fetching data:', error);
-        this.errorMessage = 'TICKET NO VÁLIDO';
+        this.errorMessage = true;
         this.licensePlate = '';
-        //borrar datos
+        this.hideLicense = true;
         this.data = null;
 
         setTimeout(() => {
-          this.errorMessage = null;
+          this.errorMessage = false;
           this.initMessage = true;
           this.buttonDisabled = true;
+          this.result = null; // Limpiar el resultado del QR
+          this.hideLicense = true;
         }, 10000);
       }
     );
@@ -177,6 +221,5 @@ export class PaymentComponent implements OnInit, OnDestroy {
         console.error('Error checking payment status:', error);
       });
   }
-
 
 }

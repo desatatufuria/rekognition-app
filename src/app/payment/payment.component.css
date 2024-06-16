@@ -247,3 +247,13 @@ form p {
   left: 18px;
   top: 55px;
 }
+
+
+.countdown-timer {
+  font-size: 18px;
+  color: #fff; /* Texto en color blanco */
+  font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
+  position: relative;
+  top: -45px;
+  right: -143px;
+}
