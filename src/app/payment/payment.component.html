@@ -36,7 +36,7 @@
                           <p><b>Importe:</b><br> <span class="result">{{ data.parkingFee | number:'1.2-2' }}€</span></p>
                           <p><b>Tarifa:</b><br> <span class="result">{{ data.parkingRate }}€/min</span></p>
                         </div>
-                        <div *ngIf="paymentStatus === 'approved'" class="payment-completed-message">
+                        <div *ngIf="paymentStatus === 'approved' && !initMessage" class="payment-completed-message">
                           <h3>¡Estancia Pagada!</h3>
                           <p>Gracias por utilizar nuestros servicios</p>
                         </div>

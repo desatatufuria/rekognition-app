@@ -214,6 +214,17 @@ export class PaymentComponent implements OnInit, OnDestroy {
         this.paymentStatus = response.status;
         if (response.status === 'approved') {
           console.log('Payment approved!');
+
+          setTimeout(() => {
+            this.initMessage = true;
+            this.buttonDisabled = true;
+            this.result = null; 
+            this.hideLicense = true;
+            this.data = null;
+            this.hideAttr = true;
+            this.showResults = false;
+            this.licensePlate = '';
+          }, 10000);
         } else {
           console.log('Payment status:', response.status);
         }
