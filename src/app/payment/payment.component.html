@@ -15,9 +15,12 @@
                   <div class="screen-container">
                     <div class="card text-white mb-3">
                       <div class="card-body message-info">
-                        <form (ngSubmit)="fetchData()" class="mb-4">
+                        <form (ngSubmit)="fetchData()" class="mb-4" *ngIf="showResults">
                           <p><strong>Matrícula:</strong> {{ licensePlate }}</p>
                         </form>
+                        <div *ngIf="initMessage" class="init-message">
+                          <p>Escanea el código QR de tu ticket de estacionamiento</p>
+                        </div>
                         <div *ngIf="qrCodeBase64 && (!paymentStatus || paymentStatus === 'created')" class="qr-payment text-center">
                           <h6>Escanea para realizar el pago</h6>
                           <img [src]="qrCodeBase64" alt="QR Code for Payment">
@@ -26,7 +29,7 @@
                             <p class="importe"><b>Importe:</b> <span class="result">{{ data.parkingFee | number:'1.2-2' }}€</span></p>
                           </div>
                         </div>
-                        <div *ngIf="data && hideAttr" class="ticket-data">
+                        <div *ngIf="data && hideAttr && showResults" class="ticket-data">
                           <p><b>Entrada:</b><br> <span class="result">{{ formatTime(data.entryTime) }}</span></p>
                           <p><b>Salida:</b><br> <span class="result">{{ formatTime(data.currentTime) }}</span></p>
                           <p><b>Estancia:</b><br> <span class="result">{{ data.timeDifference }}</span></p>
@@ -36,6 +39,9 @@
                         <div *ngIf="paymentStatus === 'approved'" class="payment-completed-message">
                           <h3>¡Estancia Pagada!</h3>
                           <p>Gracias por utilizar nuestros servicios</p>
+                        </div>
+                        <div *ngIf="errorMessage" class="error-message">
+                          {{ errorMessage }}
                         </div>
                       </div>
                     </div>

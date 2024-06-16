@@ -32,13 +32,19 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
 
 
-  paymentId: string | null = null;;
-  approvalUrl: string | null = null;;
-  qrCodeBase64: string | null = null;;
-  paymentStatus: string | null = null;;
+  paymentId: string | null = null;
+  approvalUrl: string | null = null;
+  qrCodeBase64: string | null = null;
+  paymentStatus: string | null = null;
 
 
   hideAttr: boolean = true;
+
+  initMessage: boolean = true;
+  errorMessage: string | null = null;
+
+
+  showResults: boolean = false;
 
 
   constructor(
@@ -82,6 +88,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   setResult(result: any): void {
     if (this.result === result.data) {
+      this.initMessage = false;
       return; // Si el QR detectado es el mismo que el último, no hacer nada
     }
 
@@ -97,9 +104,26 @@ export class PaymentComponent implements OnInit, OnDestroy {
       (response) => {
         this.data = response;
         this.buttonDisabled = false;
+        this.showResults = true;
+
+        setTimeout(() => {
+          this.showResults = false;
+          this.initMessage = true;
+          this.buttonDisabled = true;
+        }, 15000);
       },
       (error) => {
         console.error('Error fetching data:', error);
+        this.errorMessage = 'TICKET NO VÁLIDO';
+        this.licensePlate = '';
+        //borrar datos
+        this.data = null;
+
+        setTimeout(() => {
+          this.errorMessage = null;
+          this.initMessage = true;
+          this.buttonDisabled = true;
+        }, 10000);
       }
     );
   }
@@ -125,6 +149,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
           this.approvalUrl = response.approvalUrl;
           this.checkPaymentStatus();
           this.hideAttr = false;
+          this.buttonDisabled = true;
+
         } else {
           console.error('Invalid response from server:', response);
         }

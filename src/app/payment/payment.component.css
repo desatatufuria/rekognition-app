@@ -227,3 +227,23 @@ form p {
       display: block;
       margin-top: 2px;
     }
+
+.error-message {
+  margin-top: 10px;
+  width: 286px;
+  font-size: 22px;
+  background-color: #c42b00;
+  position: relative;
+  top: 95px;
+  left: -5px;
+}
+
+.init-message {
+  margin-top: 10px;
+  width: 239px;
+  font-size: 22px;
+  background-color: #6fa500;
+  position: relative;
+  left: 18px;
+  top: 55px;
+}
