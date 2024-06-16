@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ParkingSpot } from '../interfaces/parking';
+import { ParkingExit, ParkingSpot } from '../interfaces/parking';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,10 @@ export class ParkingHttpService {
 
   getParkingSpots(): Observable<ParkingSpot[]> {
     return this.http.get<ParkingSpot[]>(`${this.baseUrl}/api/Parking/spots`);
+  }
+
+  getVehicles(): Observable<ParkingExit[]> {
+    return this.http.get<ParkingExit[]>(`${this.baseUrl}/api/parking/vehicles`);
   }
 
   checkAvailableSpots(): Observable<{ availableSpots: number }> {
