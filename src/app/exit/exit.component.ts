@@ -19,6 +19,7 @@ export class ExitComponent implements AfterViewInit {
   selectedFile: File | null = null;
   imageUrl: string | ArrayBuffer | null = null;
   jsonResponse: any = null;
+  errorMessage: string | null = null;
 
   @ViewChild('videoElement', { static: true }) videoElement!: ElementRef;
   @ViewChild('canvasElement', { static: true }) canvasElement!: ElementRef;
@@ -86,7 +87,7 @@ export class ExitComponent implements AfterViewInit {
     } catch (error) {
       console.error('Error:', error);
       this.readingLicense = false;
-      this.nolicense = true;
+     // this.nolicense = true;
       setTimeout(() => {
         this.nolicense = false;
       }, 5000);
@@ -109,8 +110,9 @@ export class ExitComponent implements AfterViewInit {
       console.log('Salida del vehículo registrada correctamente:', response);
       console.log('fin de response----');
       return response;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error al registrar la salida del vehículo:', error);
+      this.errorMessage = error?.error?.error || 'Unknown error';
       throw error;
     }
   }
@@ -120,6 +122,7 @@ export class ExitComponent implements AfterViewInit {
     this.nolicense = false;
     this.carExit = false;
     this.imageUrl = null;
+    this.errorMessage = null;
 
   }
 }
