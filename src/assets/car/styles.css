@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.garage {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-gap: 10px;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+}
+
+.slot {
+    width: 100px;
+    height: 150px;
+    background-color: #555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    position: relative;
+}
+
+.slot::before {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 130px;
+    background-color: #777;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.car {
+    width: 80px;
+    height: 130px;
+    background-color: red;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}

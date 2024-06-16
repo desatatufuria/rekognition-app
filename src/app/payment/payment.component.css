@@ -1,0 +1,272 @@
+video {
+  width: 390px;
+  height: 220px;
+  top: -8px;
+  right: 102px;
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transform: scaleX(1) !important;
+}
+
+img {
+  position: relative;
+  height: 150px;
+  top: -30px;
+}
+
+.machine {
+  background-color: #454344; /* Color de fondo */
+  border: 4px solid #000; /* Grosor del borde */
+  border-radius: 20px; /* Borde redondeado */
+  padding: 30px; /* Espaciado interno */
+  width: 500px;
+  height: 250px;
+  margin: 0 auto;
+  position: relative;
+  top: 5px;
+}
+
+  .machine::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 4px solid #fff; /* Borde blanco alrededor de la máquina */
+    border-radius: 24px; /* Borde redondeado más grande */
+  }
+
+.screen {
+  background-color: #454344;
+  color: #fff; /* Texto en color blanco */
+  border: 0px solid #fff; /* Borde sin color */
+  border-radius: 5px;
+  width: 365px; /* Ancho reducido para tener en cuenta los bordes */
+  height: 188px;
+  right: -19px; /* Alineado a la derecha */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1; /* Asegura que la pantalla esté sobre el borde */
+}
+
+.machine::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  background-size: cover;
+  opacity: 0.1; /* Ajusta la opacidad según tu preferencia */
+  z-index: -1; /* Detrás de todos los demás elementos */
+}
+
+.container {
+  max-width: 600px;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-output {
+  width: 500px;
+  height: 675px;
+  border: 4px solid #000;
+  border-radius: 20px;
+  position: absolute;
+  background-color: #454344;
+  padding: 30px;
+  left: -53px;
+  top: 216px;
+}
+
+  .ticket-output::before {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 4px solid #fff;
+    border-radius: 24px;
+  }
+
+.btn-primary {
+  background-color: #4CAF50;
+  border-color: #388E3C;
+  border-radius: 50%;
+  padding: 20px 40px;
+  font-size: 18px;
+  width: 75px;
+  height: 75px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: -60px;
+}
+
+  .btn-primary:hover {
+    background-color: #43A047;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+    border-color: #388E3C;
+  }
+
+  .btn-primary:active {
+    background-color: #388E3C;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-color: #388E3C;
+  }
+
+
+.screen-container {
+  margin: 20px;
+  border: 2px solid #ffffff; /* Borde blanco */
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #454344; /* Color de fondo similar al ticket-output */
+  width: 395px;
+  position: relative;
+  right: 11px;
+  height: 390px;
+  top: -60px;
+  overflow: hidden;
+}
+
+.message-info {
+  width: 349px;
+  height: 340px;
+  background: #222;
+  color: #fff; /* Texto en color blanco */
+  text-shadow: 1px 0 rgba(255, 0, 0, 0.9), -1px 0 rgba(0, 0, 255, 0.9);
+  padding: 40px;
+}
+
+  .message-info::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to top, rgba(255, 255, 255, 0.2) 33.33333%, rgba(255, 255, 255, 0.4) 33.33333%, rgba(255, 255, 255, 0.4) 66.66666%, rgba(255, 255, 255, 0.6) 66.66666%), linear-gradient(to right, rgba(255, 0, 0, 0.7) 33.33333%, rgba(0, 255, 0, 0.7) 33.33333%, rgba(0, 255, 0, 0.7) 66.66666%, rgba(0, 0, 255, 0.7) 66.66666%);
+    background-size: 3px 3px;
+    mix-blend-mode: multiply;
+  }
+
+.ticket-data p {
+  font-size: 16px;
+  position: relative;
+  top: -15px;
+  left: -18px;
+  color: #fff; /* Texto en color blanco */
+  font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
+}
+
+.qr-payment p {
+  font-size: 14px;
+  position: relative;
+  top: -27px;
+  left: -26px;
+  color: #fff; /* Texto en color blanco */
+  font-family: 'LCD', monospace;
+  width: 326px;
+  text-align: center;
+  margin: 0 auto;
+  margin: 10px 0;
+}
+
+  .qr-payment p .result {
+    margin-left: 10px; /* Ajustar el espaciado según sea necesario */
+  }
+
+.qr-payment .importe {
+  left: -84px; /* Ajustar el espaciado según sea necesario */
+}
+
+.qr-payment h6 {
+  position: relative;
+  top: -35px;
+  left: -26px;
+  color: #fff; /* Texto en color blanco */
+  font-family: 'LCD', monospace;
+  width: 326px;
+}
+
+.payment-completed-message {
+  font-size: 18px;
+  color: #fff; /* Texto en color blanco */
+  font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
+  position: relative;
+  top: -20px;
+}
+
+form p {
+  font-size: 18px;
+  color: #fff; /* Texto en color blanco */
+  font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
+  position: relative;
+  top: -20px;
+}
+
+.ticket-data {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  text-align: left;
+  margin-top: -10px;
+}
+
+  .ticket-data p {
+    line-height: 1.2;
+    margin: 0 0 10px;
+  }
+
+    .ticket-data p .result {
+      display: block;
+      margin-top: 2px;
+    }
+
+.error-message {
+  margin-top: 10px;
+  width: 286px;
+  font-size: 22px;
+  background-color: #c42b00;
+  position: relative;
+  top: 95px;
+  left: -5px;
+}
+
+.init-message {
+  margin-top: 10px;
+  width: 239px;
+  font-size: 22px;
+  background-color: #1e89bc;
+  position: relative;
+  left: 18px;
+  top: 55px;
+}
+
+
+.countdown-timer {
+  font-size: 18px;
+  color: #fff; /* Texto en color blanco */
+  font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
+  position: relative;
+  top: -45px;
+  right: -143px;
+}
+
+
+.payment-completed-message {
+  font-size: 18px;
+  color: #fff; /* Texto en color blanco */
+  font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
+  background-color: #6fa500;
+  position: relative;
+  top: 30px;
+}

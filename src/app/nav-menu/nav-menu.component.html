@@ -1,0 +1,24 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/']"><i class="bi bi-car-front"></i>ParkingSon & Associated<i class="bi bi-car-front"></i></a>
+
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between align-items-center">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]='["link-active"]'>
+            <a class="nav-link text-dark" [routerLink]='["/entry"]'>Entrada</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]='["link-active"]'>
+            <a class="nav-link text-dark" [routerLink]='["/payment"]'>Pago</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]='["link-active"]'>
+            <a class="nav-link text-dark" [routerLink]='["/exit"]'>Salida</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]='["link-active"]'>
+            <a class="nav-link text-dark" [routerLink]='["/status"]'>Estado</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
