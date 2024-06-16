@@ -16,14 +16,28 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Parking Spot</th>
-          <th>License Plate</th>
+          <th>Plaza</th>
+          <th>Matrícula</th>
+          <th>Hora de entrada</th>
+          <th>Estancia</th>
+          <th>Imagen</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let spot of getDisplayedSpots(); let i = index">
           <td>P{{ spot.id }}</td>
-          <td>{{ spot.isOccupied ? getLicensePlate(spot.id) : 'Empty' }}</td>
+          <td>{{ getLicensePlate(spot.id) || 'Empty' }}</td>
+          <td>{{ getFormattedEntryTime(spot.id) || 'N/A' }}</td>
+          <td>{{ getParkingDuration(spot.id) || 'N/A' }}</td>
+          <td>
+            <button type="button" class="btn btn-link" (click)="toggleImagePopover(spot.id)">
+              Ver imagen
+            </button>
+            <div id="spot-{{ spot.id }}" class="collapse" [class.show]="imagePopovers[spot.id]">
+              <img *ngIf="getLicenseIMG(spot.id)" [src]="getLicenseIMG(spot.id)" class="img-fluid" alt="Imagen del vehículo">
+              <span *ngIf="!getLicenseIMG(spot.id)">No hay imagen disponible.</span>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
