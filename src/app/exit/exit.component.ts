@@ -26,9 +26,10 @@ export class ExitComponent implements AfterViewInit {
 
   licensePlate: string | null = null;
   licenseIMG: string | null = null;
-  
-  nolicense: boolean = true;
+
+  nolicense: boolean = false;
   carExit: boolean = false;
+  readingLicense: boolean = false;
 
   url: string = "http://3.85.87.1";
   url1: string = "https://localhost:7130";
@@ -43,7 +44,7 @@ export class ExitComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.cameraService.startCamera(this.videoElement);
   }
-   
+
   async startAutoCapture() {
     await this.captureAndUpload();
   }
@@ -54,8 +55,9 @@ export class ExitComponent implements AfterViewInit {
       this.resetState();
 
       const capturedPhoto = this.cameraService.captureImage(this.videoElement, this.canvasElement);
-    
 
+
+      this.readingLicense = true;
       if (capturedPhoto) {
         const blob = this.cameraService.dataURItoBlob(capturedPhoto);
         const response = await lastValueFrom(this.parkingHttpService.uploadImage(blob));
@@ -67,18 +69,27 @@ export class ExitComponent implements AfterViewInit {
           this.licenseIMG = result.licenseIMG;
           const registerCarResponse = await this.registerCarExit();
           console.log("Hora de salida registrada:", registerCarResponse.exitTime);
-       
           this.carExit = true;
+          this.readingLicense = false;
+          setTimeout(() => {
+            this.carExit = false;
+          }, 5000);
         } else {
           console.log("Algo ha salido mal, vuelve a pulsar el botón");
-          this.nolicense = false;
-        
+          this.nolicense = true;
+          this.readingLicense = false;
+          setTimeout(() => {
+            this.nolicense = false;
+          }, 5000);
         }
       }
     } catch (error) {
       console.error('Error:', error);
-    
-      this.nolicense = false;
+      this.readingLicense = false;
+      this.nolicense = true;
+      setTimeout(() => {
+        this.nolicense = false;
+      }, 5000);
     }
   }
 
@@ -105,10 +116,10 @@ export class ExitComponent implements AfterViewInit {
   }
 
   private resetState() {
-  
-    this.nolicense = true;
+    this.readingLicense = false;
+    this.nolicense = false;
     this.carExit = false;
     this.imageUrl = null;
-  
+
   }
 }
