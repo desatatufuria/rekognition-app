@@ -242,7 +242,7 @@ form p {
   margin-top: 10px;
   width: 239px;
   font-size: 22px;
-  background-color: #6fa500;
+  background-color: #1e89bc;
   position: relative;
   left: 18px;
   top: 55px;
@@ -256,4 +256,14 @@ form p {
   position: relative;
   top: -45px;
   right: -143px;
+}
+
+
+.payment-completed-message {
+  font-size: 18px;
+  color: #fff; /* Texto en color blanco */
+  font-family: 'LCD', monospace; /* Fuente estilo liquid crystal */
+  background-color: #6fa500;
+  position: relative;
+  top: 30px;
 }
