@@ -19,6 +19,8 @@
           <th>Plaza</th>
           <th>Matrícula</th>
           <th>Hora de entrada</th>
+          <th>Estancia</th>
+          <th>Importe</th>
           <th>Imagen</th>
         </tr>
       </thead>
@@ -27,6 +29,8 @@
           <td>P{{ spot.id }}</td>
           <td>{{ getLicensePlate(spot.id) || 'Empty' }}</td>
           <td>{{ getFormattedEntryTime(spot.id) || 'N/A' }}</td>
+          <td>{{ getFormattedParkingDuration(spot.id) || 'N/A' }}</td>
+          <td>{{ getAmount(spot.id) || 'N/A' }} €</td>
           <td>
             <button type="button" class="btn btn-link" (click)="toggleImagePopover(spot.id)">
               Ver imagen
