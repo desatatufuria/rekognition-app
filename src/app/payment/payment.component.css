@@ -96,8 +96,8 @@ img {
   }
 
 .btn-primary {
-  background-color: #ff6347;
-  border-color: #e04e39;
+  background-color: #4CAF50;
+  border-color: #388E3C;
   border-radius: 50%;
   padding: 20px 40px;
   font-size: 18px;
@@ -110,14 +110,17 @@ img {
 }
 
   .btn-primary:hover {
-    background-color: #ff4500;
+    background-color: #43A047;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+    border-color: #388E3C;
   }
 
   .btn-primary:active {
-    background-color: #e5533d;
+    background-color: #388E3C;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-color: #388E3C;
   }
+
 
 .screen-container {
   margin: 20px;
