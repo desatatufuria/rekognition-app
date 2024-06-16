@@ -16,17 +16,13 @@
       <thead class="thead-dark">
         <tr>
           <th>#</th>
-          <th>Placa</th>
-          <th>Modelo</th>
-          <th>Propietario</th>
+          <th>Matricula</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let spot of parkingSpots" [hidden]="!spot.occupied">
           <td>{{ spot.id + 1 }}</td>
           <td>{{ spot.car?.licensePlate }}</td>
-          <td>{{ spot.car?.model }}</td>
-          <td>{{ spot.car?.owner }}</td>
         </tr>
       </tbody>
     </table>

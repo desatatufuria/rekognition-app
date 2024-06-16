@@ -1,0 +1,5 @@
+<div class="garage">
+  <div class="slot" *ngFor="let spot of parkingSpots; let i = index" [id]="'slot' + (i + 1)">
+    <div *ngIf="spot.isOccupied" class="car"></div>
+  </div>
+</div>

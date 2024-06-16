@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ParkingSpot } from '../interfaces/parking';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ export class ParkingHttpService {
 
   constructor(private http: HttpClient) { }
 
-
+  getParkingSpots(): Observable<ParkingSpot[]> {
+    return this.http.get<ParkingSpot[]>(`${this.baseUrl}/api/Parking/spots`);
+  }
 
   checkAvailableSpots(): Observable<{ availableSpots: number }> {
     return this.http.get<{ availableSpots: number }>(`${this.baseUrl}/api/Parking/status`);

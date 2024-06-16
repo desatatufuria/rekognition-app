@@ -1,5 +1,3 @@
-
-
 export interface ParkingExit {
   id: number;
   licensePlate: string;
@@ -14,7 +12,7 @@ export interface ParkingExit {
   licenseIMG: string;
 }
 
-interface ParkingSpot {
+export interface ParkingSpot {
   id: number;
   isOccupied: boolean;
 }

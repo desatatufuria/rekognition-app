@@ -9,6 +9,7 @@ import { EntryComponent } from './entry/entry.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ExitComponent } from './exit/exit.component';
 import { AppComponent } from './app/app.component';
+import { ParkingStatusComponent } from './parking-status/parking-status.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,6 +18,7 @@ import { AppComponent } from './app/app.component';
     EntryComponent,
     PaymentComponent,
     ExitComponent,
+    ParkingStatusComponent,
   ],
   imports: [
     BrowserModule,
