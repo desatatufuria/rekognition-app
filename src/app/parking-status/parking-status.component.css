@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.garage {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-gap: 10px;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 10px;
+}
+
+.slot {
+  width: 100px;
+  height: 150px; /* Ajusta el alto según tus necesidades */
+  background-color: #555;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  position: relative;
+  margin: 15px 0; /* Margen arriba y abajo de 10px */
+  color: #fff;
+}
+
+.slot-info {
+  text-align: center; /* Centra el contenido horizontalmente */
+  z-index: 1; /* Para que el texto esté por encima del pseudo-elemento */
+}
+
+.slot::before {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 130px;
+  background-color: #3dff033d;
+  border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.slot-info .slot-id {
+  display: block; /* Mostrar cada span en una línea separada */
+  font-size: 1.2em; /* Tamaño de la fuente del ID y la matrícula */
+  font-weight: bold; /* Negrita del texto */
+}
+
+.slot-info .license-plate {
+  display: block; /* Mostrar cada span en una línea separada */
+  font-size: 1em; /* Tamaño de la fuente del ID y la matrícula */
+  font-weight: bold; /* Negrita del texto */
+}
+
+
+
+.car {
+  width: 80px;
+  height: 130px;
+  background-color: #f72f2fab;
+  border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.table-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-left: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+}
