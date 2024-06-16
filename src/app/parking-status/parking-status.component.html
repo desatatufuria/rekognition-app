@@ -1,9 +1,14 @@
 <div class="container">
   <div class="garage">
     <div class="slot" *ngFor="let spot of parkingSpots; let i = index" [id]="'slot' + (i + 1)">
+      <div class="slot-info">
+        <span class="slot-id">P{{ spot.id }}</span>
+        <span class="license-plate">{{ getLicensePlate(spot.id) }}</span>
+      </div>
       <div *ngIf="spot.isOccupied" class="car"></div>
     </div>
   </div>
+
 
 
 
@@ -16,8 +21,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let spot of parkingSpots; let i = index">
-          <td>{{ spot.id }}</td>
+        <tr *ngFor="let spot of parkingSpots | occupiedSpots; let i = index">
+          <td>P{{ spot.id }}</td>
           <td>{{ spot.isOccupied ? getLicensePlate(spot.id) : 'Empty' }}</td>
         </tr>
       </tbody>

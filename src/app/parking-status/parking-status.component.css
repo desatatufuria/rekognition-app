@@ -1,7 +1,7 @@
 .container {
   display: flex;
   justify-content: space-around;
-  align-items: normal;
+  align-items: flex-start;
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
@@ -18,26 +18,47 @@
 
 .slot {
   width: 100px;
-  height: 150px;
+  height: 150px; /* Ajusta el alto según tus necesidades */
   background-color: #555;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
   position: relative;
+  margin: 15px 0; /* Margen arriba y abajo de 10px */
+  color: #fff;
 }
 
-  .slot::before {
-    content: "";
-    display: block;
-    width: 80px;
-    height: 130px;
-    background-color: #3dff033d;
-    border-radius: 5px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-  }
+.slot-info {
+  text-align: center; /* Centra el contenido horizontalmente */
+  z-index: 1; /* Para que el texto esté por encima del pseudo-elemento */
+}
+
+.slot::before {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 130px;
+  background-color: #3dff033d;
+  border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.slot-info .slot-id {
+  display: block; /* Mostrar cada span en una línea separada */
+  font-size: 1.2em; /* Tamaño de la fuente del ID y la matrícula */
+  font-weight: bold; /* Negrita del texto */
+}
+
+.slot-info .license-plate {
+  display: block; /* Mostrar cada span en una línea separada */
+  font-size: 1em; /* Tamaño de la fuente del ID y la matrícula */
+  font-weight: bold; /* Negrita del texto */
+}
+
+
 
 .car {
   width: 80px;
