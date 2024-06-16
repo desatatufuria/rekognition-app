@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, interval, merge, switchMap, timer } from 'rxjs';
 import { ParkingExit, ParkingSpot } from '../interfaces/parking';
 
 @Injectable({
@@ -18,6 +18,13 @@ export class ParkingHttpService {
 
   getVehicles(): Observable<ParkingExit[]> {
     return this.http.get<ParkingExit[]>(`${this.baseUrl}/api/parking/vehicles`);
+  }
+
+  // Método para obtener datos cada 5 segundos (ejemplo)
+  getParkingDataEveryFiveSeconds(): Observable<any> {
+    return timer(0, 5000).pipe(
+      switchMap(() => this.getParkingSpots())
+    );
   }
 
   checkAvailableSpots(): Observable<{ availableSpots: number }> {

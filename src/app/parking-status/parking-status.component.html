@@ -13,7 +13,7 @@
 
 
   <div class="table-container">
-    <table>
+    <table class="table table-striped">
       <thead>
         <tr>
           <th>Parking Spot</th>
@@ -21,11 +21,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let spot of parkingSpots | occupiedSpots; let i = index">
+        <tr *ngFor="let spot of getDisplayedSpots(); let i = index">
           <td>P{{ spot.id }}</td>
           <td>{{ spot.isOccupied ? getLicensePlate(spot.id) : 'Empty' }}</td>
         </tr>
       </tbody>
     </table>
+    <nav *ngIf="showPagination" aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item" *ngFor="let page of getPaginationArray()" [class.active]="currentPage === page">
+          <a class="page-link" (click)="onPageChange(page)">{{ page }}</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
