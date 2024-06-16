@@ -60,10 +60,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initializeScanner();
 
-    // Iniciar el intervalo para actualizar el contador cada segundo
-    this.countdownInterval = setInterval(() => {
-      this.updateCountdown();
-    }, 1000);
+    
 
     // Suscribirse a los cambios en los datos del QR
     this.qrDataService.qrData$.subscribe(data => {
@@ -129,6 +126,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
     console.log('QR Code detected:', this.result);
     this.qrDataService.setQrData(this.result!); // Enviar el resultado al servicio
     this.scanResult.emit(this.result!); // Emitir el resultado para cualquier escucha externa
+
+    // Iniciar el intervalo para actualizar el contador cada segundo
+    this.countdownInterval = setInterval(() => {
+      this.updateCountdown();
+    }, 1000);
 
     // Reiniciar el timeout cada vez que se detecta un nuevo QR válido
     clearTimeout(this.timeoutRef);
