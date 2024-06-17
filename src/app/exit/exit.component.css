@@ -11,6 +11,11 @@
   z-index: -1;
 }
 
+.logo {
+  position: relative;
+  top: 215px;
+}
+
 .fixed-size-card {
   width: 285px; /* Ancho fijo */
   height: 80px; /* Alto fijo */

@@ -11,6 +11,13 @@
   z-index: -1;
 }
 
+.logo {
+  position: relative;
+  top: 475px;
+  z-index: 1;
+  left: 275px;
+}
+
 video {
   width: 390px;
   height: 220px;

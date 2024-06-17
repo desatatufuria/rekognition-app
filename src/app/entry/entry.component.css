@@ -11,6 +11,11 @@
   z-index: -1;
 }
 
+.logo {
+  position: relative;
+  top: 255px;
+}
+
 .ticket {
   border: 1px solid; /* Agregamos un borde delgado */
   border-radius: 10px;
