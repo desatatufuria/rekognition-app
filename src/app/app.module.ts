@@ -10,6 +10,7 @@ import { ExitComponent } from './exit/exit.component';
 import { AppComponent } from './app/app.component';
 import { ParkingStatusComponent } from './parking-status/parking-status.component';
 import { OccupiedSpotsPipe } from './pipes/occupied-spots.pipe';
+import { HomeComponent } from './home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +20,7 @@ import { OccupiedSpotsPipe } from './pipes/occupied-spots.pipe';
     ExitComponent,
     ParkingStatusComponent,
     OccupiedSpotsPipe,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

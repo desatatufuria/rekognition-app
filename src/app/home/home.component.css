@@ -1,0 +1,22 @@
+img {
+  vertical-align: middle;
+  width: 1500px;
+  height: 821px;
+  position: relative;
+  top: -16px;
+  margin-bottom: -27px;
+}
+
+
+:host {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/images/slider-bg.jpg'); /* Ruta relativa a la imagen */
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
