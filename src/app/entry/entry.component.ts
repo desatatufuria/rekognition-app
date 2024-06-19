@@ -33,10 +33,13 @@ export class EntryComponent implements AfterViewInit {
   ticket: boolean = false;
   ticketVisible: boolean = true;
   private ticketTimeout: any;
+  private getTimeout: any;
   loadingTicket: boolean = false;
   nolicense: boolean = true;
   parkingSpots: boolean = true;
   parkingError: string | null = null;
+  okPark: boolean = false;
+  pressButton: boolean = true;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -76,6 +79,7 @@ export class EntryComponent implements AfterViewInit {
             this.licenseIMG = result.licenseIMG;
             const registerCarResponse = await this.registerCar();
             this.processRegisterCarResponse(registerCarResponse);
+
           } else {
             this.handleError('Algo ha salido mal, vuelve a pulsar el botón');
           }
@@ -89,11 +93,21 @@ export class EntryComponent implements AfterViewInit {
       this.handleError('Error al capturar y subir la imagen');
 
     }
+    if (this.nolicense == false) {
+      this.getTimeout = setTimeout(() => {
+        this.nolicense = true;
+        this.parkingSpots = true;
+        this.pressButton = true;
+      }, 5000);
+      return;
+    }
     this.cdr.detectChanges();
+    this.okPark = true;
     await this.uploadCapturedTicket();
   }
 
   private resetState() {
+    this.pressButton = false;
     this.loadingTicket = false;
     this.nolicense = true;
     this.parkingSpots = true;
@@ -103,6 +117,7 @@ export class EntryComponent implements AfterViewInit {
     this.ticket = false;
     this.ticketVisible = false;
     this.parkingError = null;
+    this.okPark = false;
   }
 
   private handleError(message: string) {
@@ -162,6 +177,14 @@ export class EntryComponent implements AfterViewInit {
     }
     this.ticketTimeout = setTimeout(() => {
       this.ticketVisible = false;
+      this.nolicense = true;
+      this.parkingSpots = true;
+      this.pressButton = true;
+      this.okPark = false;
     }, 5000);
   }
+
+
+
+
 }
