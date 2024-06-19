@@ -7,8 +7,8 @@ import { ParkingExit, ParkingSpot } from '../interfaces/parking';
   providedIn: 'root'
 })
 export class ParkingHttpService {
-  private baseUrl: string = 'https://localhost:7130';
-  private baseUrl1: string = 'http://3.85.87.1';
+  private baseUrl1: string = 'https://localhost:7130';
+  private baseUrl: string = 'http://3.85.87.1';
 
   constructor(private http: HttpClient) { }
 
