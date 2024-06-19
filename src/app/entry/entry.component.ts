@@ -36,6 +36,7 @@ export class EntryComponent implements AfterViewInit {
   loadingTicket: boolean = false;
   nolicense: boolean = true;
   parkingSpots: boolean = true;
+  parkingError: string | null = null;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -82,9 +83,11 @@ export class EntryComponent implements AfterViewInit {
           this.handleError('No hay plazas libres, por favor, espere');
         }
       }
-    } catch (error) {
-      console.error('Error:', error);
+    } catch (error: any) {
+      console.error('Error:', error.error);
+      this.parkingError = error.error.error;
       this.handleError('Error al capturar y subir la imagen');
+
     }
     this.cdr.detectChanges();
     await this.uploadCapturedTicket();
@@ -99,6 +102,7 @@ export class EntryComponent implements AfterViewInit {
     this.vehicleSpot = null;
     this.ticket = false;
     this.ticketVisible = false;
+    this.parkingError = null;
   }
 
   private handleError(message: string) {
