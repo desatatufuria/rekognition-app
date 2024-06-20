@@ -4,8 +4,9 @@ import { ParkingHttpService } from '../services/parking-http.service';
 import { QrDataService } from '../services/qr-data.service';
 import QrScanner from 'qr-scanner';
 import { HttpClient } from '@angular/common/http';
-import { interval } from 'rxjs';
+import { interval, lastValueFrom } from 'rxjs';
 import { switchMap, takeWhile } from 'rxjs/operators';
+import { TextToSpeechService } from '../services/text-to-speech.service';
 
 @Component({
   selector: 'app-payment',
@@ -19,14 +20,14 @@ export class PaymentComponent implements OnInit, OnDestroy {
   @Output() scanResult = new EventEmitter<string>(); // Emitir evento cuando se detecte un QR
 
 
-  licensePlate: string = ''; // Initialize licensePlate property
+  licensePlate: string = ''; 
   data: any;
   buttonDisabled: boolean = true;
 
   result: string | null = null;
   qrScanner!: QrScanner;
   qrCodeUrl: string = "";
-  private qrDetected: boolean = false; // Bandera para detectar si ya se ha procesado un QR
+  private qrDetected: boolean = false; 
 
   paymentId: string | null = null;
   approvalUrl: string | null = null;
@@ -55,6 +56,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
     private datePipe: DatePipe,
     private qrDataService: QrDataService,
     private ngZone: NgZone,
+    private textToSpeechService: TextToSpeechService,
     private http: HttpClient) { }
 
   ngOnInit() {
@@ -116,7 +118,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.qrScanner.start();
   }
 
-  setResult(result: any): void {
+  async setResult(result: any): Promise<void> {
     if (this.result === result.data) {
       this.initMessage = false;
       return; // Si el QR detectado es el mismo que el último, no hacer nada
@@ -124,6 +126,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
     this.result = result.data;
     console.log('QR Code detected:', this.result);
+    await this.speakText(`Por favor, pulse el botón para generar su metodo de pago`);
     this.qrDataService.setQrData(this.result!); // Enviar el resultado al servicio
     this.scanResult.emit(this.result!); // Emitir el resultado para cualquier escucha externa
 
@@ -179,12 +182,12 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
 
-  createPayment(): void {
+  async createPayment(): Promise<void> {
     if (!this.data || !this.data.parkingFee) {
       console.error('No se pudo crear el pago porque no hay datos válidos.');
       return;
     }
-
+    await this.speakText(`Por favor, escanee el codigo QR para abonar el importe de ${this.data.parkingFee}€ mediante el pago seguro Paypal.`);
     const parkingFee = this.data.parkingFee; // Obtener el importe del parkingFee de los datos
 
     this.parkingHttpService.createPayment(parkingFee, this.licensePlate)
@@ -212,27 +215,39 @@ export class PaymentComponent implements OnInit, OnDestroy {
         switchMap(() => this.parkingHttpService.checkPaymentStatus(this.paymentId!)),
         takeWhile((response: any) => response.status !== 'approved', true)
       )
-      .subscribe((response: any) => {
-        this.paymentStatus = response.status;
-        if (response.status === 'approved') {
-          console.log('Payment approved!');
-
-          setTimeout(() => {
-            this.initMessage = true;
-            this.buttonDisabled = true;
-            this.result = null; 
-            this.hideLicense = true;
-            this.data = null;
-            this.hideAttr = true;
-            this.showResults = false;
-            this.licensePlate = '';
-          }, 10000);
-        } else {
-          console.log('Payment status:', response.status);
+      .subscribe({
+        next: async (response: any) => {
+          this.paymentStatus = response.status;
+          if (response.status === 'approved') {
+            console.log('Payment approved!');
+            await this.speakText(`Su pago ha sido completado. Puede retirar su vehículo`);
+            setTimeout(() => {
+              this.initMessage = true;
+              this.buttonDisabled = true;
+              this.result = null;
+              this.hideLicense = true;
+              this.data = null;
+              this.hideAttr = true;
+              this.showResults = false;
+              this.licensePlate = '';
+            }, 10000);
+          } else {
+            console.log('Payment status:', response.status);
+          }
+        },
+        error: (error: any) => {
+          console.error('Error checking payment status:', error);
         }
-      }, (error: any) => {
-        console.error('Error checking payment status:', error);
       });
   }
-
+  private async speakText(text: string) {
+    try {
+      const audioBlob = await lastValueFrom(this.textToSpeechService.convertTextToSpeech(text));
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      audio.play();
+    } catch (error) {
+      console.error('Error al convertir texto a voz:', error);
+    }
+  }
 }

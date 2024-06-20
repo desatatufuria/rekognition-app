@@ -6,6 +6,7 @@ import { CameraService } from '../services/camera.service';
 import { LicensePlateService } from '../services/license-plate.service';
 import { TicketService } from '../services/ticket.service';
 import { ParkingHttpService } from '../services/parking-http.service';
+import { TextToSpeechService } from '../services/text-to-speech.service';
 
 @Component({
   selector: 'app-entry',
@@ -47,7 +48,8 @@ export class EntryComponent implements AfterViewInit {
     private cameraService: CameraService,
     private licensePlateService: LicensePlateService,
     private ticketService: TicketService,
-    private parkingHttpService: ParkingHttpService
+    private parkingHttpService: ParkingHttpService,
+    private textToSpeechService: TextToSpeechService
   ) { }
 
   ngAfterViewInit() {
@@ -79,17 +81,20 @@ export class EntryComponent implements AfterViewInit {
             this.licenseIMG = result.licenseIMG;
             const registerCarResponse = await this.registerCar();
             this.processRegisterCarResponse(registerCarResponse);
-
+            await this.speakText(`Su coche con matrícula ${this.licensePlate} ha sido registrado con éxito. Por favor, aparque en su plaza asignada`);
           } else {
+            await this.speakText(`Vuelva a presionar el botón, por favor`);
             this.handleError('Algo ha salido mal, vuelve a pulsar el botón');
           }
         } else {
+          await this.speakText(`Por favor espere, en breve dispondremos de una plaza de aparcamiento`);
           this.handleError('No hay plazas libres, por favor, espere');
         }
       }
     } catch (error: any) {
       console.error('Error:', error.error);
       this.parkingError = error.error.error;
+      await this.speakText(`Por favor, pulse el botón amarillo para hablar con un supervisor.`);
       this.handleError('Error al capturar y subir la imagen');
 
     }
@@ -184,7 +189,16 @@ export class EntryComponent implements AfterViewInit {
     }, 5000);
   }
 
-
+  private async speakText(text: string) {
+    try {
+      const audioBlob = await lastValueFrom(this.textToSpeechService.convertTextToSpeech(text));
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      audio.play();
+    } catch (error) {
+      console.error('Error al convertir texto a voz:', error);
+    }
+  }
 
 
 }

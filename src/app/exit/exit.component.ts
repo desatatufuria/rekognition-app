@@ -8,6 +8,7 @@ import { ParkingHttpService } from '../services/parking-http.service';
 
 // Interfaces
 import { ParkingExit } from '../interfaces/parking';
+import { TextToSpeechService } from '../services/text-to-speech.service';
 
 @Component({
   selector: 'app-exit',
@@ -38,8 +39,8 @@ export class ExitComponent implements AfterViewInit {
   constructor(
     private cameraService: CameraService,
     private licensePlateService: LicensePlateService,
-
-    private parkingHttpService: ParkingHttpService
+    private parkingHttpService: ParkingHttpService,
+    private textToSpeechService: TextToSpeechService
   ) { }
 
   ngAfterViewInit() {
@@ -70,12 +71,14 @@ export class ExitComponent implements AfterViewInit {
           this.licenseIMG = result.licenseIMG;
           const registerCarResponse = await this.registerCarExit();
           console.log("Hora de salida registrada:", registerCarResponse.exitTime);
+          await this.speakText(`Gracias por su Estancia. Deseamos volverle a ver pronto.`);
           this.carExit = true;
           this.readingLicense = false;
           setTimeout(() => {
             this.carExit = false;
           }, 5000);
         } else {
+          await this.speakText(`Vuelva a presionar el botón, por favor`);
           console.log("Algo ha salido mal, vuelve a pulsar el botón");
           this.nolicense = true;
           this.readingLicense = false;
@@ -124,5 +127,16 @@ export class ExitComponent implements AfterViewInit {
     this.imageUrl = null;
     this.errorMessage = null;
 
+  }
+
+  private async speakText(text: string) {
+    try {
+      const audioBlob = await lastValueFrom(this.textToSpeechService.convertTextToSpeech(text));
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      audio.play();
+    } catch (error) {
+      console.error('Error al convertir texto a voz:', error);
+    }
   }
 }
