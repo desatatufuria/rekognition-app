@@ -81,7 +81,7 @@ export class EntryComponent implements AfterViewInit {
             this.licenseIMG = result.licenseIMG;
             const registerCarResponse = await this.registerCar();
             this.processRegisterCarResponse(registerCarResponse);
-            await this.speakText(`Su coche con matrícula ${this.licensePlate} ha sido registrado con éxito. Por favor, aparque en su plaza asignada`);
+            await this.speakText(`Por favor, aparque en su plaza asignada`);
           } else {
             await this.speakText(`Vuelva a presionar el botón, por favor`);
             this.handleError('Algo ha salido mal, vuelve a pulsar el botón');

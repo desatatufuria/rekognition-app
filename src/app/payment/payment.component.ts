@@ -4,7 +4,7 @@ import { ParkingHttpService } from '../services/parking-http.service';
 import { QrDataService } from '../services/qr-data.service';
 import QrScanner from 'qr-scanner';
 import { HttpClient } from '@angular/common/http';
-import { interval, lastValueFrom } from 'rxjs';
+import { Subscription, interval, lastValueFrom } from 'rxjs';
 import { switchMap, takeWhile } from 'rxjs/operators';
 import { TextToSpeechService } from '../services/text-to-speech.service';
 
@@ -20,8 +20,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
   @Output() scanResult = new EventEmitter<string>(); // Emitir evento cuando se detecte un QR
 
 
-  licensePlate: string = ''; 
-  data: any;
+  licensePlate: string | null = null;
+  data: any = null;
   buttonDisabled: boolean = true;
 
   result: string | null = null;
@@ -45,7 +45,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
 
   private timeoutRef: any;
-
+  private qrDataSubscription: Subscription | undefined;
 
   countdownMinutes: number = 5; // Inicializar minutos restantes
   countdownSeconds: number = 0; // Inicializar segundos restantes
@@ -62,11 +62,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initializeScanner();
 
-    
-
-    // Suscribirse a los cambios en los datos del QR
-    this.qrDataService.qrData$.subscribe(data => {
+    // Suscribirse al qrData$ y almacenar la suscripción para poder cancelarla en ngOnDestroy
+    this.qrDataSubscription = this.qrDataService.qrData$.subscribe(data => {
       if (data) {
+        console.log(data,"data")
         this.licensePlate = data;
         this.fetchData();
       }
@@ -75,9 +74,21 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.qrScanner.stop();
-
-    // Limpiar el intervalo al destruir el componente para evitar fugas de memoria
+    if (this.qrDataSubscription) {
+      this.qrDataSubscription.unsubscribe();
+    }
+    this.qrDataService.clearData();
     clearInterval(this.countdownInterval);
+    // Limpiar el estado al salir del componente
+    this.initMessage = true;
+    this.buttonDisabled = true;
+    this.result = null;
+    this.data = null;
+    this.hideAttr = true;
+    this.licensePlate = null
+    this.hideLicense = true;
+    this.errorMessage = false;
+    this.showResults = false;
   }
 
   updateCountdown(): void {
@@ -143,7 +154,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       this.buttonDisabled = true;
       this.result = null; // Limpiar el resultado del QR
       this.data = null;
-      this.licensePlate = '';
+      this.licensePlate = null;
       this.hideLicense = true;
       this.errorMessage = false;
     }, 5 * 60 * 1000); // 5 minutos en milisegundos
@@ -152,6 +163,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
 
   fetchData() {
+    if (!this.licensePlate) {
+      console.error('License plate is null or empty.');
+      return; // Otra acción como mostrar un mensaje de error o regresar temprano
+    }
     this.parkingHttpService.fetchData(this.licensePlate).subscribe(
       (response) => {
         this.data = response;
@@ -187,9 +202,12 @@ export class PaymentComponent implements OnInit, OnDestroy {
       console.error('No se pudo crear el pago porque no hay datos válidos.');
       return;
     }
-    await this.speakText(`Por favor, escanee el codigo QR para abonar el importe de ${this.data.parkingFee}€ mediante el pago seguro Paypal.`);
+    await this.speakText(`Por favor, escanee el codigo QR para abonar el importe mediante el pago seguro Paypal.`);
     const parkingFee = this.data.parkingFee; // Obtener el importe del parkingFee de los datos
-
+    if (!this.licensePlate) {
+      console.error('License plate is null or empty.');
+      return; // Otra acción como mostrar un mensaje de error o regresar temprano
+    }
     this.parkingHttpService.createPayment(parkingFee, this.licensePlate)
       .subscribe(response => {
         if (response && response.approvalUrl) {

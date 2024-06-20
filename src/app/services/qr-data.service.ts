@@ -11,4 +11,8 @@ export class QrDataService {
   setQrData(data: string) {
     this.qrDataSubject.next(data);
   }
+
+  clearData(): void {
+    this.qrDataSubject.next(null); // Limpia data asignando null
+  }
 }
